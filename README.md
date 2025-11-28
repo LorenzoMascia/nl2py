@@ -1,6 +1,11 @@
 # NL2PyFlow
 
 **Natural Language to Python Flow**
+
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 ![Screenshot 2025-04-28 181105](https://github.com/user-attachments/assets/39dcc333-a59f-4c40-8655-894cc174025c)
 
 > A pipeline that converts high level natural language blocks into executable Python functions, chained together with a shared context.
@@ -10,22 +15,98 @@
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Goals](#goals)
-3. [Architecture](#architecture)
-4. [Core Components](#core-components)
-5. [Data Flow & Context Management](#data-flow--context-management)
-6. [LLM Integration](#llm-integration)
-7. [Example Workflow](#example-workflow)
-8. [Technology Stack](#technology-stack)
-9. [Future Extensions](#future-extensions)
-10. [Contributing](#contributing)
-11. [License](#license)
+2. [Features](#features)
+3. [Installation](#installation)
+4. [Quick Start](#quick-start)
+5. [Architecture](#architecture)
+6. [Core Components](#core-components)
+7. [Data Flow & Context Management](#data-flow--context-management)
+8. [LLM Integration](#llm-integration)
+9. [Example Workflow](#example-workflow)
+10. [Development](#development)
+11. [Future Extensions](#future-extensions)
+12. [Contributing](#contributing)
+13. [License](#license)
 
 ---
 
 ## Overview
 
 NL2PyFlow enables users to author discrete, descriptive blocks in plain English or any other language. An LLM interprets each block and generates corresponding Python functions. An orchestrator then dynamically loads and executes these functions in sequence, sharing data via a unified `context` dictionary.
+
+## Features
+
+- **Natural Language Processing**: Write workflow steps in plain English
+- **Automatic Code Generation**: LLM-powered Python function generation
+- **Dynamic Pipeline Execution**: Runtime assembly and execution of generated code
+- **Shared Context**: Seamless data flow between pipeline blocks
+- **Web Interface**: Browser-based editor for creating and managing workflows
+- **Extensible**: Easy to add custom blocks and extend functionality
+
+## Installation
+
+### From PyPI (when published)
+
+```bash
+pip install nl2pyflow
+```
+
+### From Source
+
+```bash
+# Clone the repository
+git clone https://github.com/LorenzoMascia/NL2PyFlow.git
+cd NL2PyFlow
+
+# Install in development mode
+pip install -e .
+
+# Or with development dependencies
+pip install -e ".[dev]"
+```
+
+### Requirements
+
+- Python 3.10 or higher
+- OpenAI API key (set as environment variable `OPENAI_API_KEY`)
+
+## Quick Start
+
+1. **Set up your OpenAI API key**:
+   ```bash
+   export OPENAI_API_KEY="your-api-key-here"
+   ```
+
+2. **Create a workflow file** (e.g., `my_workflow.txt`):
+   ```markdown
+   ### Block 1: Load data
+   Load CSV file "data.csv" into a list of records.
+
+   ### Block 2: Process data
+   Filter records where amount > 1000.
+
+   ### Block 3: Calculate total
+   Sum all amounts and store in context["total"].
+   ```
+
+3. **Run the pipeline**:
+   ```bash
+   nl2pyflow my_workflow.txt
+   ```
+
+4. **Or use as a Python library**:
+   ```python
+   from nl2pyflow import parse_blocks, generate_code_for_block, Orchestrator
+
+   # Parse your workflow
+   with open("my_workflow.txt") as f:
+       blocks = parse_blocks(f.read())
+
+   # Generate and execute
+   orchestrator = Orchestrator()
+   result = orchestrator.run_pipeline([b['name'] for b in blocks])
+   print(result)
+   ```
 
 ## Goals
 
@@ -157,6 +238,65 @@ def run_pipeline(block_names):
 if __name__ == "__main__":
     result = run_pipeline(["block_1", "block_2", "block_3"])
     print(result)
+```
+
+## Development
+
+### Setting Up Development Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/LorenzoMascia/NL2PyFlow.git
+cd NL2PyFlow
+
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install development dependencies
+pip install -e ".[dev]"
+# Or: pip install -r requirements-dev.txt
+
+# Set up pre-commit hooks
+pre-commit install
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=nl2pyflow --cov-report=html
+
+# Run specific test file
+pytest tests/test_block_parser.py
+```
+
+### Code Quality
+
+```bash
+# Format code
+black nl2pyflow tests
+isort nl2pyflow tests
+
+# Lint code
+flake8 nl2pyflow tests
+
+# Type checking
+mypy nl2pyflow
+```
+
+### Using Makefile
+
+```bash
+make install-dev  # Install dev dependencies
+make test         # Run tests
+make lint         # Run linters
+make format       # Format code
+make clean        # Clean build artifacts
+make build        # Build package
 ```
 
 ## Technology Stack

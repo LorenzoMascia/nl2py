@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NL2PYFlow GUI</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Load components -->
+    <script src="scripts/utils.js" type="text/javascript"></script>
+    <script src="scripts/components/TextEditor.js" type="text/babel"></script>
+    <script src="scripts/components/Block.js" type="text/babel"></script>
+    <script src="scripts/components/FlowChart.js" type="text/babel"></script>
+    <script src="scripts/components/CodeModal.js" type="text/babel"></script>
+    <script src="scripts/app.js" type="text/babel"></script>
+</body>
+</html>
