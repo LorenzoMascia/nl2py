@@ -3,7 +3,7 @@
 # Site settings
 title: NL2Py Documentation
 description: Natural Language to Python Compiler - Transform natural language commands into executable Python code
-url: "https://yourusername.github.io"
+url: "https://lorenzomascia.github.io"
 baseurl: "/nl2py"
 
 # Theme (not used since we have custom HTML)

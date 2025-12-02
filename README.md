@@ -20,7 +20,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/nl2py.git
+git clone https://github.com/lorenzomascia/nl2py.git
 cd nl2py
 
 # Install in development mode

@@ -10,7 +10,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ### Reporting Bugs
 
-1. Check if the bug has already been reported in [Issues](https://github.com/yourusername/nl2py/issues)
+1. Check if the bug has already been reported in [Issues](https://github.com/lorenzomascia/nl2py/issues)
 2. If not, create a new issue with:
    - A clear, descriptive title
    - Steps to reproduce the bug
@@ -42,7 +42,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ```bash
 # Clone your fork
-git clone https://github.com/yourusername/nl2py.git
+git clone https://github.com/lorenzomascia/nl2py.git
 cd nl2py
 
 # Create virtual environment
