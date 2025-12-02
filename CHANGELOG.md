@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adjustable similarity threshold
 - Optional comment inclusion in generated code
 
-## [0.1.0] - 2024-XX-XX
+## [0.1.0] - 2024-11-03
 
 ### Added
 - Initial public release
