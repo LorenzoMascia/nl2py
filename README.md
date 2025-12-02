@@ -3,7 +3,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**NL2Py** is a natural language to Python code compiler. Write commands in plain English (or any natural language) and get executable Python code that interacts with cloud services, databases, APIs, and more.
+**NL2Py** is a natural language to Python code compiler. Write commands in plain English  and get executable Python code that interacts with cloud services, databases, APIs, and more.
 
 ## Features
 
