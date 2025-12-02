@@ -1,0 +1,32 @@
+# Example commands for NL2Py NLP Interpreter
+# Each line is interpreted as a natural language command
+
+# GCP Operations
+create compute instance web-server in zone us-central1-a
+list compute instances
+stop compute instance web-server
+
+# Storage operations
+create storage bucket my-data-bucket
+upload file data.csv to bucket my-data-bucket
+
+# AWS Operations
+create s3 bucket my-backup-bucket in region eu-west-1
+upload file report.pdf to s3 bucket my-backup-bucket
+
+# Database Operations
+connect to postgres database mydb
+execute query "SELECT * FROM users"
+
+# Redis Operations
+connect to redis
+set key user:123 with value "John Doe"
+get key user:123
+
+# Messaging
+send message to slack channel general with text "Deploy completed"
+send email to admin@example.com with subject "Alert" and body "Check the logs"
+
+# Docker
+list docker containers
+start container my-app

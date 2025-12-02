@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modules - NL2Py Documentation</title>
+    <meta name="description" content="Complete reference for all NL2Py modules including cloud providers, databases, messaging, and more.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <span>NL2Py</span>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="getting-started.html">Getting Started</a></li>
+            <li><a href="modules.html" class="active">Modules</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="docs-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="section-title">Cloud Providers</li>
+                    <li><a href="#aws">AWS</a></li>
+                    <li><a href="#gcp">Google Cloud</a></li>
+                    <li><a href="#azure">Azure</a></li>
+                    <li><a href="#terraform">Terraform</a></li>
+                    <li class="section-title">Containers</li>
+                    <li><a href="#docker">Docker</a></li>
+                    <li><a href="#kubernetes">Kubernetes</a></li>
+                    <li class="section-title">Databases</li>
+                    <li><a href="#postgres">PostgreSQL</a></li>
+                    <li><a href="#mysql">MySQL</a></li>
+                    <li><a href="#mongodb">MongoDB</a></li>
+                    <li><a href="#redis">Redis</a></li>
+                    <li><a href="#elasticsearch">Elasticsearch</a></li>
+                    <li class="section-title">Messaging</li>
+                    <li><a href="#kafka">Kafka</a></li>
+                    <li><a href="#rabbitmq">RabbitMQ</a></li>
+                    <li><a href="#mqtt">MQTT</a></li>
+                    <li class="section-title">Communication</li>
+                    <li><a href="#slack">Slack</a></li>
+                    <li><a href="#teams">Teams</a></li>
+                    <li><a href="#email">Email</a></li>
+                    <li class="section-title">Security</li>
+                    <li><a href="#vault">Vault</a></li>
+                    <li><a href="#jwt">JWT</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content -->
+            <div class="content">
+                <h1>Modules Reference</h1>
+                <p>NL2Py includes 35+ pre-built modules for interacting with cloud services, databases, messaging systems, and more.</p>
+
+                <div class="alert alert-info">
+                    <strong>Module Dependencies:</strong> Each module may require additional Python packages. Install only what you need to keep your environment lean.
+                </div>
+
+                <!-- AWS -->
+                <h2 id="aws">AWS Module</h2>
+                <p>Comprehensive AWS services integration including EC2, S3, Lambda, DynamoDB, and more.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install boto3>=1.26.0</code></pre>
+
+                <h3>Configuration</h3>
+                <pre><code># nl2py.conf
+[aws]
+region = us-east-1
+access_key_id = AKIA...
+secret_access_key = ...
+
+# Or environment variables
+export AWS_ACCESS_KEY_ID=AKIA...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_DEFAULT_REGION=us-east-1</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>create ec2 instance web-server</td>
+                            <td><code>ec2_create_instance(name='web-server')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list all ec2 instances</td>
+                            <td><code>ec2_list_instances()</code></td>
+                        </tr>
+                        <tr>
+                            <td>create lambda function my-func</td>
+                            <td><code>lambda_create_function(name='my-func')</code></td>
+                        </tr>
+                        <tr>
+                            <td>put item in dynamodb table users</td>
+                            <td><code>dynamodb_put_item(table='users')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- GCP -->
+                <h2 id="gcp">Google Cloud Module</h2>
+                <p>Integration with GCP services including Compute Engine, Cloud Storage, BigQuery, Pub/Sub, and more.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install google-cloud-compute>=1.14.0
+pip install google-cloud-storage>=2.10.0
+pip install google-cloud-bigquery>=3.11.0
+pip install google-cloud-pubsub>=2.18.0</code></pre>
+
+                <h3>Configuration</h3>
+                <pre><code># Using service account
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+export GCP_PROJECT_ID=my-project
+export GCP_DEFAULT_ZONE=us-central1-a</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>create compute instance my-vm in zone us-central1-a</td>
+                            <td><code>compute_instance_create(name='my-vm', zone='us-central1-a')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list compute instances</td>
+                            <td><code>compute_instance_list()</code></td>
+                        </tr>
+                        <tr>
+                            <td>create storage bucket my-data</td>
+                            <td><code>storage_bucket_create(name='my-data')</code></td>
+                        </tr>
+                        <tr>
+                            <td>publish message to pubsub topic events</td>
+                            <td><code>pubsub_publish(topic='events')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Azure -->
+                <h2 id="azure">Azure Module</h2>
+                <p>Microsoft Azure cloud services including VMs, Storage, SQL Database, and more.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install azure-identity>=1.12.0
+pip install azure-mgmt-compute>=30.0.0
+pip install azure-mgmt-storage>=21.0.0
+pip install azure-mgmt-resource>=23.0.0</code></pre>
+
+                <h3>Configuration</h3>
+                <pre><code># Service Principal authentication
+export AZURE_SUBSCRIPTION_ID=...
+export AZURE_TENANT_ID=...
+export AZURE_CLIENT_ID=...
+export AZURE_CLIENT_SECRET=...</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>create virtual machine my-vm</td>
+                            <td><code>vm_create(name='my-vm')</code></td>
+                        </tr>
+                        <tr>
+                            <td>create storage account mystorage</td>
+                            <td><code>storage_account_create(name='mystorage')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list all resource groups</td>
+                            <td><code>resource_group_list()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Docker -->
+                <h2 id="docker">Docker Module</h2>
+                <p>Docker container and image management.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install docker>=7.0.0</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>list all containers</td>
+                            <td><code>container_list()</code></td>
+                        </tr>
+                        <tr>
+                            <td>start container my-app</td>
+                            <td><code>container_start(name='my-app')</code></td>
+                        </tr>
+                        <tr>
+                            <td>stop container my-app</td>
+                            <td><code>container_stop(name='my-app')</code></td>
+                        </tr>
+                        <tr>
+                            <td>pull image nginx:latest</td>
+                            <td><code>image_pull(name='nginx:latest')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list docker images</td>
+                            <td><code>image_list()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Kubernetes -->
+                <h2 id="kubernetes">Kubernetes Module</h2>
+                <p>Kubernetes cluster and resource management.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install kubernetes>=28.0.0</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>list pods in namespace default</td>
+                            <td><code>pod_list(namespace='default')</code></td>
+                        </tr>
+                        <tr>
+                            <td>create deployment nginx with 3 replicas</td>
+                            <td><code>deployment_create(name='nginx', replicas=3)</code></td>
+                        </tr>
+                        <tr>
+                            <td>scale deployment nginx to 5 replicas</td>
+                            <td><code>deployment_scale(name='nginx', replicas=5)</code></td>
+                        </tr>
+                        <tr>
+                            <td>list services</td>
+                            <td><code>service_list()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- PostgreSQL -->
+                <h2 id="postgres">PostgreSQL Module</h2>
+                <p>PostgreSQL database operations.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install psycopg2-binary>=2.9.9</code></pre>
+
+                <h3>Configuration</h3>
+                <pre><code># nl2py.conf
+[postgres]
+host = localhost
+port = 5432
+database = mydb
+user = postgres
+password = secret</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>connect to database myapp</td>
+                            <td><code>connect(database='myapp')</code></td>
+                        </tr>
+                        <tr>
+                            <td>execute query "SELECT * FROM users"</td>
+                            <td><code>execute_query(query='SELECT * FROM users')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list all tables</td>
+                            <td><code>list_tables()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Redis -->
+                <h2 id="redis">Redis Module</h2>
+                <p>Redis key-value store operations.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install redis>=5.0.0</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>set key user:123 to "John Doe"</td>
+                            <td><code>set_key(key='user:123', value='John Doe')</code></td>
+                        </tr>
+                        <tr>
+                            <td>get key user:123</td>
+                            <td><code>get_key(key='user:123')</code></td>
+                        </tr>
+                        <tr>
+                            <td>delete key session:abc</td>
+                            <td><code>delete_key(key='session:abc')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list all keys matching user:*</td>
+                            <td><code>list_keys(pattern='user:*')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Kafka -->
+                <h2 id="kafka">Kafka Module</h2>
+                <p>Apache Kafka messaging operations.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install kafka-python>=2.0.2</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>publish message to topic orders</td>
+                            <td><code>publish(topic='orders')</code></td>
+                        </tr>
+                        <tr>
+                            <td>consume from topic events</td>
+                            <td><code>consume(topic='events')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list topics</td>
+                            <td><code>list_topics()</code></td>
+                        </tr>
+                        <tr>
+                            <td>create topic notifications</td>
+                            <td><code>create_topic(name='notifications')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Slack -->
+                <h2 id="slack">Slack Module</h2>
+                <p>Slack messaging and notifications.</p>
+
+                <h3>Configuration</h3>
+                <pre><code># nl2py.conf
+[slack]
+webhook_url = https://hooks.slack.com/services/...
+bot_token = xoxb-...</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>send message to channel general with text "Hello!"</td>
+                            <td><code>send_message(channel='general', text='Hello!')</code></td>
+                        </tr>
+                        <tr>
+                            <td>send notification to channel alerts</td>
+                            <td><code>send_message(channel='alerts')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list channels</td>
+                            <td><code>list_channels()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Vault -->
+                <h2 id="vault">HashiCorp Vault Module</h2>
+                <p>Secret management with HashiCorp Vault.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install hvac>=1.2.0</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>read secret at path secret/myapp</td>
+                            <td><code>read_secret(path='secret/myapp')</code></td>
+                        </tr>
+                        <tr>
+                            <td>write secret to path secret/database</td>
+                            <td><code>write_secret(path='secret/database')</code></td>
+                        </tr>
+                        <tr>
+                            <td>list secrets at path secret/</td>
+                            <td><code>list_secrets(path='secret/')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- JWT -->
+                <h2 id="jwt">JWT Module</h2>
+                <p>JSON Web Token creation and validation.</p>
+
+                <h3>Installation</h3>
+                <pre><code>pip install PyJWT[crypto]>=2.8.0</code></pre>
+
+                <h3>Example Commands</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natural Language</th>
+                            <th>Generated Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>create jwt token for user admin</td>
+                            <td><code>create_token(user='admin')</code></td>
+                        </tr>
+                        <tr>
+                            <td>verify jwt token</td>
+                            <td><code>verify_token()</code></td>
+                        </tr>
+                        <tr>
+                            <td>decode jwt token</td>
+                            <td><code>decode_token()</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- All Modules Summary -->
+                <h2 id="all-modules">Complete Module List</h2>
+                <p>All 35+ modules available in NL2Py:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Module</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td rowspan="4">Cloud</td><td>AWSModule</td><td>AWS services (EC2, S3, Lambda, etc.)</td></tr>
+                        <tr><td>GCPModule</td><td>Google Cloud Platform services</td></tr>
+                        <tr><td>AzureModule</td><td>Microsoft Azure services</td></tr>
+                        <tr><td>TerraformModule</td><td>Infrastructure as Code</td></tr>
+
+                        <tr><td rowspan="2">Containers</td><td>DockerModule</td><td>Docker container management</td></tr>
+                        <tr><td>KubernetesModule</td><td>Kubernetes cluster management</td></tr>
+
+                        <tr><td rowspan="11">Databases</td><td>PostgresModule</td><td>PostgreSQL database</td></tr>
+                        <tr><td>MySQLModule</td><td>MySQL database</td></tr>
+                        <tr><td>MongoDBModule</td><td>MongoDB document database</td></tr>
+                        <tr><td>RedisModule</td><td>Redis key-value store</td></tr>
+                        <tr><td>CassandraModule</td><td>Apache Cassandra</td></tr>
+                        <tr><td>ScyllaDBModule</td><td>ScyllaDB (Cassandra-compatible)</td></tr>
+                        <tr><td>ClickHouseModule</td><td>ClickHouse analytics</td></tr>
+                        <tr><td>Neo4jModule</td><td>Neo4j graph database</td></tr>
+                        <tr><td>ElasticsearchModule</td><td>Elasticsearch search engine</td></tr>
+                        <tr><td>OpenSearchModule</td><td>OpenSearch (Elasticsearch fork)</td></tr>
+                        <tr><td>TimescaleDBModule</td><td>TimescaleDB time-series</td></tr>
+
+                        <tr><td rowspan="3">Messaging</td><td>KafkaModule</td><td>Apache Kafka</td></tr>
+                        <tr><td>RabbitMQModule</td><td>RabbitMQ message broker</td></tr>
+                        <tr><td>MQTTModule</td><td>MQTT IoT messaging</td></tr>
+
+                        <tr><td rowspan="5">Communication</td><td>SlackModule</td><td>Slack messaging</td></tr>
+                        <tr><td>TeamsModule</td><td>Microsoft Teams</td></tr>
+                        <tr><td>DiscordModule</td><td>Discord messaging</td></tr>
+                        <tr><td>TelegramModule</td><td>Telegram bot integration</td></tr>
+                        <tr><td>EmailModule</td><td>SMTP email</td></tr>
+
+                        <tr><td rowspan="4">Security</td><td>VaultModule</td><td>HashiCorp Vault secrets</td></tr>
+                        <tr><td>KeycloakModule</td><td>Keycloak IAM</td></tr>
+                        <tr><td>LDAPModule</td><td>LDAP/Active Directory</td></tr>
+                        <tr><td>JWTModule</td><td>JWT tokens</td></tr>
+
+                        <tr><td rowspan="6">Utilities</td><td>S3Module</td><td>S3/MinIO storage</td></tr>
+                        <tr><td>SSHModule</td><td>SSH remote commands</td></tr>
+                        <tr><td>SeleniumModule</td><td>Browser automation</td></tr>
+                        <tr><td>PrometheusModule</td><td>Prometheus metrics</td></tr>
+                        <tr><td>RestAPIModule</td><td>Generic REST API</td></tr>
+                        <tr><td>CompressionModule</td><td>File compression</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NL2Py</h4>
+                <p style="color: var(--text-muted);">Natural Language to Python Compiler</p>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <a href="getting-started.html">Getting Started</a>
+                <a href="modules.html">Modules</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="api.html">API Reference</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="docker.html">Docker Deployment</a>
+                <a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Released under the MIT License. © 2024 NL2Py Contributors.</p>
+        </div>
+    </footer>
+</body>
+</html>

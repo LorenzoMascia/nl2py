@@ -1,0 +1,459 @@
+version: '3.8'
+
+services:
+  # NL2Py Application
+  nl2py:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: nl2py
+    volumes:
+      - ../src:/app/src
+      - ../examples:/app/examples
+      - ./config:/app/config
+      - ./data:/app/data
+      - nl2py_output:/app/output
+      - nl2py_logs:/app/logs
+    environment:
+      - AIBASIC_CONFIG=/app/config/nl2py.conf
+    depends_on:
+      - postgres
+      - mysql
+      - mongodb
+      - redis
+      - rabbitmq
+      - kafka
+      - opensearch
+      - vault
+      - minio
+      - clickhouse
+      - neo4j
+      - elasticsearch
+      - timescaledb
+      - localstack
+    networks:
+      - nl2py-network
+    stdin_open: true
+    tty: true
+
+  # PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: nl2py-postgres
+    environment:
+      POSTGRES_USER: nl2py
+      POSTGRES_PASSWORD: nl2py123
+      POSTGRES_DB: nl2py_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts/postgres:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nl2py"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: nl2py-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: nl2py_db
+      MYSQL_USER: nl2py
+      MYSQL_PASSWORD: nl2py123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-scripts/mysql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MongoDB
+  mongodb:
+    image: mongo:7
+    container_name: nl2py-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: nl2py
+      MONGO_INITDB_ROOT_PASSWORD: nl2py123
+      MONGO_INITDB_DATABASE: nl2py_db
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-scripts/mongodb:/docker-entrypoint-initdb.d
+    ports:
+      - "27017:27017"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: nl2py-redis
+    command: redis-server --requirepass nl2py123
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: nl2py-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: nl2py
+      RABBITMQ_DEFAULT_PASS: nl2py123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # Management UI
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Apache Kafka with Zookeeper
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: nl2py-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_logs:/var/lib/zookeeper/log
+    networks:
+      - nl2py-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: nl2py-kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: kafka-broker-api-versions --bootstrap-server localhost:9092
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Cassandra
+  cassandra:
+    image: cassandra:4.1
+    container_name: nl2py-cassandra
+    environment:
+      CASSANDRA_CLUSTER_NAME: nl2py-cluster
+      CASSANDRA_DC: dc1
+      CASSANDRA_RACK: rack1
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    ports:
+      - "9042:9042"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # OpenSearch
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    container_name: nl2py-opensearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Aibasic123!
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - opensearch_data:/usr/share/opensearch/data
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -ku admin:Aibasic123! https://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # HashiCorp Vault
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: nl2py-vault
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: nl2py-root-token
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    volumes:
+      - vault_data:/vault/data
+      - ./config/vault:/vault/config
+    ports:
+      - "8200:8200"
+    networks:
+      - nl2py-network
+    cap_add:
+      - IPC_LOCK
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO (S3-compatible storage)
+  minio:
+    image: minio/minio:latest
+    container_name: nl2py-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: nl2py
+      MINIO_ROOT_PASSWORD: nl2py123
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO Client (for bucket initialization)
+  minio-init:
+    image: minio/mc:latest
+    container_name: nl2py-minio-init
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      /usr/bin/mc alias set myminio http://minio:9000 nl2py nl2py123;
+      /usr/bin/mc mb myminio/nl2py-bucket --ignore-existing;
+      /usr/bin/mc anonymous set download myminio/nl2py-bucket;
+      exit 0;
+      "
+    networks:
+      - nl2py-network
+
+  # MailHog (SMTP server for testing emails)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: nl2py-mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
+    networks:
+      - nl2py-network
+
+  # ClickHouse (Analytics database)
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.12-alpine
+    container_name: nl2py-clickhouse
+    environment:
+      CLICKHOUSE_DB: nl2py_db
+      CLICKHOUSE_USER: nl2py
+      CLICKHOUSE_PASSWORD: nl2py123
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - clickhouse_logs:/var/log/clickhouse-server
+      - ./init-scripts/clickhouse:/docker-entrypoint-initdb.d
+    ports:
+      - "8123:8123"  # HTTP interface
+      - "9000:9000"  # Native protocol
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+  # Neo4j (Graph database)
+  neo4j:
+    image: neo4j:5.15-community
+    container_name: nl2py-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/nl2py123
+      NEO4J_PLUGINS: '["apoc", "graph-data-science"]'
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*,gds.*
+      NEO4J_dbms_memory_heap_initial__size: 512m
+      NEO4J_dbms_memory_heap_max__size: 2G
+      NEO4J_dbms_memory_pagecache_size: 1G
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/var/lib/neo4j/import
+      - ./init-scripts/neo4j:/docker-entrypoint-initdb.d
+    ports:
+      - "7474:7474"  # HTTP (Browser)
+      - "7687:7687"  # Bolt protocol
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p nl2py123 'RETURN 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Elasticsearch (Search and analytics engine)
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: nl2py-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.security.enrollment.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+      - ./init-scripts/elasticsearch:/docker-entrypoint-initdb.d
+    ports:
+      - "9200:9200"  # HTTP API
+      - "9300:9300"  # Transport protocol
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # TimescaleDB (Time-series database - PostgreSQL extension)
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: nl2py-timescaledb
+    environment:
+      POSTGRES_USER: nl2py
+      POSTGRES_PASSWORD: nl2py123
+      POSTGRES_DB: tsdb
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+      - ./init-scripts/timescaledb:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"  # Use 5433 to avoid conflict with regular PostgreSQL
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nl2py -d tsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # LocalStack (AWS services emulator for local development)
+  localstack:
+    image: localstack/localstack:latest
+    container_name: nl2py-localstack
+    environment:
+      - SERVICES=s3,dynamodb,sqs,sns,lambda,secretsmanager,cloudwatch,ses,events,sts
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - LOCALSTACK_HOST=localstack
+    volumes:
+      - localstack_data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./init-scripts/localstack:/etc/localstack/init/ready.d
+    ports:
+      - "4566:4566"  # LocalStack edge port (all services)
+      - "4510-4559:4510-4559"  # External services port range
+    networks:
+      - nl2py-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  postgres_data:
+  mysql_data:
+  mongodb_data:
+  redis_data:
+  rabbitmq_data:
+  zookeeper_data:
+  zookeeper_logs:
+  kafka_data:
+  cassandra_data:
+  opensearch_data:
+  vault_data:
+  minio_data:
+  clickhouse_data:
+  clickhouse_logs:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  elasticsearch_data:
+  timescaledb_data:
+  localstack_data:
+  nl2py_output:
+  nl2py_logs:
+
+networks:
+  nl2py-network:
+    driver: bridge

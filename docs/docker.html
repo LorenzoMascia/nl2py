@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Deployment - NL2Py Documentation</title>
+    <meta name="description" content="Guide for deploying NL2Py with Docker and Docker Compose. Includes local development services setup.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <span>NL2Py</span>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="getting-started.html">Getting Started</a></li>
+            <li><a href="modules.html">Modules</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="docker.html" class="active">Docker</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="docs-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="section-title">Overview</li>
+                    <li><a href="#overview">Docker Overview</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li class="section-title">Quick Start</li>
+                    <li><a href="#prerequisites">Prerequisites</a></li>
+                    <li><a href="#quick-start">Quick Start</a></li>
+                    <li class="section-title">Services</li>
+                    <li><a href="#databases">Databases</a></li>
+                    <li><a href="#messaging">Messaging</a></li>
+                    <li><a href="#monitoring">Monitoring</a></li>
+                    <li class="section-title">Configuration</li>
+                    <li><a href="#env-config">Environment Config</a></li>
+                    <li><a href="#volumes">Data Volumes</a></li>
+                    <li><a href="#networking">Networking</a></li>
+                    <li class="section-title">Operations</li>
+                    <li><a href="#commands">Common Commands</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    <li><a href="#production">Production Tips</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content -->
+            <div class="content">
+                <h1>Docker Deployment</h1>
+                <p>NL2Py includes a comprehensive Docker Compose setup for local development with all supported services.</p>
+
+                <h2 id="overview">Overview</h2>
+
+                <p>The Docker setup provides:</p>
+                <ul>
+                    <li><strong>15+ services</strong> pre-configured and ready to use</li>
+                    <li><strong>Automatic initialization</strong> with sample data</li>
+                    <li><strong>Persistent volumes</strong> for data storage</li>
+                    <li><strong>Internal networking</strong> between services</li>
+                    <li><strong>Health checks</strong> for all services</li>
+                </ul>
+
+                <h2 id="architecture">Docker Architecture</h2>
+
+                <div class="mermaid">
+graph TB
+    subgraph Docker["🐳 Docker Compose"]
+        subgraph Databases["Databases"]
+            PG["PostgreSQL<br/>:5432"]
+            MY["MySQL<br/>:3306"]
+            MG["MongoDB<br/>:27017"]
+            RD["Redis<br/>:6379"]
+            ES["Elasticsearch<br/>:9200"]
+            CH["ClickHouse<br/>:8123"]
+        end
+
+        subgraph Messaging["Messaging"]
+            KF["Kafka<br/>:9092"]
+            ZK["Zookeeper<br/>:2181"]
+            RB["RabbitMQ<br/>:5672"]
+            MQ["MQTT<br/>:1883"]
+        end
+
+        subgraph Storage["Storage"]
+            S3["MinIO (S3)<br/>:9000"]
+            VT["Vault<br/>:8200"]
+        end
+
+        subgraph Monitoring["Monitoring"]
+            PM["Prometheus<br/>:9090"]
+            GF["Grafana<br/>:3000"]
+        end
+    end
+
+    subgraph Host["🖥️ Host Machine"]
+        NL["NL2Py<br/>Application"]
+        CONF["nl2py.conf"]
+    end
+
+    NL --> PG
+    NL --> MY
+    NL --> MG
+    NL --> RD
+    NL --> KF
+    NL --> S3
+    NL --> VT
+
+    CONF --> NL
+
+    style Docker fill:#e0f2fe,stroke:#0284c7
+    style Host fill:#f0fdf4,stroke:#16a34a
+                </div>
+
+                <h2 id="prerequisites">Prerequisites</h2>
+
+                <ul>
+                    <li><strong>Docker</strong> 20.10 or higher</li>
+                    <li><strong>Docker Compose</strong> v2.0 or higher</li>
+                    <li><strong>Memory:</strong> Minimum 8GB RAM recommended</li>
+                    <li><strong>Disk:</strong> 10GB+ free space</li>
+                </ul>
+
+                <pre><code># Check Docker version
+docker --version
+docker compose version</code></pre>
+
+                <h2 id="quick-start">Quick Start</h2>
+
+                <ol class="step-list">
+                    <li>
+                        <div>
+                            <strong>Navigate to Docker directory</strong>
+                            <pre><code>cd nl2py/docker</code></pre>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Copy environment file</strong>
+                            <pre><code>cp .env.example .env</code></pre>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Start all services</strong>
+                            <pre><code># Linux/Mac
+./start.sh
+
+# Windows
+start.bat
+
+# Or directly with Docker Compose
+docker compose up -d</code></pre>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Wait for services to be healthy</strong>
+                            <pre><code># Check status
+docker compose ps
+
+# View logs
+docker compose logs -f</code></pre>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Configure NL2Py</strong>
+                            <pre><code># Copy the generated config
+cp config/nl2py.conf ../nl2py.conf</code></pre>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="alert alert-success">
+                    <strong>That's it!</strong> All services are now running and NL2Py is configured to use them.
+                </div>
+
+                <h2 id="databases">Database Services</h2>
+
+                <h3>PostgreSQL</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>5432</td></tr>
+                    <tr><td><strong>Database</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>User</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>Password</strong></td><td>nl2py_secret (configurable in .env)</td></tr>
+                </table>
+                <pre><code># Connection string
+postgresql://nl2py:nl2py_secret@localhost:5432/nl2py
+
+# Test connection
+docker compose exec postgres psql -U nl2py -d nl2py -c "SELECT 1"</code></pre>
+
+                <h3>MySQL</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>3306</td></tr>
+                    <tr><td><strong>Database</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>User</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>Password</strong></td><td>nl2py_secret</td></tr>
+                </table>
+                <pre><code># Test connection
+docker compose exec mysql mysql -unl2py -pnl2py_secret nl2py -e "SELECT 1"</code></pre>
+
+                <h3>MongoDB</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>27017</td></tr>
+                    <tr><td><strong>Database</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>User</strong></td><td>nl2py</td></tr>
+                </table>
+                <pre><code># Connection string
+mongodb://nl2py:nl2py_secret@localhost:27017/nl2py
+
+# Test connection
+docker compose exec mongodb mongosh --eval "db.stats()"</code></pre>
+
+                <h3>Redis</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>6379</td></tr>
+                    <tr><td><strong>Password</strong></td><td>nl2py_secret</td></tr>
+                </table>
+                <pre><code># Test connection
+docker compose exec redis redis-cli -a nl2py_secret PING</code></pre>
+
+                <h3>Elasticsearch</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>9200</td></tr>
+                    <tr><td><strong>User</strong></td><td>elastic</td></tr>
+                    <tr><td><strong>Mode</strong></td><td>Single-node (development)</td></tr>
+                </table>
+                <pre><code># Test connection
+curl http://localhost:9200/_cluster/health</code></pre>
+
+                <h3>ClickHouse</h3>
+                <table>
+                    <tr><td><strong>HTTP Port</strong></td><td>8123</td></tr>
+                    <tr><td><strong>Native Port</strong></td><td>9000</td></tr>
+                    <tr><td><strong>User</strong></td><td>default</td></tr>
+                </table>
+                <pre><code># Test connection
+curl "http://localhost:8123/?query=SELECT%201"</code></pre>
+
+                <h2 id="messaging">Messaging Services</h2>
+
+                <h3>Kafka + Zookeeper</h3>
+
+                <div class="mermaid">
+graph LR
+    ZK["Zookeeper<br/>:2181"] --> KF["Kafka<br/>:9092"]
+    KF --> TOPIC["Topics"]
+
+    style ZK fill:#fef3c7,stroke:#d97706
+    style KF fill:#fee2e2,stroke:#dc2626
+                </div>
+
+                <table>
+                    <tr><td><strong>Kafka Port</strong></td><td>9092</td></tr>
+                    <tr><td><strong>Zookeeper Port</strong></td><td>2181</td></tr>
+                </table>
+                <pre><code># Create a topic
+docker compose exec kafka kafka-topics.sh \
+  --create --topic test-topic \
+  --bootstrap-server localhost:9092
+
+# List topics
+docker compose exec kafka kafka-topics.sh \
+  --list --bootstrap-server localhost:9092</code></pre>
+
+                <h3>RabbitMQ</h3>
+                <table>
+                    <tr><td><strong>AMQP Port</strong></td><td>5672</td></tr>
+                    <tr><td><strong>Management UI</strong></td><td>15672</td></tr>
+                    <tr><td><strong>User</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>Password</strong></td><td>nl2py_secret</td></tr>
+                </table>
+                <pre><code># Access management UI
+open http://localhost:15672
+# Login: nl2py / nl2py_secret</code></pre>
+
+                <h3>MQTT (Mosquitto)</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>1883</td></tr>
+                    <tr><td><strong>WebSocket</strong></td><td>9001</td></tr>
+                </table>
+                <pre><code># Test with mosquitto_pub/sub
+docker compose exec mqtt mosquitto_pub -t test -m "Hello"</code></pre>
+
+                <h2 id="monitoring">Storage & Monitoring</h2>
+
+                <h3>MinIO (S3-compatible)</h3>
+                <table>
+                    <tr><td><strong>API Port</strong></td><td>9000</td></tr>
+                    <tr><td><strong>Console</strong></td><td>9001</td></tr>
+                    <tr><td><strong>Access Key</strong></td><td>nl2py</td></tr>
+                    <tr><td><strong>Secret Key</strong></td><td>nl2py_secret</td></tr>
+                </table>
+                <pre><code># Access MinIO Console
+open http://localhost:9001
+
+# Configure AWS CLI for MinIO
+aws configure set aws_access_key_id nl2py
+aws configure set aws_secret_access_key nl2py_secret
+aws --endpoint-url http://localhost:9000 s3 ls</code></pre>
+
+                <h3>HashiCorp Vault</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>8200</td></tr>
+                    <tr><td><strong>Root Token</strong></td><td>nl2py-root-token (dev mode)</td></tr>
+                </table>
+
+                <div class="alert alert-warning">
+                    <strong>Development Mode:</strong> Vault runs in dev mode with an insecure root token. Never use this configuration in production!
+                </div>
+
+                <pre><code># Access Vault UI
+open http://localhost:8200
+# Token: nl2py-root-token
+
+# Using CLI
+export VAULT_ADDR=http://localhost:8200
+export VAULT_TOKEN=nl2py-root-token
+vault status</code></pre>
+
+                <h3>Prometheus</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>9090</td></tr>
+                </table>
+                <pre><code># Access Prometheus UI
+open http://localhost:9090</code></pre>
+
+                <h3>Grafana</h3>
+                <table>
+                    <tr><td><strong>Port</strong></td><td>3000</td></tr>
+                    <tr><td><strong>User</strong></td><td>admin</td></tr>
+                    <tr><td><strong>Password</strong></td><td>admin</td></tr>
+                </table>
+                <pre><code># Access Grafana UI
+open http://localhost:3000</code></pre>
+
+                <h2 id="env-config">Environment Configuration</h2>
+
+                <p>The <code>.env</code> file controls all service credentials and ports:</p>
+
+                <pre><code># .env file
+
+# PostgreSQL
+POSTGRES_USER=nl2py
+POSTGRES_PASSWORD=nl2py_secret
+POSTGRES_DB=nl2py
+POSTGRES_PORT=5432
+
+# MySQL
+MYSQL_ROOT_PASSWORD=root_secret
+MYSQL_USER=nl2py
+MYSQL_PASSWORD=nl2py_secret
+MYSQL_DATABASE=nl2py
+MYSQL_PORT=3306
+
+# MongoDB
+MONGO_INITDB_ROOT_USERNAME=nl2py
+MONGO_INITDB_ROOT_PASSWORD=nl2py_secret
+MONGO_PORT=27017
+
+# Redis
+REDIS_PASSWORD=nl2py_secret
+REDIS_PORT=6379
+
+# Kafka
+KAFKA_PORT=9092
+
+# RabbitMQ
+RABBITMQ_DEFAULT_USER=nl2py
+RABBITMQ_DEFAULT_PASS=nl2py_secret
+RABBITMQ_PORT=5672
+RABBITMQ_MANAGEMENT_PORT=15672
+
+# MinIO
+MINIO_ROOT_USER=nl2py
+MINIO_ROOT_PASSWORD=nl2py_secret
+MINIO_PORT=9000
+MINIO_CONSOLE_PORT=9001
+
+# Vault
+VAULT_DEV_ROOT_TOKEN_ID=nl2py-root-token
+VAULT_PORT=8200</code></pre>
+
+                <h2 id="volumes">Data Volumes</h2>
+
+                <p>Data is persisted in Docker volumes:</p>
+
+                <pre><code># List volumes
+docker volume ls | grep nl2py
+
+# Volume locations
+nl2py_postgres_data   # PostgreSQL data
+nl2py_mysql_data      # MySQL data
+nl2py_mongodb_data    # MongoDB data
+nl2py_redis_data      # Redis data
+nl2py_elasticsearch_data  # Elasticsearch indices
+nl2py_minio_data      # MinIO/S3 objects
+nl2py_kafka_data      # Kafka logs
+nl2py_grafana_data    # Grafana dashboards</code></pre>
+
+                <div class="alert alert-danger">
+                    <strong>Warning:</strong> Running <code>docker compose down -v</code> will delete all data volumes!
+                </div>
+
+                <h2 id="networking">Networking</h2>
+
+                <div class="mermaid">
+graph TB
+    subgraph Network["nl2py_network (bridge)"]
+        PG["postgres"]
+        MY["mysql"]
+        MG["mongodb"]
+        RD["redis"]
+        KF["kafka"]
+        RB["rabbitmq"]
+        S3["minio"]
+    end
+
+    subgraph Host["Host (localhost)"]
+        APP["NL2Py App"]
+    end
+
+    APP -->|":5432"| PG
+    APP -->|":3306"| MY
+    APP -->|":27017"| MG
+    APP -->|":6379"| RD
+    APP -->|":9092"| KF
+    APP -->|":5672"| RB
+    APP -->|":9000"| S3
+
+    style Network fill:#e0f2fe,stroke:#0284c7
+    style Host fill:#f0fdf4,stroke:#16a34a
+                </div>
+
+                <p>Services communicate using container names within the Docker network:</p>
+                <pre><code># From inside a container
+postgres:5432    # PostgreSQL
+mysql:3306       # MySQL
+mongodb:27017    # MongoDB
+redis:6379       # Redis
+kafka:9092       # Kafka
+rabbitmq:5672    # RabbitMQ
+
+# From host machine
+localhost:5432   # PostgreSQL
+localhost:3306   # MySQL
+# ... etc</code></pre>
+
+                <h2 id="commands">Common Commands</h2>
+
+                <h3>Service Management</h3>
+                <pre><code># Start all services
+docker compose up -d
+
+# Start specific services
+docker compose up -d postgres redis kafka
+
+# Stop all services (keeps data)
+docker compose stop
+
+# Stop and remove containers (keeps data)
+docker compose down
+
+# Stop and remove everything including data
+docker compose down -v
+
+# Restart a service
+docker compose restart postgres
+
+# View logs
+docker compose logs -f postgres
+docker compose logs --tail=100 kafka</code></pre>
+
+                <h3>Service Status</h3>
+                <pre><code># List running containers
+docker compose ps
+
+# Check service health
+docker compose ps --format "table {{.Name}}\t{{.Status}}"
+
+# Resource usage
+docker stats</code></pre>
+
+                <h3>Executing Commands</h3>
+                <pre><code># PostgreSQL
+docker compose exec postgres psql -U nl2py -d nl2py
+
+# MySQL
+docker compose exec mysql mysql -unl2py -pnl2py_secret nl2py
+
+# MongoDB
+docker compose exec mongodb mongosh
+
+# Redis
+docker compose exec redis redis-cli -a nl2py_secret
+
+# Kafka
+docker compose exec kafka kafka-topics.sh --list --bootstrap-server localhost:9092</code></pre>
+
+                <h2 id="troubleshooting">Troubleshooting</h2>
+
+                <h3>Service won't start</h3>
+                <pre><code># Check logs for errors
+docker compose logs service_name
+
+# Check if port is already in use
+netstat -an | grep 5432
+
+# Recreate container
+docker compose up -d --force-recreate service_name</code></pre>
+
+                <h3>Out of memory</h3>
+                <pre><code># Check memory usage
+docker stats --no-stream
+
+# Stop unnecessary services
+docker compose stop elasticsearch grafana prometheus
+
+# Increase Docker memory limit (Docker Desktop settings)</code></pre>
+
+                <h3>Connection refused</h3>
+                <pre><code># Ensure service is healthy
+docker compose ps
+
+# Check service is listening
+docker compose exec postgres pg_isready
+
+# Verify network
+docker network inspect nl2py_network</code></pre>
+
+                <h3>Reset everything</h3>
+                <pre><code># Nuclear option - removes all data!
+docker compose down -v
+docker compose up -d</code></pre>
+
+                <h2 id="production">Production Considerations</h2>
+
+                <div class="alert alert-danger">
+                    <strong>Not for Production:</strong> The included Docker Compose setup is designed for local development only. For production, consider:
+                </div>
+
+                <ul>
+                    <li><strong>Use managed services</strong> - AWS RDS, Cloud SQL, Atlas, ElastiCache, etc.</li>
+                    <li><strong>Secure credentials</strong> - Use secret management (Vault, AWS Secrets Manager)</li>
+                    <li><strong>Enable TLS</strong> - Encrypt all connections</li>
+                    <li><strong>Configure backups</strong> - Automated backup strategies</li>
+                    <li><strong>Set resource limits</strong> - CPU and memory constraints</li>
+                    <li><strong>Use orchestration</strong> - Kubernetes for production deployments</li>
+                    <li><strong>Enable monitoring</strong> - APM, logging, alerting</li>
+                </ul>
+
+                <h3>Production Checklist</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Development</th>
+                            <th>Production</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Credentials</td>
+                            <td>Hardcoded in .env</td>
+                            <td>Secret manager</td>
+                        </tr>
+                        <tr>
+                            <td>TLS/SSL</td>
+                            <td>Disabled</td>
+                            <td>Required</td>
+                        </tr>
+                        <tr>
+                            <td>Backups</td>
+                            <td>None</td>
+                            <td>Automated daily</td>
+                        </tr>
+                        <tr>
+                            <td>Replication</td>
+                            <td>Single node</td>
+                            <td>Multi-node cluster</td>
+                        </tr>
+                        <tr>
+                            <td>Monitoring</td>
+                            <td>Basic</td>
+                            <td>Full APM + alerts</td>
+                        </tr>
+                        <tr>
+                            <td>Network</td>
+                            <td>Bridge</td>
+                            <td>Private VPC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NL2Py</h4>
+                <p style="color: var(--text-muted);">Natural Language to Python Compiler</p>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <a href="getting-started.html">Getting Started</a>
+                <a href="modules.html">Modules</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="api.html">API Reference</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="docker.html">Docker Deployment</a>
+                <a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Released under the MIT License. © 2024 NL2Py Contributors.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NL2Py - Natural Language to Python Compiler</title>
+    <meta name="description" content="Transform natural language commands into executable Python code. Supports 35+ service modules including AWS, GCP, Azure, databases, and more.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <span>NL2Py</span>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="getting-started.html">Getting Started</a></li>
+            <li><a href="modules.html">Modules</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>NL2Py</h1>
+            <p>Transform natural language commands into executable Python code. Write in plain English, get production-ready code.</p>
+            <div class="hero-buttons">
+                <a href="getting-started.html" class="btn btn-outline">Get Started</a>
+                <a href="https://github.com/yourusername/nl2py" class="btn btn-secondary" target="_blank">View on GitHub</a>
+            </div>
+        </section>
+
+        <!-- What is NL2Py -->
+        <section class="container">
+            <h2>What is NL2Py?</h2>
+            <p>NL2Py is a natural language to Python compiler that translates human-readable commands into executable code for cloud services, databases, APIs, and infrastructure management.</p>
+
+            <div class="mermaid">
+flowchart LR
+    A["Natural Language<br/>create s3 bucket my-data"] --> B["NL2Py<br/>Interpreter"]
+    B --> C["Python Code<br/>s3_create_bucket(name='my-data')"]
+    C --> D["Execution<br/>AWS S3"]
+
+    style A fill:#e0f2fe,stroke:#0284c7
+    style B fill:#f0fdf4,stroke:#16a34a
+    style C fill:#fef3c7,stroke:#d97706
+    style D fill:#fce7f3,stroke:#db2777
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>NLP-Powered Matching</h3>
+                    <p>Uses TF-IDF similarity to intelligently match your commands to the right methods, even with varied phrasing.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📦</div>
+                    <h3>35+ Service Modules</h3>
+                    <p>Pre-built integrations for AWS, GCP, Azure, Kubernetes, Docker, databases, messaging systems, and more.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Parameter Extraction</h3>
+                    <p>Automatically extracts parameters from your natural language commands using pattern matching.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🖥️</div>
+                    <h3>Web GUI & CLI</h3>
+                    <p>Choose between a beautiful Gradio web interface or command-line tools for your workflow.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔌</div>
+                    <h3>Extensible</h3>
+                    <p>Easy-to-follow module interface. Add your own service integrations in minutes.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Production Ready</h3>
+                    <p>Docker support, configuration management, and security best practices built-in.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Example -->
+        <section class="container" style="background: var(--surface-color); padding: 3rem; border-radius: 1rem; margin: 2rem auto;">
+            <h2>See It In Action</h2>
+            <p>Write natural language commands and get Python code instantly.</p>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="cloud">Cloud</button>
+                <button class="tab" data-tab="database">Database</button>
+                <button class="tab" data-tab="messaging">Messaging</button>
+                <button class="tab" data-tab="containers">Containers</button>
+            </div>
+
+            <div class="tab-content active" id="cloud">
+                <div class="code-block">
+                    <pre><code><span class="comment"># Natural Language Input:</span>
+<span class="string">"create compute instance web-server in zone us-central1-a"</span>
+
+<span class="comment"># Generated Python Code:</span>
+<span class="function">compute_instance_create</span>(name=<span class="string">'web-server'</span>, zone=<span class="string">'us-central1-a'</span>)
+
+<span class="comment"># Another example:</span>
+<span class="string">"upload file report.pdf to s3 bucket my-backup"</span>
+
+<span class="comment"># Generated:</span>
+<span class="function">s3_upload_file</span>(file_path=<span class="string">'report.pdf'</span>, bucket=<span class="string">'my-backup'</span>)</code></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="database">
+                <div class="code-block">
+                    <pre><code><span class="comment"># Natural Language Input:</span>
+<span class="string">"connect to postgres database myapp"</span>
+
+<span class="comment"># Generated Python Code:</span>
+<span class="function">connect</span>(database=<span class="string">'myapp'</span>)
+
+<span class="comment"># Another example:</span>
+<span class="string">"set redis key user:123 to John Doe"</span>
+
+<span class="comment"># Generated:</span>
+<span class="function">set_key</span>(key=<span class="string">'user:123'</span>, value=<span class="string">'John Doe'</span>)</code></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="messaging">
+                <div class="code-block">
+                    <pre><code><span class="comment"># Natural Language Input:</span>
+<span class="string">"send message to slack channel general with text Deploy completed"</span>
+
+<span class="comment"># Generated Python Code:</span>
+<span class="function">send_message</span>(channel=<span class="string">'general'</span>, text=<span class="string">'Deploy completed'</span>)
+
+<span class="comment"># Another example:</span>
+<span class="string">"publish message to kafka topic orders"</span>
+
+<span class="comment"># Generated:</span>
+<span class="function">publish</span>(topic=<span class="string">'orders'</span>, message=<span class="string">''</span>)</code></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="containers">
+                <div class="code-block">
+                    <pre><code><span class="comment"># Natural Language Input:</span>
+<span class="string">"list all docker containers"</span>
+
+<span class="comment"># Generated Python Code:</span>
+<span class="function">container_list</span>()
+
+<span class="comment"># Another example:</span>
+<span class="string">"deploy kubernetes deployment nginx with 3 replicas"</span>
+
+<span class="comment"># Generated:</span>
+<span class="function">deployment_create</span>(name=<span class="string">'nginx'</span>, replicas=<span class="number">3</span>)</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Modules -->
+        <section class="container">
+            <h2>Available Modules</h2>
+            <p>NL2Py comes with 35+ pre-built modules for popular services and platforms.</p>
+
+            <div class="module-category">
+                <h3>☁️ Cloud Providers</h3>
+                <div class="module-list">
+                    <a href="modules.html#aws" class="module-tag">AWS</a>
+                    <a href="modules.html#gcp" class="module-tag">Google Cloud</a>
+                    <a href="modules.html#azure" class="module-tag">Azure</a>
+                    <a href="modules.html#terraform" class="module-tag">Terraform</a>
+                </div>
+            </div>
+
+            <div class="module-category">
+                <h3>🐳 Containers & Orchestration</h3>
+                <div class="module-list">
+                    <a href="modules.html#docker" class="module-tag">Docker</a>
+                    <a href="modules.html#kubernetes" class="module-tag">Kubernetes</a>
+                </div>
+            </div>
+
+            <div class="module-category">
+                <h3>🗄️ Databases</h3>
+                <div class="module-list">
+                    <a href="modules.html#postgres" class="module-tag">PostgreSQL</a>
+                    <a href="modules.html#mysql" class="module-tag">MySQL</a>
+                    <a href="modules.html#mongodb" class="module-tag">MongoDB</a>
+                    <a href="modules.html#redis" class="module-tag">Redis</a>
+                    <a href="modules.html#cassandra" class="module-tag">Cassandra</a>
+                    <a href="modules.html#scylladb" class="module-tag">ScyllaDB</a>
+                    <a href="modules.html#clickhouse" class="module-tag">ClickHouse</a>
+                    <a href="modules.html#neo4j" class="module-tag">Neo4j</a>
+                    <a href="modules.html#elasticsearch" class="module-tag">Elasticsearch</a>
+                    <a href="modules.html#opensearch" class="module-tag">OpenSearch</a>
+                    <a href="modules.html#timescaledb" class="module-tag">TimescaleDB</a>
+                </div>
+            </div>
+
+            <div class="module-category">
+                <h3>📨 Messaging & Queues</h3>
+                <div class="module-list">
+                    <a href="modules.html#kafka" class="module-tag">Kafka</a>
+                    <a href="modules.html#rabbitmq" class="module-tag">RabbitMQ</a>
+                    <a href="modules.html#mqtt" class="module-tag">MQTT</a>
+                </div>
+            </div>
+
+            <div class="module-category">
+                <h3>💬 Communication</h3>
+                <div class="module-list">
+                    <a href="modules.html#slack" class="module-tag">Slack</a>
+                    <a href="modules.html#teams" class="module-tag">Microsoft Teams</a>
+                    <a href="modules.html#discord" class="module-tag">Discord</a>
+                    <a href="modules.html#telegram" class="module-tag">Telegram</a>
+                    <a href="modules.html#email" class="module-tag">Email</a>
+                </div>
+            </div>
+
+            <div class="module-category">
+                <h3>🔐 Security & Identity</h3>
+                <div class="module-list">
+                    <a href="modules.html#vault" class="module-tag">HashiCorp Vault</a>
+                    <a href="modules.html#keycloak" class="module-tag">Keycloak</a>
+                    <a href="modules.html#ldap" class="module-tag">LDAP</a>
+                    <a href="modules.html#jwt" class="module-tag">JWT</a>
+                </div>
+            </div>
+
+            <div class="module-category">
+                <h3>🛠️ Utilities</h3>
+                <div class="module-list">
+                    <a href="modules.html#s3" class="module-tag">S3/MinIO</a>
+                    <a href="modules.html#ssh" class="module-tag">SSH</a>
+                    <a href="modules.html#selenium" class="module-tag">Selenium</a>
+                    <a href="modules.html#prometheus" class="module-tag">Prometheus</a>
+                    <a href="modules.html#restapi" class="module-tag">REST API</a>
+                    <a href="modules.html#compression" class="module-tag">Compression</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start -->
+        <section class="container">
+            <h2>Quick Start</h2>
+
+            <ol class="step-list">
+                <li>
+                    <div>
+                        <strong>Install NL2Py</strong>
+                        <pre><code>pip install nl2py
+pip install gradio  # For the web GUI</code></pre>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Launch the GUI</strong>
+                        <pre><code>nl2py-gui</code></pre>
+                        <p>Opens at <code>http://localhost:7860</code></p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Write natural language commands</strong>
+                        <pre><code>create s3 bucket my-data-bucket
+list all docker containers
+send slack message to channel devops</code></pre>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Get executable Python code!</strong>
+                        <pre><code>s3_create_bucket(name='my-data-bucket')
+container_list()
+send_message(channel='devops')</code></pre>
+                    </div>
+                </li>
+            </ol>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="getting-started.html" class="btn btn-primary">Full Installation Guide →</a>
+            </div>
+        </section>
+
+        <!-- Architecture Preview -->
+        <section class="container">
+            <h2>How It Works</h2>
+            <p>NL2Py uses a multi-stage pipeline to transform natural language into code.</p>
+
+            <div class="mermaid">
+flowchart TB
+    subgraph Input["📝 Input"]
+        NL["Natural Language Command"]
+    end
+
+    subgraph Processing["⚙️ NLP Processing"]
+        TOK["Tokenization"]
+        TFIDF["TF-IDF Vectorization"]
+        SIM["Cosine Similarity"]
+        MATCH["Method Matching"]
+    end
+
+    subgraph Extraction["🔍 Parameter Extraction"]
+        PATTERN["Pattern Matching"]
+        KEYWORD["Keyword Extraction"]
+        PARAMS["Parameter Mapping"]
+    end
+
+    subgraph Output["📤 Output"]
+        CODE["Generated Python Code"]
+    end
+
+    NL --> TOK --> TFIDF --> SIM --> MATCH
+    MATCH --> PATTERN --> KEYWORD --> PARAMS --> CODE
+
+    style Input fill:#e0f2fe,stroke:#0284c7
+    style Processing fill:#f0fdf4,stroke:#16a34a
+    style Extraction fill:#fef3c7,stroke:#d97706
+    style Output fill:#fce7f3,stroke:#db2777
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="architecture.html" class="btn btn-secondary">Learn More About Architecture →</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NL2Py</h4>
+                <p style="color: var(--text-muted);">Natural Language to Python Compiler</p>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <a href="getting-started.html">Getting Started</a>
+                <a href="modules.html">Modules</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="api.html">API Reference</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="docker.html">Docker Deployment</a>
+                <a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a>
+                <a href="https://github.com/yourusername/nl2py/issues" target="_blank">Issues</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/yourusername/nl2py/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a>
+                <a href="https://github.com/yourusername/nl2py/blob/main/CODE_OF_CONDUCT.md" target="_blank">Code of Conduct</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Released under the MIT License. © 2024 NL2Py Contributors.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+
+                // Update active tab
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update active content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

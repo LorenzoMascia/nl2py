@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - NL2Py Documentation</title>
+    <meta name="description" content="Learn how to install and use NL2Py to convert natural language to Python code.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <span>NL2Py</span>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="getting-started.html" class="active">Getting Started</a></li>
+            <li><a href="modules.html">Modules</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="docs-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="section-title">Getting Started</li>
+                    <li><a href="#installation" class="active">Installation</a></li>
+                    <li><a href="#quick-start">Quick Start</a></li>
+                    <li><a href="#gui">Web GUI</a></li>
+                    <li><a href="#cli">CLI Usage</a></li>
+                    <li><a href="#python-api">Python API</a></li>
+                    <li class="section-title">Configuration</li>
+                    <li><a href="#config-file">Config File</a></li>
+                    <li><a href="#env-variables">Environment Variables</a></li>
+                    <li class="section-title">Next Steps</li>
+                    <li><a href="#writing-commands">Writing Commands</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content -->
+            <div class="content">
+                <h1>Getting Started</h1>
+                <p>This guide will help you install NL2Py and start converting natural language to Python code in minutes.</p>
+
+                <h2 id="installation">Installation</h2>
+
+                <h3>Requirements</h3>
+                <ul>
+                    <li>Python 3.10 or higher</li>
+                    <li>pip package manager</li>
+                </ul>
+
+                <h3>Install from PyPI</h3>
+                <pre><code>pip install nl2py</code></pre>
+
+                <h3>Install from Source</h3>
+                <pre><code># Clone the repository
+git clone https://github.com/yourusername/nl2py.git
+cd nl2py
+
+# Create a virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install in development mode
+pip install -e .</code></pre>
+
+                <h3>Install Optional Dependencies</h3>
+                <pre><code># For the web GUI
+pip install gradio>=4.0.0
+
+# For specific modules (see requirements.txt for full list)
+pip install boto3          # AWS
+pip install google-cloud-storage  # GCP
+pip install docker         # Docker
+pip install psycopg2-binary  # PostgreSQL</code></pre>
+
+                <div class="alert alert-info">
+                    <strong>Tip:</strong> Install only the dependencies for the modules you need to keep your environment lean.
+                </div>
+
+                <h2 id="quick-start">Quick Start</h2>
+
+                <p>After installation, you can start using NL2Py immediately:</p>
+
+                <pre><code># Launch the web GUI
+nl2py-gui
+
+# Or use Python directly
+python -c "
+from nl2py import create_interpreter
+interp = create_interpreter()
+result = interp.interpret('create s3 bucket my-data')
+print(result.generated_code)
+"</code></pre>
+
+                <h2 id="gui">Web GUI</h2>
+
+                <p>NL2Py includes a beautiful Gradio-based web interface.</p>
+
+                <h3>Launch the GUI</h3>
+                <pre><code># Basic launch (opens at http://localhost:7860)
+nl2py-gui
+
+# With custom port
+nl2py-gui --port 8080
+
+# Create a public shareable link
+nl2py-gui --share</code></pre>
+
+                <h3>GUI Features</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tab</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Single Command</strong></td>
+                            <td>Translate one command at a time with match details</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Full Translation</strong></td>
+                            <td>Convert multiple lines into a complete Python script</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Line-by-Line</strong></td>
+                            <td>See detailed analysis for each line</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Explore Matches</strong></td>
+                            <td>Find top matching methods for a command</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Methods Reference</strong></td>
+                            <td>Browse all available methods with search</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Adjusting Similarity Threshold</h3>
+                <p>The threshold slider controls how strict the matching is:</p>
+                <ul>
+                    <li><strong>0.1 (default)</strong> - Good balance, catches most commands</li>
+                    <li><strong>0.05</strong> - More lenient, may have false positives</li>
+                    <li><strong>0.3+</strong> - Stricter, only high-confidence matches</li>
+                </ul>
+
+                <h2 id="cli">CLI Usage</h2>
+
+                <h3>Interactive Mode</h3>
+                <pre><code>python -m nl2py.nlp_interpreter --interactive
+
+# Example session:
+> create compute instance my-server
+1. GCPModule.compute_instance_create
+   Score: 0.72
+   Code: compute_instance_create(name='my-server')
+
+> exit</code></pre>
+
+                <h3>Process a File</h3>
+                <pre><code># Input file: commands.txt
+# create s3 bucket data-lake
+# list docker containers
+# send slack message to devops
+
+python -m nl2py.nlp_interpreter commands.txt output.py
+
+# output.py will contain:
+# from nl2py import modules
+# s3_create_bucket(name='data-lake')
+# container_list()
+# send_message(channel='devops')</code></pre>
+
+                <h2 id="python-api">Python API</h2>
+
+                <h3>Basic Usage</h3>
+                <pre><code>from nl2py import create_interpreter
+
+# Create and initialize
+interpreter = create_interpreter()
+
+# Interpret a single command
+result = interpreter.interpret("create s3 bucket my-data")
+
+# Access result properties
+print(result.generated_code)    # s3_create_bucket(name='my-data')
+print(result.module_name)       # S3Module
+print(result.method_name)       # s3_create_bucket
+print(result.similarity_score)  # 0.75
+print(result.extracted_params)  # {'name': 'my-data'}</code></pre>
+
+                <h3>Get Multiple Matches</h3>
+                <pre><code># Get top 5 matches for exploration
+results = interpreter.match(
+    "upload file to storage",
+    threshold=0.05,
+    top_k=5
+)
+
+for r in results:
+    print(f"{r.module_name}.{r.method_name}: {r.similarity_score:.2f}")</code></pre>
+
+                <h3>Process Multiple Lines</h3>
+                <pre><code>from nl2py.nlp_interpreter import FileInterpreter
+
+fi = FileInterpreter()
+
+# Process a file
+code = fi.process_file(
+    "commands.txt",
+    output_path="output.py",
+    threshold=0.1,
+    include_comments=True
+)
+
+# Or process a list of strings
+lines = [
+    "create bucket my-bucket",
+    "upload file data.csv to my-bucket",
+    "list bucket contents"
+]
+results = fi.process_lines(lines)</code></pre>
+
+                <h2 id="config-file">Configuration File</h2>
+
+                <p>Create <code>nl2py.conf</code> to configure module credentials:</p>
+
+                <pre><code># nl2py.conf
+
+[postgres]
+host = localhost
+port = 5432
+database = myapp
+user = postgres
+password = secret
+
+[aws]
+region = us-east-1
+access_key_id = AKIA...
+secret_access_key = ...
+
+[slack]
+webhook_url = https://hooks.slack.com/services/...
+bot_token = xoxb-...
+
+[redis]
+host = localhost
+port = 6379
+password = </code></pre>
+
+                <div class="alert alert-warning">
+                    <strong>Security:</strong> Never commit <code>nl2py.conf</code> to version control. It's gitignored by default.
+                </div>
+
+                <h2 id="env-variables">Environment Variables</h2>
+
+                <p>You can also configure modules using environment variables:</p>
+
+                <pre><code># AWS
+export AWS_ACCESS_KEY_ID=AKIA...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_DEFAULT_REGION=us-east-1
+
+# GCP
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+export GCP_PROJECT_ID=my-project
+
+# Database
+export POSTGRES_HOST=localhost
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=secret</code></pre>
+
+                <h2 id="writing-commands">Writing Effective Commands</h2>
+
+                <h3>Tips for Better Matching</h3>
+
+                <ol>
+                    <li><strong>Be specific</strong> - Include key words that describe the action
+                        <pre><code># Good
+create compute instance web-server in zone us-central1-a
+
+# Less specific (still works)
+make a server called web-server</code></pre>
+                    </li>
+                    <li><strong>Use common verbs</strong> - create, delete, list, get, send, upload, download
+                        <pre><code>create bucket my-data
+list all containers
+send message to slack</code></pre>
+                    </li>
+                    <li><strong>Include parameter names</strong> - Makes extraction more accurate
+                        <pre><code># With parameter hints
+create instance named my-server in zone us-west-1
+
+# Without (still works but less precise)
+create my-server us-west-1</code></pre>
+                    </li>
+                </ol>
+
+                <h3>Example Commands by Category</h3>
+
+                <pre><code># Cloud Infrastructure
+create compute instance {{name}} in zone {{zone}}
+create s3 bucket {{bucket-name}} in region {{region}}
+list all virtual machines
+
+# Databases
+connect to postgres database {{dbname}}
+execute query "SELECT * FROM users"
+set redis key {{key}} to {{value}}
+
+# Messaging
+send message to slack channel {{channel}} with text {{message}}
+publish to kafka topic {{topic}}
+send email to {{recipient}} with subject {{subject}}
+
+# Containers
+list docker containers
+start container {{name}}
+deploy kubernetes deployment {{name}} with {{replicas}} replicas</code></pre>
+
+                <h2 id="troubleshooting">Troubleshooting</h2>
+
+                <h3>No matches found</h3>
+                <ul>
+                    <li>Lower the similarity threshold (try 0.05)</li>
+                    <li>Use the "Explore Matches" tab to see what's close</li>
+                    <li>Check the "Methods Reference" for available commands</li>
+                    <li>Rephrase using more common verbs</li>
+                </ul>
+
+                <h3>Wrong method matched</h3>
+                <ul>
+                    <li>Be more specific in your command</li>
+                    <li>Include the service name (e.g., "s3 bucket" vs just "bucket")</li>
+                    <li>Increase the similarity threshold</li>
+                </ul>
+
+                <h3>Parameters not extracted</h3>
+                <ul>
+                    <li>Use quotes for multi-word values</li>
+                    <li>Include parameter keywords like "named", "called", "in zone", "to"</li>
+                    <li>Check the matched example's pattern in "Explore Matches"</li>
+                </ul>
+
+                <h3>Module not available</h3>
+                <pre><code># Check if module dependencies are installed
+pip show boto3  # For AWS
+pip show docker  # For Docker
+
+# Install missing dependencies
+pip install boto3</code></pre>
+
+                <div class="alert alert-success">
+                    <strong>Next:</strong> Check out the <a href="modules.html">Modules documentation</a> to see all available services and their methods.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NL2Py</h4>
+                <p style="color: var(--text-muted);">Natural Language to Python Compiler</p>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <a href="getting-started.html">Getting Started</a>
+                <a href="modules.html">Modules</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="api.html">API Reference</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="docker.html">Docker Deployment</a>
+                <a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a>
+                <a href="https://github.com/yourusername/nl2py/issues" target="_blank">Issues</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Released under the MIT License. © 2024 NL2Py Contributors.</p>
+        </div>
+    </footer>
+</body>
+</html>

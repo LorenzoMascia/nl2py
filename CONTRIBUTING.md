@@ -1,257 +1,304 @@
-# Contributing to NL2PyFlow
+# Contributing to NL2Py
 
-Thank you for your interest in contributing to NL2PyFlow! This document provides guidelines and instructions for contributing.
-
-## Table of Contents
-
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [How to Contribute](#how-to-contribute)
-- [Coding Standards](#coding-standards)
-- [Testing](#testing)
-- [Submitting Changes](#submitting-changes)
+Thank you for your interest in contributing to NL2Py! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
 By participating in this project, you agree to maintain a respectful and inclusive environment for everyone.
 
-## Getting Started
-
-1. **Fork the Repository**
-   ```bash
-   git clone https://github.com/LorenzoMascia/NL2PyFlow.git
-   cd NL2PyFlow
-   ```
-
-2. **Create a Branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-## Development Setup
-
-1. **Create a Virtual Environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   pip install -e ".[dev]"
-   # Or using requirements files:
-   pip install -r requirements-dev.txt
-   ```
-
-3. **Set Up Pre-commit Hooks** (Optional but recommended)
-   ```bash
-   pre-commit install
-   ```
-
 ## How to Contribute
 
 ### Reporting Bugs
 
-- Use the [GitHub Issues](https://github.com/LorenzoMascia/NL2PyFlow/issues) page
-- Include a clear description of the bug
-- Provide steps to reproduce
-- Include your Python version and OS
-- Add relevant code snippets or error messages
+1. Check if the bug has already been reported in [Issues](https://github.com/yourusername/nl2py/issues)
+2. If not, create a new issue with:
+   - A clear, descriptive title
+   - Steps to reproduce the bug
+   - Expected behavior vs actual behavior
+   - Your environment (Python version, OS, etc.)
+   - Any relevant error messages or logs
 
 ### Suggesting Features
 
-- Open an issue with the tag `enhancement`
-- Describe the feature and its use case
-- Explain why it would be valuable
+1. Check existing issues for similar suggestions
+2. Create a new issue with the `enhancement` label
+3. Describe the feature and its use case
+4. Explain why it would be valuable
 
-### Code Contributions
+### Pull Requests
 
-1. **Find or Create an Issue**
-   - Check existing issues or create a new one
-   - Comment on the issue to let others know you're working on it
+1. Fork the repository
+2. Create a new branch from `main`:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes
+4. Write or update tests as needed
+5. Ensure all tests pass
+6. Commit with clear messages
+7. Push and create a Pull Request
 
-2. **Write Code**
-   - Follow the coding standards below
-   - Add tests for new functionality
-   - Update documentation as needed
-
-3. **Test Your Changes**
-   - Run the test suite
-   - Ensure all tests pass
-   - Add new tests if applicable
-
-## Coding Standards
-
-### Python Style Guide
-
-- Follow [PEP 8](https://www.python.org/dev/peps/pep-0008/)
-- Use [Black](https://github.com/psf/black) for code formatting (line length: 100)
-- Use [isort](https://pycqa.github.io/isort/) for import sorting
-- Use type hints where appropriate
-
-### Code Formatting
+## Development Setup
 
 ```bash
-# Format code with Black
-black nl2pyflow tests
+# Clone your fork
+git clone https://github.com/yourusername/nl2py.git
+cd nl2py
 
-# Sort imports with isort
-isort nl2pyflow tests
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Check code style with flake8
-flake8 nl2pyflow tests
+# Install in development mode
+pip install -e .
+
+# Install dev dependencies
+pip install pytest black ruff mypy
+
+# Install optional GUI dependencies
+pip install gradio>=4.0.0
 ```
 
-### Documentation
+## Project Structure
 
-- Add docstrings to all public functions, classes, and modules
-- Use Google-style docstrings
-- Update README.md if adding new features
+```
+nl2py/
+├── src/nl2py/
+│   ├── nlp_interpreter.py    # Core NLP engine
+│   ├── gui/                  # Gradio web interface
+│   └── modules/              # Service modules
+├── tests/                    # Test files
+├── examples/                 # Example files
+└── docker/                   # Docker setup
+```
 
-Example:
+## Adding a New Module
+
+### 1. Create the Module File
+
+Create `src/nl2py/modules/myservice_module.py`:
+
 ```python
-def parse_blocks(text: str) -> list[dict]:
-    """
-    Parse natural language text into block definitions.
+"""
+MyService Module for NL2Py
 
-    Args:
-        text: Input text containing block definitions.
+Provides integration with MyService for doing useful things.
+"""
 
-    Returns:
-        List of dictionaries containing block information.
+from typing import Dict, List, Any, Optional
+from nl2py.modules.module_base import (
+    AIbasicModuleBase,
+    ModuleMetadata,
+    MethodInfo
+)
 
-    Raises:
-        ValueError: If text format is invalid.
-    """
-    pass
+
+class MyServiceModule(AIbasicModuleBase):
+    """Module for MyService operations."""
+
+    _instance = None  # Singleton pattern
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __init__(self, api_key: Optional[str] = None):
+        if hasattr(self, '_initialized') and self._initialized:
+            return
+        self.api_key = api_key
+        self._initialized = True
+
+    @classmethod
+    def get_metadata(cls) -> ModuleMetadata:
+        return ModuleMetadata(
+            name="MyService Module",
+            task_type="myservice",
+            description="Integration with MyService for doing useful things",
+            version="1.0.0",
+            keywords=["myservice", "integration", "api"],
+            dependencies=["requests"]
+        )
+
+    @classmethod
+    def get_usage_notes(cls) -> List[str]:
+        return [
+            "Requires API key via MYSERVICE_API_KEY environment variable",
+            "Rate limited to 100 requests per minute",
+            "All responses are cached for 5 minutes"
+        ]
+
+    @classmethod
+    def get_methods_info(cls) -> List[MethodInfo]:
+        return [
+            MethodInfo(
+                name="get_data",
+                description="Retrieve data from MyService",
+                parameters={
+                    "resource_id": "ID of the resource to retrieve",
+                    "format": "Output format (optional, default: 'json')"
+                },
+                returns="Dictionary with resource data",
+                examples=[
+                    {
+                        "text": "get data for resource {{my-resource}}",
+                        "code": "get_data(resource_id='{{my-resource}}')"
+                    },
+                    {
+                        "text": "get data {{item-123}} in format {{xml}}",
+                        "code": "get_data(resource_id='{{item-123}}', format='{{xml}}')"
+                    }
+                ]
+            ),
+            MethodInfo(
+                name="create_resource",
+                description="Create a new resource in MyService",
+                parameters={
+                    "name": "Name for the new resource",
+                    "data": "Resource data as dictionary"
+                },
+                returns="Dictionary with created resource details",
+                examples=[
+                    {
+                        "text": "create resource named {{my-new-resource}}",
+                        "code": "create_resource(name='{{my-new-resource}}')"
+                    }
+                ]
+            )
+        ]
+
+    def get_data(self, resource_id: str, format: str = "json") -> Dict[str, Any]:
+        """Retrieve data from MyService."""
+        # Implementation here
+        return {"status": "success", "resource_id": resource_id}
+
+    def create_resource(self, name: str, data: Optional[Dict] = None) -> Dict[str, Any]:
+        """Create a new resource."""
+        # Implementation here
+        return {"status": "created", "name": name}
+
+
+# Module factory function
+def get_myservice_module(api_key: Optional[str] = None) -> MyServiceModule:
+    """Get or create MyServiceModule instance."""
+    return MyServiceModule(api_key=api_key)
 ```
+
+### 2. Register the Module
+
+Add to `src/nl2py/modules/__init__.py`:
+
+```python
+_import_module('myservice_module', 'MyServiceModule')
+```
+
+### 3. Write Examples
+
+The `examples` field in `MethodInfo` is crucial for NLP matching. Follow these patterns:
+
+- Use `{{parameter}}` placeholders for variable parts
+- Provide multiple examples with different phrasings
+- Cover common use cases
+
+```python
+examples=[
+    {"text": "get data for {{resource}}", "code": "get_data(resource_id='{{resource}}')"},
+    {"text": "retrieve {{resource}} data", "code": "get_data(resource_id='{{resource}}')"},
+    {"text": "fetch resource {{resource}}", "code": "get_data(resource_id='{{resource}}')"},
+]
+```
+
+### 4. Add Tests
+
+Create `tests/test_myservice_module.py`:
+
+```python
+import pytest
+from nl2py.modules.myservice_module import MyServiceModule
+
+
+class TestMyServiceModule:
+    def test_get_metadata(self):
+        metadata = MyServiceModule.get_metadata()
+        assert metadata.name == "MyService Module"
+        assert metadata.task_type == "myservice"
+
+    def test_get_methods_info(self):
+        methods = MyServiceModule.get_methods_info()
+        assert len(methods) > 0
+        assert methods[0].name == "get_data"
+
+    def test_get_data(self):
+        module = MyServiceModule()
+        result = module.get_data("test-resource")
+        assert result["status"] == "success"
+```
+
+## Code Style
+
+### Python
+
+- Follow PEP 8
+- Use type hints
+- Maximum line length: 100 characters
+- Use docstrings for public methods
+
+```bash
+# Format code
+black src/ tests/
+
+# Check linting
+ruff check src/ tests/
+
+# Type checking
+mypy src/
+```
+
+### Commit Messages
+
+Use clear, descriptive commit messages:
+
+```
+feat: add MyService module with get_data and create_resource methods
+
+- Implements singleton pattern
+- Adds 5 NLP examples per method
+- Includes unit tests
+```
+
+Prefixes:
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation
+- `refactor:` - Code refactoring
+- `test:` - Tests
+- `chore:` - Maintenance
 
 ## Testing
-
-### Running Tests
 
 ```bash
 # Run all tests
 pytest
 
 # Run with coverage
-pytest --cov=nl2pyflow
+pytest --cov=nl2py
 
 # Run specific test file
-pytest tests/test_block_parser.py
+pytest tests/test_myservice_module.py
+
+# Run specific test
+pytest tests/test_myservice_module.py::TestMyServiceModule::test_get_data
 ```
 
-### Writing Tests
+## Documentation
 
-- Place tests in the `tests/` directory
-- Name test files as `test_*.py`
-- Use descriptive test function names
-
-Example:
-```python
-def test_parse_blocks_with_valid_input():
-    """Test that valid input is parsed correctly."""
-    text = "### Block 1: Test\nDo something"
-    blocks = parse_blocks(text)
-    assert len(blocks) == 1
-    assert blocks[0]['name'] == 'block_1'
-```
-
-## Submitting Changes
-
-1. **Commit Your Changes**
-   ```bash
-   git add .
-   git commit -m "Add feature: brief description"
-   ```
-
-   Commit message format:
-   - Use present tense ("Add feature" not "Added feature")
-   - First line: brief summary (50 chars or less)
-   - Blank line, then detailed description if needed
-
-2. **Push to Your Fork**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-3. **Create a Pull Request**
-   - Go to the original repository
-   - Click "New Pull Request"
-   - Select your branch
-   - Fill out the PR template
-   - Link related issues
-
-### Pull Request Guidelines
-
-- **Title**: Clear and descriptive
-- **Description**:
-  - What changes were made
-  - Why the changes were necessary
-  - How to test the changes
-- **Tests**: Include tests for new features
-- **Documentation**: Update docs if needed
-- **Code Quality**: Ensure all checks pass
-
-### PR Checklist
-
-- [ ] Code follows the project's style guidelines
-- [ ] Tests added/updated and passing
-- [ ] Documentation updated
-- [ ] Commit messages are clear
-- [ ] No merge conflicts
-- [ ] All CI checks passing
-
-## Development Tools
-
-### Useful Commands
-
-```bash
-# Install package in development mode
-pip install -e .
-
-# Run the CLI locally
-python -m nl2pyflow examples/basic_pipeline.txt
-
-# Type checking with mypy
-mypy nl2pyflow
-
-# Generate coverage report
-pytest --cov=nl2pyflow --cov-report=html
-```
-
-## Project Structure
-
-```
-NL2PyFlow/
-├── nl2pyflow/           # Main package
-│   ├── __init__.py      # Package initialization
-│   ├── cli.py           # Command-line interface
-│   ├── block_parser.py  # Block parsing logic
-│   ├── code_generator.py # Code generation
-│   ├── orchestrator.py  # Pipeline orchestration
-│   ├── llm_handler.py   # LLM integration
-│   ├── backend/         # Web backend
-│   └── frontend/        # Web frontend
-├── tests/               # Test suite
-├── examples/            # Example files
-├── docs/                # Documentation
-├── pyproject.toml       # Project configuration
-└── README.md            # Project overview
-```
+- Update README.md if adding new features
+- Add docstrings to all public methods
+- Update the module table in README.md when adding modules
+- Include examples in method documentation
 
 ## Questions?
 
-If you have questions, feel free to:
-- Open an issue
-- Start a discussion on GitHub Discussions
-- Reach out to the maintainers
+Feel free to open an issue for any questions about contributing.
 
-## License
-
-By contributing, you agree that your contributions will be licensed under the Apache License 2.0.
-
----
-
-Thank you for contributing to NL2PyFlow! 🎉
+Thank you for contributing to NL2Py!

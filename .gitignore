@@ -1,149 +1,132 @@
-# Byte-compiled / optimized / DLL files
+# ===========================
+# Python general
+# ===========================
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Compiled extensions
 *.so
+*.pyd
+*.dll
 
-# C extensions
-*.so
+# Bytecode cache
+*.pyc
+*.pyo
+__pycache__/
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-Pipfile.lock
-
-# PEP 582
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
+# ===========================
+# Virtual environments
+# ===========================
+.venv/
 venv/
+env/
 ENV/
-env.bak/
-venv.bak/
+.env/
+.envrc
+.venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
+# ===========================
+# Build & packaging
+# ===========================
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+MANIFEST
+wheels/
+*.whl
+*.tar.gz
 
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-*.iml
-
-# Project specific
-block_*
-backend/blocks/block_*
-blocks/block_*
-
-# Temporary files
+# ===========================
+# Logs & temporary files
+# ===========================
+*.log
 *.tmp
 *.bak
+*.swp
+*.swo
+*.orig
+*.rej
+*.lock
+~$*
+*.cache
+.cache/
+__pypackages__/
 
-# Claude Code
+# ===========================
+# Test & coverage
+# ===========================
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+pytest_cache/
+.tox/
+.mypy_cache/
+.dmypy.json
+.pytest_cache/
+.pyre/
+.hypothesis/
+.prof
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ===========================
+# Editors & IDEs
+# ===========================
+.vscode/
+.idea/
+*.code-workspace
+
+# ===========================
+# OS-specific junk
+# ===========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+Icon?
+._*
+
+# ===========================
+# Project-specific
+# ===========================
+# Generated output files
+output.py
+out/
+outputs/
+generated/
+*.out
+
+# Example data or scratch files
+data/
+tmp/
+temp/
+results/
+
+# ===========================
+# Environment & secrets
+# ===========================
+# never commit API tokens or configs with secrets
+nl2py.conf
+*.env
+*.key
+*.pem
+*.secret
+secrets.json
+
+# ===========================
+# Jupyter notebooks (optional)
+# ===========================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ===========================
+# VSCode project data (optional keep if needed)
+# ===========================
+# .vscode/
+
 .claude

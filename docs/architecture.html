@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture - NL2Py Documentation</title>
+    <meta name="description" content="Deep dive into NL2Py architecture, NLP processing pipeline, and how natural language is transformed into Python code.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <span>NL2Py</span>
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="getting-started.html">Getting Started</a></li>
+            <li><a href="modules.html">Modules</a></li>
+            <li><a href="architecture.html" class="active">Architecture</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="api.html">API</a></li>
+            <li><a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="docs-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="section-title">Overview</li>
+                    <li><a href="#overview">System Overview</a></li>
+                    <li><a href="#components">Core Components</a></li>
+                    <li class="section-title">Processing Pipeline</li>
+                    <li><a href="#nlp-pipeline">NLP Pipeline</a></li>
+                    <li><a href="#tfidf">TF-IDF Matching</a></li>
+                    <li><a href="#parameter-extraction">Parameter Extraction</a></li>
+                    <li><a href="#code-generation">Code Generation</a></li>
+                    <li class="section-title">Module System</li>
+                    <li><a href="#module-interface">Module Interface</a></li>
+                    <li><a href="#method-info">Method Info Structure</a></li>
+                    <li><a href="#examples-format">Examples Format</a></li>
+                    <li class="section-title">Data Flow</li>
+                    <li><a href="#request-flow">Request Flow</a></li>
+                    <li><a href="#file-processing">File Processing</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content -->
+            <div class="content">
+                <h1>Architecture</h1>
+                <p>This document provides a deep dive into how NL2Py transforms natural language commands into executable Python code.</p>
+
+                <h2 id="overview">System Overview</h2>
+                <p>NL2Py is built around a core NLP interpreter that uses TF-IDF similarity matching to find the most appropriate method for a given natural language input.</p>
+
+                <div class="mermaid">
+graph TB
+    subgraph User["👤 User Interface"]
+        GUI["Web GUI<br/>(Gradio)"]
+        CLI["Command Line<br/>Interface"]
+        API["Python API"]
+    end
+
+    subgraph Core["⚙️ NL2Py Core"]
+        INT["NLP Interpreter"]
+        VEC["TF-IDF Vectorizer"]
+        MAT["Similarity Matcher"]
+        EXT["Parameter Extractor"]
+        GEN["Code Generator"]
+    end
+
+    subgraph Modules["📦 Service Modules"]
+        AWS["AWS"]
+        GCP["GCP"]
+        DB["Databases"]
+        MSG["Messaging"]
+        MORE["...35+ modules"]
+    end
+
+    GUI --> INT
+    CLI --> INT
+    API --> INT
+
+    INT --> VEC
+    VEC --> MAT
+    MAT --> EXT
+    EXT --> GEN
+
+    Modules --> |"get_methods_info()"| VEC
+
+    style User fill:#e0f2fe,stroke:#0284c7
+    style Core fill:#f0fdf4,stroke:#16a34a
+    style Modules fill:#fef3c7,stroke:#d97706
+                </div>
+
+                <h2 id="components">Core Components</h2>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>NLPInterpreter</h3>
+                        <p>Main entry point that orchestrates the entire NLP pipeline. Loads modules, maintains the TF-IDF index, and returns match results.</p>
+                        <code>nl2py/nlp_interpreter.py</code>
+                    </div>
+                    <div class="card">
+                        <h3>TFIDFVectorizer</h3>
+                        <p>Custom TF-IDF implementation with no external dependencies. Converts text into sparse vectors for similarity comparison.</p>
+                        <code>nl2py/nlp_interpreter.py</code>
+                    </div>
+                    <div class="card">
+                        <h3>FileInterpreter</h3>
+                        <p>Processes text files line by line, generating complete Python scripts with imports and comments.</p>
+                        <code>nl2py/nlp_interpreter.py</code>
+                    </div>
+                    <div class="card">
+                        <h3>Module Base</h3>
+                        <p>Abstract base class defining the interface all modules must implement. Provides metadata, usage notes, and method info.</p>
+                        <code>nl2py/modules/module_base.py</code>
+                    </div>
+                </div>
+
+                <h2 id="nlp-pipeline">NLP Processing Pipeline</h2>
+
+                <p>When a natural language command is received, it goes through a multi-stage processing pipeline:</p>
+
+                <div class="mermaid">
+flowchart LR
+    subgraph Stage1["1️⃣ Preprocessing"]
+        A["Input Text"] --> B["Tokenization"]
+        B --> C["Lowercase"]
+        C --> D["Remove Stopwords"]
+    end
+
+    subgraph Stage2["2️⃣ Vectorization"]
+        D --> E["Calculate TF"]
+        E --> F["Apply IDF"]
+        F --> G["TF-IDF Vector"]
+    end
+
+    subgraph Stage3["3️⃣ Matching"]
+        G --> H["Cosine Similarity"]
+        H --> I["Rank Candidates"]
+        I --> J["Select Best Match"]
+    end
+
+    subgraph Stage4["4️⃣ Extraction"]
+        J --> K["Pattern Matching"]
+        K --> L["Keyword Extraction"]
+        L --> M["Map Parameters"]
+    end
+
+    subgraph Stage5["5️⃣ Generation"]
+        M --> N["Substitute Values"]
+        N --> O["Generate Code"]
+    end
+
+    style Stage1 fill:#fee2e2,stroke:#dc2626
+    style Stage2 fill:#fef3c7,stroke:#d97706
+    style Stage3 fill:#d1fae5,stroke:#059669
+    style Stage4 fill:#dbeafe,stroke:#2563eb
+    style Stage5 fill:#f3e8ff,stroke:#9333ea
+                </div>
+
+                <h2 id="tfidf">TF-IDF Matching</h2>
+
+                <p>NL2Py uses Term Frequency-Inverse Document Frequency (TF-IDF) to match user input against method examples.</p>
+
+                <h3>How TF-IDF Works</h3>
+
+                <div class="mermaid">
+flowchart TB
+    subgraph TF["Term Frequency (TF)"]
+        TF1["Count word occurrences<br/>in document"]
+        TF2["Normalize by max frequency"]
+        TF1 --> TF2
+    end
+
+    subgraph IDF["Inverse Document Frequency (IDF)"]
+        IDF1["Count documents<br/>containing word"]
+        IDF2["Apply log transformation"]
+        IDF1 --> IDF2
+    end
+
+    subgraph TFIDF["TF-IDF Score"]
+        CALC["TF × IDF"]
+    end
+
+    TF2 --> CALC
+    IDF2 --> CALC
+
+    style TF fill:#fee2e2,stroke:#dc2626
+    style IDF fill:#dbeafe,stroke:#2563eb
+    style TFIDF fill:#d1fae5,stroke:#059669
+                </div>
+
+                <h3>TF-IDF Formula</h3>
+                <pre><code># Term Frequency (normalized)
+tf(t, d) = 0.5 + 0.5 × (count(t, d) / max_count(d))
+
+# Inverse Document Frequency
+idf(t) = log((N + 1) / (df(t) + 1)) + 1
+
+# TF-IDF Score
+tfidf(t, d) = tf(t, d) × idf(t)</code></pre>
+
+                <h3>Cosine Similarity</h3>
+                <p>After vectorizing both the input and all method examples, we find the best match using cosine similarity:</p>
+
+                <pre><code># Cosine Similarity
+similarity(A, B) = (A · B) / (||A|| × ||B||)
+
+# Where:
+# A · B = dot product of vectors
+# ||A|| = magnitude of vector A</code></pre>
+
+                <h2 id="parameter-extraction">Parameter Extraction</h2>
+
+                <p>Once a method is matched, NL2Py extracts parameters from the input text using multiple strategies:</p>
+
+                <div class="mermaid">
+flowchart TB
+    INPUT["User Input:<br/>'create bucket my-data in region us-east-1'"]
+
+    subgraph Strategy1["Strategy 1: Pattern Matching"]
+        EXAMPLE["Example Pattern:<br/>'create bucket {{name}} in region {{region}}'"]
+        REGEX["Build Regex:<br/>'create bucket (.+) in region (.+)'"]
+        EXTRACT1["Extract: name=my-data, region=us-east-1"]
+    end
+
+    subgraph Strategy2["Strategy 2: Keyword Detection"]
+        KEYWORDS["Detect Keywords:<br/>'named', 'called', 'in', 'to'"]
+        EXTRACT2["Associate values<br/>with parameters"]
+    end
+
+    subgraph Strategy3["Strategy 3: Positional"]
+        QUOTED["Find quoted strings"]
+        WORDS["Find standalone words"]
+        EXTRACT3["Map to remaining<br/>placeholders"]
+    end
+
+    INPUT --> Strategy1
+    Strategy1 -->|"if successful"| RESULT["Parameters Map"]
+    Strategy1 -->|"if failed"| Strategy2
+    Strategy2 -->|"partial match"| Strategy3
+    Strategy3 --> RESULT
+
+    style INPUT fill:#e0f2fe,stroke:#0284c7
+    style RESULT fill:#d1fae5,stroke:#059669
+                </div>
+
+                <h3>Example Pattern</h3>
+                <p>Method examples use <code>{{placeholder}}</code> syntax to indicate where parameters should be extracted:</p>
+
+                <pre><code># Example definition in module
+examples=[
+    {
+        "text": "create bucket {{name}} in region {{region}}",
+        "code": "s3_create_bucket(name='{{name}}', region='{{region}}')"
+    }
+]
+
+# User input: "create bucket my-data in region us-east-1"
+
+# Extracted parameters:
+# name = "my-data"
+# region = "us-east-1"
+
+# Generated code:
+# s3_create_bucket(name='my-data', region='us-east-1')</code></pre>
+
+                <h2 id="code-generation">Code Generation</h2>
+
+                <p>The final step substitutes extracted parameters into the code template:</p>
+
+                <div class="mermaid">
+sequenceDiagram
+    participant U as User Input
+    participant M as Matched Method
+    participant P as Parameters
+    participant G as Generator
+    participant C as Code Output
+
+    U->>M: "create instance web-server"
+    M->>P: Template: compute_instance_create(name='{{name}}')
+    P->>G: {name: 'web-server'}
+    G->>C: compute_instance_create(name='web-server')
+
+    Note over G,C: Numbers and booleans<br/>are not quoted
+                </div>
+
+                <h2 id="module-interface">Module Interface</h2>
+
+                <p>All modules must implement the <code>AIbasicModuleBase</code> interface:</p>
+
+                <div class="mermaid">
+classDiagram
+    class AIbasicModuleBase {
+        <<abstract>>
+        +get_metadata() ModuleMetadata
+        +get_usage_notes() List~str~
+        +get_methods_info() List~MethodInfo~
+        +get_full_documentation() Dict
+    }
+
+    class ModuleMetadata {
+        +name: str
+        +task_type: str
+        +description: str
+        +version: str
+        +keywords: List~str~
+        +dependencies: List~str~
+    }
+
+    class MethodInfo {
+        +name: str
+        +description: str
+        +parameters: Dict~str,str~
+        +returns: str
+        +examples: List~Dict~
+    }
+
+    AIbasicModuleBase --> ModuleMetadata
+    AIbasicModuleBase --> MethodInfo
+                </div>
+
+                <h2 id="method-info">Method Info Structure</h2>
+
+                <p>Each method is described with rich metadata for NLP matching:</p>
+
+                <pre><code>MethodInfo(
+    name="compute_instance_create",
+    description="Create a Compute Engine VM instance",
+    parameters={
+        "name": "Instance name (must be unique)",
+        "zone": "GCP zone (e.g., 'us-central1-a')",
+        "machine_type": "Machine type (default: 'e2-medium')"
+    },
+    returns="Dictionary with status and operation name",
+    examples=[
+        {
+            "text": "create compute instance {{name}}",
+            "code": "compute_instance_create(name='{{name}}')"
+        },
+        {
+            "text": "create instance {{name}} in zone {{zone}}",
+            "code": "compute_instance_create(name='{{name}}', zone='{{zone}}')"
+        }
+    ]
+)</code></pre>
+
+                <h2 id="examples-format">Examples Format</h2>
+
+                <p>The examples array is crucial for NLP matching. Best practices:</p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="icon">📝</div>
+                        <div>
+                            <strong>Use {{placeholder}} syntax</strong>
+                            <p>Mark variable parts with double braces</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🔄</div>
+                        <div>
+                            <strong>Provide multiple phrasings</strong>
+                            <p>Different ways to say the same thing</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🎯</div>
+                        <div>
+                            <strong>Include service keywords</strong>
+                            <p>"s3 bucket" vs just "bucket"</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📊</div>
+                        <div>
+                            <strong>Cover common use cases</strong>
+                            <p>Most frequent operations first</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="request-flow">Request Flow</h2>
+
+                <p>Complete flow from user input to generated code:</p>
+
+                <div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant User
+    participant GUI/CLI
+    participant NLPInterpreter
+    participant TFIDFVectorizer
+    participant Modules
+    participant CodeGenerator
+
+    User->>GUI/CLI: Natural language command
+    GUI/CLI->>NLPInterpreter: interpret(text)
+
+    Note over NLPInterpreter: First call initializes system
+
+    NLPInterpreter->>Modules: get_methods_info()
+    Modules-->>NLPInterpreter: List[MethodInfo]
+    NLPInterpreter->>TFIDFVectorizer: fit(examples)
+
+    Note over TFIDFVectorizer: Build vocabulary & IDF
+
+    NLPInterpreter->>TFIDFVectorizer: transform(input)
+    TFIDFVectorizer-->>NLPInterpreter: input_vector
+
+    loop For each example
+        NLPInterpreter->>NLPInterpreter: cosine_similarity()
+    end
+
+    NLPInterpreter->>NLPInterpreter: extract_params()
+    NLPInterpreter->>CodeGenerator: generate(template, params)
+    CodeGenerator-->>NLPInterpreter: generated_code
+
+    NLPInterpreter-->>GUI/CLI: MatchResult
+    GUI/CLI-->>User: Display code
+                </div>
+
+                <h2 id="file-processing">File Processing Flow</h2>
+
+                <p>When processing a file with multiple commands:</p>
+
+                <div class="mermaid">
+flowchart TB
+    subgraph Input
+        FILE["commands.txt"]
+    end
+
+    subgraph Processing
+        READ["Read file<br/>line by line"]
+        SKIP{"Empty or<br/>comment?"}
+        INTERPRET["interpret(line)"]
+        MATCH{"Match<br/>found?"}
+        WARN["Add warning<br/>comment"]
+        CODE["Generate<br/>code line"]
+    end
+
+    subgraph Output
+        IMPORTS["Collect<br/>imports"]
+        COMBINE["Combine<br/>all code"]
+        WRITE["output.py"]
+    end
+
+    FILE --> READ
+    READ --> SKIP
+    SKIP -->|"yes"| READ
+    SKIP -->|"no"| INTERPRET
+    INTERPRET --> MATCH
+    MATCH -->|"no"| WARN
+    MATCH -->|"yes"| CODE
+    WARN --> READ
+    CODE --> IMPORTS
+    IMPORTS --> READ
+
+    READ -->|"EOF"| COMBINE
+    COMBINE --> WRITE
+
+    style Input fill:#e0f2fe,stroke:#0284c7
+    style Processing fill:#fef3c7,stroke:#d97706
+    style Output fill:#d1fae5,stroke:#059669
+                </div>
+
+                <h3>Generated File Structure</h3>
+
+                <pre><code>"""
+Generated Python code from: commands.txt
+Auto-generated by NL2Py NLP Interpreter
+"""
+
+from nl2py import modules
+# Uses: GCPModule
+# Uses: S3Module
+# Uses: DockerModule
+
+# create compute instance web-server
+# → compute_instance_create (score: 0.85)
+compute_instance_create(name='web-server')
+
+# upload file to s3 bucket my-data
+# → s3_upload_file (score: 0.78)
+s3_upload_file(bucket='my-data')
+
+# list docker containers
+# → container_list (score: 0.92)
+container_list()</code></pre>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NL2Py</h4>
+                <p style="color: var(--text-muted);">Natural Language to Python Compiler</p>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <a href="getting-started.html">Getting Started</a>
+                <a href="modules.html">Modules</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="api.html">API Reference</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="docker.html">Docker Deployment</a>
+                <a href="https://github.com/yourusername/nl2py" target="_blank">GitHub</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Released under the MIT License. © 2024 NL2Py Contributors.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true },
+            sequence: { useMaxWidth: true }
+        });
+    </script>
+</body>
+</html>

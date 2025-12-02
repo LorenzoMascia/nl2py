@@ -1,106 +1,14 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "nl2pyflow"
+name = "nl2py"
 version = "0.1.0"
-description = "A pipeline that converts high level natural language blocks into executable Python functions, chained together with a shared context"
+description = "A natural-language to Python compiler"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "Apache-2.0"}
-authors = [
-    {name = "Lorenzo Mascia", email = "lorenzo.mascia@gmail.com"}
-]
-maintainers = [
-    {name = "Lorenzo Mascia", email = "lorenzo.mascia@gmail.com"}
-]
-keywords = ["nlp", "code-generation", "llm", "pipeline", "automation", "natural-language"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Code Generators",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
-
 dependencies = [
-    "openai>=1.0.0",
+  "requests",
+  "pandas",
 ]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "black>=23.0.0",
-    "flake8>=6.0.0",
-    "mypy>=1.0.0",
-    "isort>=5.12.0",
-    "pre-commit>=3.0.0",
-]
-web = [
-    "flask>=3.0.0",
-    "flask-cors>=4.0.0",
-]
-
-[project.urls]
-Homepage = "https://github.com/LorenzoMascia/NL2PyFlow"
-Repository = "https://github.com/LorenzoMascia/NL2PyFlow"
-Documentation = "https://github.com/LorenzoMascia/NL2PyFlow#readme"
-"Bug Tracker" = "https://github.com/LorenzoMascia/NL2PyFlow/issues"
 
 [project.scripts]
-nl2pyflow = "nl2pyflow.cli:main"
-
-[tool.setuptools]
-packages = ["nl2pyflow", "nl2pyflow.backend", "nl2pyflow.frontend"]
-
-[tool.setuptools.package-data]
-nl2pyflow = ["py.typed"]
-
-[tool.black]
-line-length = 100
-target-version = ['py310', 'py311', 'py312']
-include = '\.pyi?$'
-
-[tool.isort]
-profile = "black"
-line_length = 100
-multi_line_output = 3
-
-[tool.mypy]
-python_version = "3.10"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = false
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = [
-    "--strict-markers",
-    "--strict-config",
-    "--cov=nl2pyflow",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-]
-
-[tool.coverage.run]
-source = ["nl2pyflow"]
-omit = ["*/tests/*", "*/test_*.py"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
-]
+nl2py = "nl2py.cli:main"
+nl2py-gui = "nl2py.gui.nlp_gui:launch"

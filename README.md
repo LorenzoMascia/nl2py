@@ -1,332 +1,243 @@
-# NL2PyFlow
+# NL2Py - Natural Language to Python
 
-**Natural Language to Python Flow**
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-![Screenshot 2025-04-28 181105](https://github.com/user-attachments/assets/39dcc333-a59f-4c40-8655-894cc174025c)
-
-> A pipeline that converts high level natural language blocks into executable Python functions, chained together with a shared context.
-
----
-
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Installation](#installation)
-4. [Quick Start](#quick-start)
-5. [Architecture](#architecture)
-6. [Core Components](#core-components)
-7. [Data Flow & Context Management](#data-flow--context-management)
-8. [LLM Integration](#llm-integration)
-9. [Example Workflow](#example-workflow)
-10. [Development](#development)
-11. [Future Extensions](#future-extensions)
-12. [Contributing](#contributing)
-13. [License](#license)
-
----
-
-## Overview
-
-NL2PyFlow enables users to author discrete, descriptive blocks in plain English or any other language. An LLM interprets each block and generates corresponding Python functions. An orchestrator then dynamically loads and executes these functions in sequence, sharing data via a unified `context` dictionary.
+**NL2Py** is a natural language to Python code compiler. Write commands in plain English (or any natural language) and get executable Python code that interacts with cloud services, databases, APIs, and more.
 
 ## Features
 
-- **Natural Language Processing**: Write workflow steps in plain English
-- **Automatic Code Generation**: LLM-powered Python function generation
-- **Dynamic Pipeline Execution**: Runtime assembly and execution of generated code
-- **Shared Context**: Seamless data flow between pipeline blocks
-- **Web Interface**: Browser-based editor for creating and managing workflows
-- **Extensible**: Easy to add custom blocks and extend functionality
+- **Natural Language Processing** - TF-IDF based similarity matching to find the right method
+- **35+ Service Modules** - AWS, GCP, Azure, Kubernetes, Docker, databases, messaging, and more
+- **Parameter Extraction** - Automatically extracts parameters from your natural language commands
+- **Web GUI** - Gradio-based interface for interactive translation
+- **CLI Support** - Process files or use interactive mode from the terminal
+- **Extensible** - Easy to add new modules following the standard interface
 
-## Installation
+## Quick Start
 
-### From PyPI (when published)
-
-```bash
-pip install nl2pyflow
-```
-
-### From Source
+### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/LorenzoMascia/NL2PyFlow.git
-cd NL2PyFlow
+git clone https://github.com/yourusername/nl2py.git
+cd nl2py
 
 # Install in development mode
 pip install -e .
 
-# Or with development dependencies
-pip install -e ".[dev]"
+# Install GUI dependencies (optional)
+pip install gradio>=4.0.0
 ```
 
-### Requirements
+### Usage
 
-- Python 3.10 or higher
-- OpenAI API key (set as environment variable `OPENAI_API_KEY`)
+#### Web GUI
 
-## Quick Start
+```bash
+# Launch the web interface
+nl2py-gui
 
-1. **Set up your OpenAI API key**:
-   ```bash
-   export OPENAI_API_KEY="your-api-key-here"
-   ```
-
-2. **Create a workflow file** (e.g., `my_workflow.txt`):
-   ```markdown
-   ### Block 1: Load data
-   Load CSV file "data.csv" into a list of records.
-
-   ### Block 2: Process data
-   Filter records where amount > 1000.
-
-   ### Block 3: Calculate total
-   Sum all amounts and store in context["total"].
-   ```
-
-3. **Run the pipeline**:
-   ```bash
-   nl2pyflow my_workflow.txt
-   ```
-
-4. **Or use as a Python library**:
-   ```python
-   from nl2pyflow import parse_blocks, generate_code_for_block, Orchestrator
-
-   # Parse your workflow
-   with open("my_workflow.txt") as f:
-       blocks = parse_blocks(f.read())
-
-   # Generate and execute
-   orchestrator = Orchestrator()
-   result = orchestrator.run_pipeline([b['name'] for b in blocks])
-   print(result)
-   ```
-
-## Goals
-
-- **Intuitive DSL**: Allow non‑programmers to define workflow steps in natural language.
-- **Automated Code Generation**: Use an LLM to translate descriptions into Python functions with a standard signature.
-- **Composable Pipeline**: Chain generated functions seamlessly, passing state through a shared `context`.
-- **Runtime Execution**: Dynamically assemble and execute the full Python script without manual coding.
-
-## Architecture
-
-```mermaid
-graph LR
-  UI["User Interface"] --> Parser
-  Parser --> LLM["LLM Code Generator"]
-  LLM --> Generator["Function Generator"]
-  Generator --> Filesystem[".py Modules"]
-  Orchestrator --> Filesystem
-  Orchestrator --> Execution["Run Functions"]
-  Execution --> Context["Shared Context"]
+# Or with Python
+python -m nl2py.gui.nlp_gui
 ```
 
-1. **User Interface**: Editor or notebook for NL block definitions.
-2. **Parser**: Splits text into ordered blocks and labels them (e.g., `block_1`).
-3. **LLM Code Generator**: Prompts the LLM to generate each block as a Python function.
-4. **Function Generator**: Validates, sanitizes, and writes the generated code to modules.
-5. **Orchestrator**: Dynamically imports functions, initializes `context`, and executes each function sequentially.
-6. **Context Store**: A Python `dict` carrying inputs, outputs, and intermediate data.
+The GUI opens at `http://localhost:7860` with tabs for:
+- **Single Command** - Translate one command at a time
+- **Full Translation** - Convert multiple lines to a complete Python script
+- **Line-by-Line Analysis** - See match details for each line
+- **Explore Matches** - Find alternative methods for a command
+- **Methods Reference** - Browse all available methods
 
-## Core Components
+#### CLI
 
-| Component                | Responsibility                                                       |
-| ------------------------ | -------------------------------------------------------------------- |
-| **Block Definition**     | Natural language descriptions, each as an independent workflow step. |
-| **Parser**               | Identifies blocks and prepares prompts for the LLM.                  |
-| **LLM Prompt Templates** | Standardizes prompt format and enforces function signature.          |
-| **Function Generator**   | Calls the LLM, handles code validation, and writes `.py` files.      |
-| **Orchestrator**         | Loads and runs generated functions, managing the shared `context`.   |
-| **Error Handler**        | Logs exceptions, diagnostics, and optionally retries or aborts.      |
+```bash
+# Interactive mode
+python -m nl2py.nlp_interpreter --interactive
 
-## Data Flow & Context Management
+# Process a file
+python -m nl2py.nlp_interpreter commands.txt output.py
+```
 
-1. **Initialize**
-   ```python
-   context = {}
-   ```
-2. **Block Execution**
-   ```python
-   def block_n(context: dict) -> dict:
-       # generated code
-       context['key_n'] = value
-       return context
-   ```
-3. **Chaining**
-   - Each block reads and writes to the same `context` dict.
-4. **Completion**
-   - Final context contains all named outputs for user inspection.
+#### Python API
 
-## LLM Integration
+```python
+from nl2py import create_interpreter
 
-**Prompt Template**:
+# Create and initialize the interpreter
+interpreter = create_interpreter()
+
+# Translate a command
+result = interpreter.interpret("create compute instance web-server in zone us-central1-a")
+
+print(result.generated_code)
+# Output: compute_instance_create(name='web-server', zone='us-central1-a')
+
+print(result.module_name)    # GCPModule
+print(result.method_name)    # compute_instance_create
+print(result.similarity_score)  # 0.85
+```
+
+## Example Commands
 
 ```text
-You are a Python expert. Generate a function based on the following description:
+# Cloud Infrastructure
+create compute instance web-server in zone us-central1-a
+create s3 bucket my-backup-bucket in region eu-west-1
+list all docker containers
 
-Block name: {block_name}
-Description: "{block_description}"
+# Databases
+connect to postgres database mydb
+execute query "SELECT * FROM users"
+set redis key user:123 with value "John Doe"
 
-Requirements:
-- Signature: `def {block_name}(context: dict) -> dict`
-- Read from and write to `context`
-- Return updated `context`
+# Messaging
+send message to slack channel general with text "Deploy completed"
+send email to admin@example.com with subject "Alert"
+publish message to kafka topic orders
 ```
 
-**Validation**:
+## Available Modules
 
-- Parse with `ast.parse` to ensure syntactic correctness.
-- Optionally run unit tests or lint checks before execution.
+| Category | Modules |
+|----------|---------|
+| **Cloud** | AWS, GCP, Azure, Terraform |
+| **Containers** | Docker, Kubernetes |
+| **Databases** | PostgreSQL, MySQL, MongoDB, Redis, Cassandra, ScyllaDB, ClickHouse, Neo4j, Elasticsearch, OpenSearch, TimescaleDB |
+| **Messaging** | Kafka, RabbitMQ, MQTT, Pub/Sub |
+| **Communication** | Slack, Teams, Discord, Telegram, Email |
+| **Security** | Vault, Keycloak, LDAP, JWT |
+| **Storage** | S3, Cloud Storage |
+| **Other** | SSH, Selenium, Prometheus, REST API, Compression |
 
-## Example Workflow
+## Configuration
 
-**User Input**:
+Create a `nl2py.conf` file (see `nl2py.conf.example`) to configure module credentials:
 
-```markdown
-### Block 1: Load data
-Load CSV "sales.csv" into a list of records.
+```ini
+[postgres]
+host = localhost
+port = 5432
+database = mydb
+user = postgres
+password = secret
 
-### Block 2: Filter high‑value
-Filter records with amount > 1000.
+[aws]
+region = us-east-1
+access_key_id = AKIA...
+secret_access_key = ...
 
-### Block 3: Compute total
-Sum all amounts and store in `context["total_sales"]`.
+[slack]
+webhook_url = https://hooks.slack.com/services/...
 ```
 
-**Generated Code**:
+## Project Structure
 
-![Screenshot 2025-04-28 181134](https://github.com/user-attachments/assets/8df9d6a5-bd58-4d56-a096-641ae75e15c3)
+```
+nl2py/
+├── src/nl2py/
+│   ├── __init__.py
+│   ├── nlp_interpreter.py    # Core NLP engine
+│   ├── gui/
+│   │   ├── __init__.py
+│   │   └── nlp_gui.py        # Gradio web interface
+│   └── modules/
+│       ├── module_base.py    # Base class and interfaces
+│       ├── aws_module.py
+│       ├── gcp_module.py
+│       ├── postgres_module.py
+│       └── ...               # 35+ modules
+├── examples/
+│   └── nlp_commands.txt      # Example commands
+├── docker/                   # Docker setup for services
+├── requirements.txt
+├── pyproject.toml
+└── README.md
+```
+
+## Adding a New Module
+
+1. Create a new file in `src/nl2py/modules/`
+2. Inherit from `AIbasicModuleBase` (or implement the interface)
+3. Implement required methods:
 
 ```python
-# block_1.py
-def block_1(context: dict) -> dict:
-    import csv
-    with open("sales.csv") as f:
-        context["records"] = list(csv.DictReader(f))
-    return context
+from nl2py.modules.module_base import AIbasicModuleBase, ModuleMetadata, MethodInfo
 
-# block_2.py
-def block_2(context: dict) -> dict:
-    context["filtered"] = [r for r in context["records"] if float(r["amount"]) > 1000]
-    return context
+class MyModule(AIbasicModuleBase):
+    @classmethod
+    def get_metadata(cls):
+        return ModuleMetadata(
+            name="My Module",
+            task_type="my_task",
+            description="Does something useful",
+            keywords=["my", "module"]
+        )
 
-# block_3.py
-def block_3(context: dict) -> dict:
-    context["total_sales"] = sum(float(r["amount"]) for r in context["filtered"])
-    return context
+    @classmethod
+    def get_methods_info(cls):
+        return [
+            MethodInfo(
+                name="do_something",
+                description="Does something with a parameter",
+                parameters={"param": "The parameter to use"},
+                returns="Result of the operation",
+                examples=[
+                    {"text": "do something with {{value}}",
+                     "code": "do_something(param='{{value}}')"}
+                ]
+            )
+        ]
+
+    def do_something(self, param: str):
+        # Implementation
+        pass
 ```
 
-**Orchestrator**:
-
-```python
-import importlib
-
-def run_pipeline(block_names):
-    context = {}
-    for name in block_names:
-        module = importlib.import_module(name)
-        context = getattr(module, name)(context)
-    return context
-
-if __name__ == "__main__":
-    result = run_pipeline(["block_1", "block_2", "block_3"])
-    print(result)
-```
+4. Register in `src/nl2py/modules/__init__.py`
 
 ## Development
 
-### Setting Up Development Environment
-
 ```bash
-# Clone the repository
-git clone https://github.com/LorenzoMascia/NL2PyFlow.git
-cd NL2PyFlow
-
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install development dependencies
+# Install dev dependencies
 pip install -e ".[dev]"
-# Or: pip install -r requirements-dev.txt
 
-# Set up pre-commit hooks
-pre-commit install
-```
-
-### Running Tests
-
-```bash
-# Run all tests
+# Run tests
 pytest
 
-# Run with coverage
-pytest --cov=nl2pyflow --cov-report=html
+# Run linting
+ruff check src/
 
-# Run specific test file
-pytest tests/test_block_parser.py
-```
-
-### Code Quality
-
-```bash
 # Format code
-black nl2pyflow tests
-isort nl2pyflow tests
-
-# Lint code
-flake8 nl2pyflow tests
-
-# Type checking
-mypy nl2pyflow
+black src/
 ```
 
-### Using Makefile
+## Docker Services
+
+For local development with databases and services:
 
 ```bash
-make install-dev  # Install dev dependencies
-make test         # Run tests
-make lint         # Run linters
-make format       # Format code
-make clean        # Clean build artifacts
-make build        # Build package
+cd docker
+docker-compose up -d
+
+# Services available:
+# - PostgreSQL: localhost:5432
+# - MySQL: localhost:3306
+# - Redis: localhost:6379
+# - MongoDB: localhost:27017
+# - And more...
 ```
-
-## Technology Stack
-
-- **Python**: 3.10+
-- **LLM**: OpenAI GPT-4 (or equivalent) API
-- **Dynamic Loader**: `importlib` or `exec`
-- **Storage**: Local filesystem or database for code & logs
-- **UI**: CLI, web editor, or Jupyter Notebook
-
-## Future Extensions
-
-- **Dependency Analysis**: Auto‑derive execution order based on context keys.
-- **Parallel Execution**: Run independent blocks concurrently.
-- **Version Control**: Track block revisions and enable rollbacks.
-- **Schema Validation**: Enforce types in `context` with Pydantic.
-- **Visual Debugger**: Interactive inspection of `context` state per block.
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a branch (`git checkout -b feature/XYZ`)
-3. Commit your changes (`git commit -m 'Add XYZ'`)
-4. Push to the branch (`git push origin feature/XYZ`)
-5. Open a Pull Request
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Acknowledgments
 
+- Built with [Gradio](https://gradio.app/) for the web interface
+- Uses TF-IDF similarity for natural language matching
+- Inspired by the need to simplify cloud and infrastructure automation

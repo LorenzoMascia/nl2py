@@ -1,0 +1,1361 @@
+[llm]
+API_URL = https://api.openai.com/v1/chat/completions
+API_TOKEN = <<YOUR TOKEN HERE>>
+API_VERSION = 1
+MODEL = gpt-4o-mini
+
+[postgres]
+# PostgreSQL connection settings
+# Uncomment and configure these settings to use the postgres module
+# HOST = localhost
+# PORT = 5432
+# DATABASE = mydb
+# USER = postgres
+# PASSWORD = secret
+# MIN_CONNECTIONS = 1
+# MAX_CONNECTIONS = 10
+
+[mysql]
+# MySQL/MariaDB connection settings
+# Uncomment and configure these settings to use the mysql module
+# HOST = localhost
+# PORT = 3306
+# DATABASE = mydb
+# USER = root
+# PASSWORD = secret
+# MIN_CONNECTIONS = 1
+# MAX_CONNECTIONS = 10
+# CHARSET = utf8mb4
+
+[rabbitmq]
+# RabbitMQ message broker settings
+# Uncomment and configure these settings to use the rabbitmq module
+# HOST = localhost
+# PORT = 5672
+# VHOST = /
+# USERNAME = guest
+# PASSWORD = guest
+
+# SSL/TLS settings (optional)
+# USE_SSL = false
+# SSL_VERIFY = true
+# SSL_CA_CERT = /path/to/ca_cert.pem
+# SSL_CLIENT_CERT = /path/to/client_cert.pem
+# SSL_CLIENT_KEY = /path/to/client_key.pem
+
+# Connection settings
+# HEARTBEAT = 60
+# BLOCKED_CONNECTION_TIMEOUT = 300
+# CONNECTION_ATTEMPTS = 3
+# RETRY_DELAY = 2
+
+[kafka]
+# Apache Kafka streaming platform settings
+# Uncomment and configure these settings to use the kafka module
+# BOOTSTRAP_SERVERS = localhost:9092
+
+# Security Protocol: PLAINTEXT, SASL_PLAINTEXT, SASL_SSL, SSL
+# SECURITY_PROTOCOL = PLAINTEXT
+
+# SASL Settings (if using SASL_PLAINTEXT or SASL_SSL)
+# SASL_MECHANISM = PLAIN
+# SASL_USERNAME = user
+# SASL_PASSWORD = password
+
+# SSL/TLS Settings (if using SASL_SSL or SSL)
+# SSL_CHECK_HOSTNAME = true
+# SSL_VERIFY = true
+# SSL_CA_CERT = /path/to/ca-cert.pem
+# SSL_CLIENT_CERT = /path/to/client-cert.pem
+# SSL_CLIENT_KEY = /path/to/client-key.pem
+
+# Producer Settings
+# PRODUCER_ACKS = all
+# PRODUCER_COMPRESSION = gzip
+# PRODUCER_MAX_REQUEST_SIZE = 1048576
+
+# Consumer Settings
+# CONSUMER_GROUP_ID = aibasic-consumer-group
+# CONSUMER_AUTO_OFFSET_RESET = earliest
+# CONSUMER_ENABLE_AUTO_COMMIT = true
+
+[redis]
+# Redis in-memory data store settings
+# Uncomment and configure these settings to use the redis module
+# HOST = localhost
+# PORT = 6379
+# DB = 0
+# PASSWORD = secret
+
+# SSL/TLS Settings (optional)
+# USE_SSL = false
+# SSL_VERIFY = true
+# SSL_CA_CERT = /path/to/ca.pem
+# SSL_CLIENT_CERT = /path/to/client-cert.pem
+# SSL_CLIENT_KEY = /path/to/client-key.pem
+
+# ACL Authentication (Redis 6+)
+# USERNAME = default
+
+# Connection Pool Settings
+# MAX_CONNECTIONS = 50
+# SOCKET_TIMEOUT = 5
+# SOCKET_CONNECT_TIMEOUT = 5
+# DECODE_RESPONSES = true
+
+[opensearch]
+# OpenSearch distributed search and analytics engine settings
+# Uncomment and configure these settings to use the opensearch module
+# HOST = localhost
+# PORT = 9200
+# USE_SSL = false
+# VERIFY_CERTS = true
+
+# Basic Authentication
+# USERNAME = admin
+# PASSWORD = admin
+
+# AWS IAM Authentication (for AWS OpenSearch Service)
+# USE_AWS_AUTH = false
+# AWS_REGION = us-east-1
+
+# SSL/TLS Settings (optional)
+# CA_CERTS = /path/to/ca.pem
+# CLIENT_CERT = /path/to/client-cert.pem
+# CLIENT_KEY = /path/to/client-key.pem
+
+# Connection Settings
+# TIMEOUT = 30
+# MAX_RETRIES = 3
+# POOL_MAXSIZE = 10
+
+[vault]
+# HashiCorp Vault secrets management settings
+# Uncomment and configure these settings to use the vault module
+# URL = https://vault.example.com:8200
+# VERIFY_SSL = true
+
+# Token Authentication (simplest, recommended for dev)
+# AUTH_METHOD = token
+# TOKEN = s.xxxxxxxxxxxxxxxxxxxxxxxx
+
+# AppRole Authentication (recommended for production apps)
+# AUTH_METHOD = approle
+# ROLE_ID = xxxxx-xxxx-xxxx-xxxx-xxxxx
+# SECRET_ID = xxxxx-xxxx-xxxx-xxxx-xxxxx
+
+# Kubernetes Authentication (for K8s deployments)
+# AUTH_METHOD = kubernetes
+# K8S_ROLE = my-role
+# K8S_JWT_PATH = /var/run/secrets/kubernetes.io/serviceaccount/token
+
+# AWS IAM Authentication
+# AUTH_METHOD = aws
+# AWS_ROLE = my-role
+
+# LDAP Authentication (use login_ldap() method)
+# AUTH_METHOD = ldap
+
+# GitHub Authentication (use login_github() method)
+# AUTH_METHOD = github
+
+# Username/Password Authentication (use login_userpass() method)
+# AUTH_METHOD = userpass
+
+# TLS Certificate Authentication
+# AUTH_METHOD = cert
+# CLIENT_CERT = /path/to/client-cert.pem
+# CLIENT_KEY = /path/to/client-key.pem
+
+# SSL/TLS Settings (optional)
+# CA_CERT = /path/to/ca.pem
+
+# Vault Settings
+# NAMESPACE = admin  # For Vault Enterprise
+# MOUNT_POINT = secret  # KV secrets engine mount point
+# KV_VERSION = 2  # KV engine version (1 or 2)
+
+[cassandra]
+# Apache Cassandra distributed NoSQL database settings
+# Uncomment and configure these settings to use the cassandra module
+# CONTACT_POINTS = localhost,node2.example.com,node3.example.com
+# PORT = 9042
+# KEYSPACE = my_keyspace
+
+# Authentication
+# USERNAME = cassandra
+# PASSWORD = cassandra
+
+# SSL/TLS Settings (optional)
+# USE_SSL = false
+# SSL_VERIFY = true
+# SSL_CA_CERT = /path/to/ca.pem
+# SSL_CLIENT_CERT = /path/to/client-cert.pem
+# SSL_CLIENT_KEY = /path/to/client-key.pem
+
+# Connection Settings
+# CONSISTENCY_LEVEL = LOCAL_QUORUM  # ONE, QUORUM, ALL, LOCAL_QUORUM, etc.
+# LOAD_BALANCING_POLICY = RoundRobinPolicy  # RoundRobinPolicy, DCAwareRoundRobinPolicy, TokenAwarePolicy
+# PROTOCOL_VERSION = 4
+# CONNECT_TIMEOUT = 10
+# REQUEST_TIMEOUT = 30
+
+[email]
+# SMTP email sending settings
+# Uncomment and configure these settings to use the email module
+# SMTP_HOST = smtp.gmail.com  # Gmail SMTP server
+# SMTP_PORT = 587  # 587 for TLS, 465 for SSL, 25 for plain
+# USERNAME = your-email@gmail.com
+# PASSWORD = your-app-password  # For Gmail, use App Password not regular password
+
+# Encryption (choose one)
+# USE_TLS = true  # STARTTLS encryption (recommended, port 587)
+# USE_SSL = false  # SSL encryption (port 465)
+
+# Sender Information
+# FROM_EMAIL = your-email@gmail.com  # Default sender email
+# FROM_NAME = My Application  # Default sender name
+
+# Connection Settings
+# TIMEOUT = 30  # Connection timeout in seconds
+
+# Common SMTP Servers:
+# Gmail: smtp.gmail.com:587 (TLS) - Requires App Password
+# Outlook/Office365: smtp.office365.com:587 (TLS)
+# Yahoo: smtp.mail.yahoo.com:587 (TLS)
+# SendGrid: smtp.sendgrid.net:587 (TLS)
+# Amazon SES: email-smtp.us-east-1.amazonaws.com:587 (TLS)
+
+[mongodb]
+# MongoDB document-oriented NoSQL database settings
+# Uncomment and configure these settings to use the mongodb module
+
+# Connection String (recommended - overrides individual parameters if set)
+# CONNECTION_STRING = mongodb://username:password@localhost:27017/mydb?authSource=admin
+
+# Or use individual parameters:
+# HOST = localhost
+# PORT = 27017
+# DATABASE = mydb
+# USERNAME = admin
+# PASSWORD = secret
+
+# Authentication Database (optional, defaults to admin)
+# AUTH_SOURCE = admin
+
+# SSL/TLS Settings (optional)
+# TLS = false
+# TLS_ALLOW_INVALID_CERTIFICATES = false  # Set to true for self-signed certs (dev only)
+# TLS_CA_FILE = /path/to/ca.pem
+# TLS_CERT_KEY_FILE = /path/to/client.pem
+
+# Connection Pool Settings
+# MAX_POOL_SIZE = 100
+# MIN_POOL_SIZE = 0
+
+# Timeout Settings (milliseconds)
+# SERVER_SELECTION_TIMEOUT_MS = 30000
+# CONNECT_TIMEOUT_MS = 20000
+# SOCKET_TIMEOUT_MS = 20000
+
+# Replica Set (optional)
+# REPLICA_SET = rs0
+
+# Read/Write Preferences
+# READ_PREFERENCE = primary  # primary, primaryPreferred, secondary, secondaryPreferred, nearest
+# W = 1  # Write concern: number of nodes that must acknowledge writes
+
+[s3]
+# S3/MinIO object storage settings
+# Uncomment and configure these settings to use the s3 module
+
+# AWS S3 Configuration
+# ENDPOINT_URL = https://s3.amazonaws.com  # Omit for AWS S3 (auto-detected)
+# AWS_ACCESS_KEY_ID = AKIAIOSFODNN7EXAMPLE
+# AWS_SECRET_ACCESS_KEY = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+# REGION = us-east-1
+
+# MinIO Configuration (alternative to AWS S3)
+# ENDPOINT_URL = http://localhost:9000
+# AWS_ACCESS_KEY_ID = minioadmin
+# AWS_SECRET_ACCESS_KEY = minioadmin
+# REGION = us-east-1
+# VERIFY_SSL = false  # Set to false for MinIO with self-signed certs
+
+# DigitalOcean Spaces Configuration (alternative)
+# ENDPOINT_URL = https://nyc3.digitaloceanspaces.com
+# AWS_ACCESS_KEY_ID = your_spaces_key
+# AWS_SECRET_ACCESS_KEY = your_spaces_secret
+# REGION = nyc3
+
+# Wasabi Configuration (alternative)
+# ENDPOINT_URL = https://s3.wasabisys.com
+# AWS_ACCESS_KEY_ID = your_wasabi_key
+# AWS_SECRET_ACCESS_KEY = your_wasabi_secret
+# REGION = us-east-1
+
+# SSL/TLS Settings
+# VERIFY_SSL = true  # Set to false for self-signed certificates (dev only)
+
+# Optional Settings
+# DEFAULT_BUCKET = my-default-bucket  # Default bucket for operations
+# SIGNATURE_VERSION = s3v4  # Signature version (s3v4 recommended)
+# MULTIPART_THRESHOLD = 8388608  # 8MB - files larger than this use multipart upload
+# MULTIPART_CHUNKSIZE = 8388608  # 8MB - chunk size for multipart uploads
+
+[restapi]
+# REST API client settings
+# Uncomment and configure these settings to use the restapi module
+
+# Base URL for API (optional - can be specified per request)
+# BASE_URL = https://api.example.com/v1
+
+# Authentication Method: none, basic, bearer, apikey, oauth2
+# AUTH_METHOD = none
+
+# Bearer Token Authentication (for JWT, OAuth 2.0 access tokens)
+# AUTH_METHOD = bearer
+# BEARER_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+# Basic Authentication (username and password)
+# AUTH_METHOD = basic
+# USERNAME = your_username
+# PASSWORD = your_password
+
+# API Key Authentication (header-based or query parameter)
+# AUTH_METHOD = apikey
+# API_KEY = your_api_key_here
+# API_KEY_HEADER = X-API-Key  # Header name for API key
+# API_KEY_PARAM = api_key  # Or use query parameter instead of header
+
+# OAuth 2.0 Client Credentials Flow
+# AUTH_METHOD = oauth2
+# OAUTH2_CLIENT_ID = your_client_id
+# OAUTH2_CLIENT_SECRET = your_client_secret
+# OAUTH2_TOKEN_URL = https://auth.example.com/oauth/token
+
+# SSL/TLS Settings
+# VERIFY_SSL = true  # Set to false for self-signed certificates (dev only)
+
+# Request Settings
+# TIMEOUT = 30  # Request timeout in seconds
+# MAX_RETRIES = 3  # Maximum number of retries for failed requests
+# RETRY_BACKOFF = 1.0  # Backoff factor for retries (exponential)
+
+# Default Headers (JSON format)
+# HEADERS = {"User-Agent": "AIBasic/1.0", "Accept": "application/json"}
+
+# Proxy Settings (optional)
+# HTTP_PROXY = http://proxy.example.com:8080
+# HTTPS_PROXY = https://proxy.example.com:8080
+
+# =============================================================================
+# SSH Module Configuration
+# =============================================================================
+# [ssh]
+# HOST = server.example.com
+# PORT = 22
+# USERNAME = admin
+
+# Password Authentication
+# PASSWORD = your_password_here
+
+# Key-Based Authentication (recommended)
+# KEY_FILE = /path/to/private_key  # e.g., ~/.ssh/id_rsa or ~/.ssh/id_ed25519
+# KEY_PASSWORD = key_passphrase  # Only if the key is encrypted
+
+# Host Key Verification
+# VERIFY_HOST_KEY = false  # true (strict), false (ignore), or auto-add
+
+# Connection Timeouts (seconds)
+# TIMEOUT = 30  # Overall connection timeout
+# BANNER_TIMEOUT = 15  # SSH banner read timeout
+# AUTH_TIMEOUT = 10  # Authentication timeout
+
+# Keep-Alive Settings
+# KEEPALIVE_INTERVAL = 30  # Send keepalive every N seconds (0 to disable)
+
+# Compression
+# COMPRESS = false  # Enable SSH compression
+
+# Known Hosts File
+# KNOWN_HOSTS_FILE = ~/.ssh/known_hosts
+
+# Jump Host / Bastion Configuration (optional)
+# PROXY_HOST = bastion.example.com
+# PROXY_PORT = 22
+# PROXY_USERNAME = bastion_user
+# PROXY_PASSWORD = bastion_password
+# PROXY_KEY_FILE = /path/to/bastion_key
+
+# SFTP Settings
+# SFTP_TIMEOUT = 60  # SFTP operation timeout
+
+# =============================================================================
+# AWS Module Configuration
+# =============================================================================
+# [aws]
+# AWS credentials (or use IAM roles, environment variables, or AWS CLI config)
+# AWS_ACCESS_KEY_ID = AKIAIOSFODNN7EXAMPLE
+# AWS_SECRET_ACCESS_KEY = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+# AWS_REGION = us-east-1
+
+# Optional: Session Token (for temporary credentials)
+# AWS_SESSION_TOKEN = your_session_token_here
+
+# Optional: Endpoint URL (for LocalStack or custom endpoints)
+# ENDPOINT_URL = http://localhost:4566  # LocalStack endpoint
+# VERIFY_SSL = false  # Set to false for LocalStack or self-signed certificates
+
+# Default Resource Settings
+# DEFAULT_S3_BUCKET = my-default-bucket
+# DEFAULT_DYNAMODB_TABLE = my-default-table
+# DEFAULT_SQS_QUEUE = my-default-queue
+# DEFAULT_SNS_TOPIC = arn:aws:sns:us-east-1:123456789012:my-topic
+
+# Retry Configuration
+# MAX_RETRIES = 3  # Maximum number of retry attempts
+# RETRY_MODE = standard  # standard, legacy, or adaptive
+
+# Notes:
+# - AWS Module supports: S3, DynamoDB, SQS, SNS, Lambda, EC2, CloudWatch, Secrets Manager, SES
+# - Credentials priority: 1) Config file, 2) Environment variables, 3) IAM role
+# - For production, use IAM roles instead of hardcoded credentials
+# - Use LocalStack for local development and testing
+# - Enable CloudTrail for audit logging in production
+
+[teams]
+# Microsoft Teams integration settings
+# Uncomment and configure these settings to use the teams module
+
+# Option 1: Incoming Webhook (Simple method - recommended for getting started)
+# Create an incoming webhook in your Teams channel:
+# 1. Go to your Teams channel
+# 2. Click "..." > Connectors
+# 3. Search for "Incoming Webhook" and configure
+# 4. Copy the webhook URL
+
+# WEBHOOK_URL = https://your-org.webhook.office.com/webhookb2/xxx-xxx-xxx/IncomingWebhook/xxx/xxx
+
+# Option 2: App-Based Authentication (Advanced - full API access)
+# Register an Azure AD app and grant permissions:
+# 1. Register app in Azure Portal
+# 2. Grant "ChannelMessage.Send" permission
+# 3. Create client secret
+# 4. Note the tenant, client ID, and secret
+
+# TENANT_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# CLIENT_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# CLIENT_SECRET = your-client-secret-here
+# TEAM_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# CHANNEL_ID = 19:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@thread.tacv2
+
+# Connection Settings
+# TIMEOUT = 30  # Request timeout in seconds
+# MAX_RETRIES = 3  # Maximum number of retry attempts
+# RETRY_BACKOFF = 1.0  # Backoff factor for retries
+
+# Proxy Settings (optional)
+# PROXY = http://proxy.example.com:8080
+
+# Notes:
+# - Webhook method is simpler but has limited features
+# - App-based auth allows full control and additional features
+# - Use webhook for basic notifications, app auth for complex integrations
+# - Team ID and Channel ID can be found in Teams URL when you navigate to the channel
+
+[slack]
+# Slack integration settings
+# Uncomment and configure these settings to use the slack module
+
+# Option 1: Incoming Webhook (Simple method - recommended for getting started)
+# Create an incoming webhook in your Slack workspace:
+# 1. Go to https://api.slack.com/messaging/webhooks
+# 2. Click "Create your Slack app"
+# 3. Choose "From scratch", name your app, select workspace
+# 4. Go to "Incoming Webhooks" and activate it
+# 5. Click "Add New Webhook to Workspace"
+# 6. Select a channel and authorize
+# 7. Copy the webhook URL
+
+# WEBHOOK_URL = https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXX
+
+# Option 2: Bot Token (Advanced - full API access)
+# Create a Slack app with bot token:
+# 1. Go to https://api.slack.com/apps
+# 2. Create new app or select existing
+# 3. Go to "OAuth & Permissions"
+# 4. Add bot token scopes: chat:write, files:write, reactions:write, etc.
+# 5. Install app to workspace
+# 6. Copy Bot User OAuth Token (starts with xoxb-)
+
+# BOT_TOKEN = xoxb-your-bot-token-here
+# DEFAULT_CHANNEL = #general
+
+# Connection Settings
+# TIMEOUT = 30  # Request timeout in seconds
+# MAX_RETRIES = 3  # Maximum number of retry attempts
+# RETRY_BACKOFF = 1.0  # Backoff factor for retries
+
+# Proxy Settings (optional)
+# PROXY = http://proxy.example.com:8080
+
+# Notes:
+# - Webhook method is simpler but has limited features (no file uploads, reactions, etc.)
+# - Bot token allows full control: upload files, update/delete messages, add reactions
+# - Use webhook for basic notifications, bot token for complex integrations
+# - Bot token requires OAuth scopes based on features used
+# - Channel names should include # for public channels (e.g., #general)
+# - For direct messages, use @username or user ID
+
+[clickhouse]
+# ClickHouse high-performance analytics database settings
+# Uncomment and configure these settings to use the clickhouse module
+
+# Connection Settings
+# HOST = localhost
+# PORT = 8123  # HTTP interface port (default)
+# DATABASE = default
+
+# Authentication
+# USERNAME = default
+# PASSWORD =
+
+# SSL/TLS Settings (optional)
+# USE_SSL = false  # Use HTTPS instead of HTTP
+# VERIFY_SSL = true  # Verify SSL certificates
+
+# Performance Settings
+# TIMEOUT = 30  # Request timeout in seconds
+# COMPRESSION = lz4  # Enable compression: lz4, zstd, or leave empty for none
+
+# Notes:
+# - ClickHouse is a column-oriented database for OLAP (Online Analytical Processing)
+# - Best for: Analytics, time-series data, log aggregation, data warehousing
+# - Supports: Distributed queries, materialized views, partitioning, real-time ingestion
+# - Use compression (lz4 or zstd) for better network performance
+# - Default HTTP port is 8123, native protocol port is 9000
+# - For production, always use authentication and SSL/TLS
+
+[neo4j]
+# Neo4j graph database settings
+# Uncomment and configure these settings to use the neo4j module
+
+# Connection Settings
+# URI = bolt://localhost:7687  # Bolt protocol (default)
+# URI = neo4j://localhost:7687  # Neo4j protocol (with routing)
+# DATABASE = neo4j
+
+# Authentication
+# USERNAME = neo4j
+# PASSWORD = password
+
+# SSL/TLS Settings (optional)
+# ENCRYPTED = false  # Use encrypted connection
+# TRUST = TRUST_ALL_CERTIFICATES  # Certificate trust strategy
+
+# Connection Pool Settings
+# MAX_CONNECTION_LIFETIME = 3600  # Max connection lifetime in seconds
+# MAX_CONNECTION_POOL_SIZE = 50   # Maximum connections in pool
+# CONNECTION_ACQUISITION_TIMEOUT = 60  # Timeout for acquiring connection
+
+# Notes:
+# - Neo4j is a native graph database for highly connected data
+# - Best for: Social networks, recommendation engines, fraud detection, knowledge graphs
+# - Uses Cypher query language (similar to SQL but for graphs)
+# - Supports ACID transactions and complex relationship queries
+# - Default bolt port is 7687, HTTP port is 7474 (browser interface)
+# - For production, always use authentication and consider encryption
+
+[elasticsearch]
+# Elasticsearch distributed search and analytics engine settings
+# Uncomment and configure these settings to use the elasticsearch module
+
+# Connection Settings
+# HOSTS = http://localhost:9200  # Single host
+# HOSTS = http://host1:9200,http://host2:9200  # Multiple hosts (comma-separated)
+
+# Authentication (choose one method)
+# Option 1: Username/Password
+# USERNAME = elastic
+# PASSWORD = changeme
+
+# Option 2: API Key (recommended for production)
+# API_KEY = base64_encoded_api_key
+
+# SSL/TLS Settings (optional)
+# VERIFY_CERTS = true  # Verify SSL certificates
+# CA_CERTS = /path/to/ca.pem  # Path to CA certificate bundle
+
+# Connection Settings
+# TIMEOUT = 30  # Request timeout in seconds
+# MAX_RETRIES = 3  # Maximum number of retry attempts
+# RETRY_ON_TIMEOUT = true  # Retry on timeout errors
+
+# Notes:
+# - Elasticsearch is a distributed search and analytics engine
+# - Best for: Full-text search, log analytics, real-time data, application search
+# - Supports: Query DSL, aggregations, full-text search, geospatial queries
+# - Can store and analyze massive amounts of data in near real-time
+# - Default HTTP port is 9200, transport port is 9300
+# - For production, use API keys instead of username/password
+# - Always use SSL/TLS in production environments
+
+[timescaledb]
+# TimescaleDB time-series database settings (PostgreSQL extension)
+# Uncomment and configure these settings to use the timescaledb module
+
+# Connection Settings
+# HOST = localhost
+# PORT = 5432
+# DATABASE = tsdb
+# USERNAME = postgres
+# PASSWORD = password
+
+# Connection Pool Settings
+# POOL_SIZE = 5
+# MAX_OVERFLOW = 10
+
+# Notes:
+# - TimescaleDB is a PostgreSQL extension optimized for time-series data
+# - Best for: IoT data, monitoring metrics, financial data, sensor data, logs
+# - Features: Hypertables (automatic partitioning), continuous aggregates, compression
+# - Supports: Data retention policies, gap filling, time-bucket queries
+# - 100% PostgreSQL compatible - all PostgreSQL features work
+# - Automatic chunk management for efficient time-series storage
+# - Compression can reduce storage by 90%+
+# - Perfect for: High-ingest rates (millions of rows/sec), complex queries on time-series data
+
+[terraform]
+# Terraform Infrastructure as Code (IaC) settings
+# Uncomment and configure these settings to use the terraform module
+
+# Terraform Binary Path (optional - defaults to system PATH)
+# TERRAFORM_BIN = /usr/local/bin/terraform
+
+# Working Directory (where Terraform configuration files are located)
+# WORKING_DIR = ./terraform
+
+# Auto-Approve (DANGEROUS - use only for dev/testing)
+# AUTO_APPROVE = false  # Set to true to skip confirmation prompts
+
+# Parallelism (number of concurrent operations)
+# PARALLELISM = 10  # Default is 10, adjust based on rate limits
+
+# Default Workspace
+# DEFAULT_WORKSPACE = default  # or dev, staging, prod
+
+# Backend Configuration (for remote state storage)
+# BACKEND_TYPE = s3  # Options: s3, azurerm, gcs, local, remote, consul
+# BACKEND_CONFIG = {"bucket": "my-tf-state", "key": "terraform.tfstate", "region": "us-east-1"}
+
+# Variables (global variables for all Terraform operations)
+# VARIABLES = {"environment": "dev", "region": "us-east-1"}
+
+# Notes:
+# - Terraform enables Infrastructure as Code (IaC) for cloud resources
+# - Supports: AWS, Azure, GCP, Kubernetes, DigitalOcean, and 1000+ providers
+# - Best for: Provisioning infrastructure, multi-cloud deployments, automation
+# - Use workspaces to manage multiple environments (dev, staging, prod)
+# - Always use remote state (S3, Azure Storage, GCS) for team collaboration
+# - Never set AUTO_APPROVE=true in production
+# - Review plans before applying with terraform plan
+# - Use variables for configuration flexibility and reusability
+
+[docker]
+# Docker Engine API settings
+# Uncomment and configure these settings to use the docker module
+
+# Docker Host (socket or TCP)
+# DOCKER_HOST = unix:///var/run/docker.sock  # Linux/macOS
+# DOCKER_HOST = tcp://localhost:2375  # Windows or remote
+# DOCKER_HOST = npipe:////./pipe/docker_engine  # Windows named pipe
+
+# TLS/SSL Settings (for remote Docker daemon)
+# TLS_VERIFY = false  # Enable TLS verification
+# TLS_CA_CERT = /path/to/ca.pem
+# TLS_CLIENT_CERT = /path/to/cert.pem
+# TLS_CLIENT_KEY = /path/to/key.pem
+
+# Connection Settings
+# TIMEOUT = 60  # API timeout in seconds
+
+# Registry Settings (for push/pull operations)
+# DEFAULT_REGISTRY = docker.io
+# REGISTRY_USERNAME = your_dockerhub_username
+# REGISTRY_PASSWORD = your_dockerhub_password_or_token
+
+# Notes:
+# - Docker module enables container, image, volume, and network management
+# - Best for: Microservices, development environments, CI/CD pipelines
+# - Supports: Container lifecycle, image management, Docker Compose workflows
+# - Use volumes for persistent data across container restarts
+# - Use networks for multi-container communication
+# - Always set resource limits for production containers
+# - Implement health checks for critical services
+# - Use restart policies for high availability (always, on-failure, unless-stopped)
+# - Regular cleanup: prune unused images, containers, volumes, networks
+
+[kubernetes]
+# Kubernetes cluster management settings
+# Uncomment and configure these settings to use the kubernetes module
+
+# Kubeconfig File Path
+# KUBECONFIG_PATH = ~/.kube/config  # Standard kubeconfig location
+# KUBECONFIG_PATH = /path/to/custom/kubeconfig  # Custom location
+
+# Context (cluster to use from kubeconfig)
+# CONTEXT = default  # Use default context
+# CONTEXT = production-cluster  # Use specific context
+
+# Default Namespace
+# NAMESPACE = default  # Default namespace for operations
+# NAMESPACE = my-app  # Custom namespace
+
+# Direct API Server Connection (alternative to kubeconfig)
+# API_SERVER = https://kubernetes.default.svc  # In-cluster
+# API_SERVER = https://k8s.example.com:6443  # External cluster
+# TOKEN = <service-account-token>  # Service account token
+
+# TLS/SSL Settings
+# VERIFY_SSL = true  # Verify SSL certificates
+# CA_CERT = /var/run/secrets/kubernetes.io/serviceaccount/ca.crt  # CA certificate path
+
+# Notes:
+# - Kubernetes module enables cluster and resource management
+# - Best for: Container orchestration, microservices, scalable deployments
+# - Supports: Pods, Deployments, Services, ConfigMaps, Secrets, Namespaces
+# - Use Deployments for stateless applications with auto-scaling
+# - Use StatefulSets for stateful applications (databases, etc.)
+# - Use Services for stable network endpoints
+# - Use ConfigMaps for configuration, Secrets for sensitive data
+# - Implement liveness and readiness probes for health checks
+# - Use namespaces for multi-tenancy and resource isolation
+# - Set resource requests and limits for production workloads
+# - Use RBAC for access control and security
+
+[azure]
+# Microsoft Azure Cloud Services settings
+# Uncomment and configure these settings to use the azure module
+
+# Subscription and Tenant
+# SUBSCRIPTION_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # Your Azure subscription ID
+# TENANT_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # Azure AD tenant ID
+
+# Service Principal Authentication (recommended for automation)
+# CLIENT_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # Application (client) ID
+# CLIENT_SECRET = your-client-secret-here  # Client secret value
+
+# Default Azure Location
+# LOCATION = eastus  # Default region: eastus, westus, northeurope, etc.
+
+# Resource Naming Convention
+# RESOURCE_PREFIX = aibasic  # Prefix for resource names
+# ENVIRONMENT = dev  # Environment tag: dev, staging, prod
+
+# Default Resource Group
+# DEFAULT_RESOURCE_GROUP = aibasic-rg  # Default resource group for operations
+
+# Storage Settings
+# DEFAULT_STORAGE_ACCOUNT = aibasicstorage001
+# DEFAULT_STORAGE_SKU = Standard_LRS  # Standard_LRS, Standard_GRS, Premium_LRS
+
+# VM Settings
+# DEFAULT_VM_SIZE = Standard_B2s  # Default VM size
+# DEFAULT_VM_IMAGE_PUBLISHER = Canonical
+# DEFAULT_VM_IMAGE_OFFER = 0001-com-ubuntu-server-jammy
+# DEFAULT_VM_IMAGE_SKU = 22_04-lts-gen2
+
+# Network Settings
+# DEFAULT_VNET_ADDRESS_SPACE = 10.0.0.0/16
+# DEFAULT_SUBNET_PREFIX = 10.0.1.0/24
+
+# SQL Database Settings
+# DEFAULT_SQL_SKU = Basic  # Basic, S0, S1, P1, etc.
+# DEFAULT_SQL_ADMIN_USER = sqladmin
+
+# Cosmos DB Settings
+# DEFAULT_COSMOS_KIND = GlobalDocumentDB  # GlobalDocumentDB, MongoDB, Cassandra
+# DEFAULT_COSMOS_CONSISTENCY = Session  # Session, Strong, BoundedStaleness, etc.
+
+# App Service Settings
+# DEFAULT_APP_SERVICE_SKU = B1  # F1 (Free), B1, S1, P1v2, etc.
+
+# Container Instance Settings
+# DEFAULT_CONTAINER_CPU = 1.0
+# DEFAULT_CONTAINER_MEMORY = 1.5
+
+# Tagging Strategy
+# DEFAULT_TAGS = {"Environment": "dev", "ManagedBy": "AIBasic", "Project": "automation"}
+
+# Notes:
+# - Azure module supports: VMs, Storage, SQL, Cosmos DB, App Service, Functions, AKS
+# - Authentication methods: Service Principal (recommended), Managed Identity, Azure CLI
+# - Use DefaultAzureCredential for local development (reads from az login)
+# - For production, use Service Principal with minimal required permissions
+# - Always tag resources for cost tracking and management
+# - Use Azure Key Vault for secrets and sensitive configuration
+# - Enable Azure Monitor and Log Analytics for monitoring
+# - Implement Azure Policy for compliance and governance
+# - Use resource locks to prevent accidental deletion
+# - Consider using Azure Resource Manager (ARM) templates for complex deployments
+
+[gcp]
+# Google Cloud Platform settings
+# Uncomment and configure these settings to use the gcp module
+
+# Project Configuration
+# PROJECT_ID = your-project-id  # GCP Project ID (required)
+
+# Authentication
+# CREDENTIALS_PATH = /path/to/service-account-key.json  # Path to service account key JSON
+# Or use Application Default Credentials (gcloud auth application-default login)
+
+# Default Region and Zone
+# REGION = us-central1  # Default region for resources
+# ZONE = us-central1-a  # Default zone for Compute Engine instances
+
+# Compute Engine Settings
+# DEFAULT_MACHINE_TYPE = e2-medium  # Default machine type for VMs
+# DEFAULT_DISK_SIZE = 10  # Default boot disk size in GB
+# DEFAULT_NETWORK = default  # Default VPC network
+
+# Cloud Storage Settings
+# DEFAULT_STORAGE_CLASS = STANDARD  # STANDARD, NEARLINE, COLDLINE, ARCHIVE
+
+# Cloud SQL Settings
+# DEFAULT_DATABASE_VERSION = POSTGRES_14  # MYSQL_8_0, POSTGRES_14, SQLSERVER_2019
+# DEFAULT_TIER = db-f1-micro  # Database instance tier
+
+# BigQuery Settings
+# DEFAULT_DATASET_LOCATION = us-central1  # BigQuery dataset location
+
+# Resource Labeling
+# DEFAULT_LABELS = {"environment": "dev", "managed_by": "aibasic", "project": "automation"}
+
+# Notes:
+# - GCP module supports: Compute Engine, Cloud Storage, Cloud SQL, BigQuery, Pub/Sub, Secret Manager
+# - Authentication methods: Service Account (recommended), Application Default Credentials (ADC)
+# - Use ADC for local development: gcloud auth application-default login
+# - For production, use Service Account with minimal required permissions
+# - Always use labels for resource organization and cost tracking
+# - Enable Cloud Monitoring and Cloud Logging for observability
+# - Use Secret Manager for sensitive data and credentials
+# - Implement IAM policies following principle of least privilege
+# - Consider using Cloud KMS for encryption key management
+# - Use VPC Service Controls for enterprise security
+# - Enable Cloud Armor for DDoS protection and WAF
+# - Use Cloud CDN for content delivery and caching
+
+[ldap]
+# LDAP/Active Directory settings
+# Uncomment and configure these settings to use the ldap module
+
+# Server Configuration
+# SERVER = ldap.example.com  # LDAP server hostname
+# PORT = 389  # 389 for LDAP, 636 for LDAPS
+# BASE_DN = dc=example,dc=com  # Base Distinguished Name
+
+# Bind Credentials (for administrative operations)
+# BIND_DN = cn=admin,dc=example,dc=com  # Admin bind DN
+# BIND_PASSWORD = admin_password  # Admin password
+
+# SSL/TLS Settings
+# USE_SSL = false  # Use LDAPS (port 636)
+# USE_TLS = false  # Use STARTTLS (port 389)
+# VERIFY_CERT = true  # Verify SSL certificates
+
+# Default Organizational Units
+# USER_OU = ou=users  # Default OU for users
+# GROUP_OU = ou=groups  # Default OU for groups
+
+# Object Classes
+# USER_OBJECT_CLASS = inetOrgPerson  # User object class
+# GROUP_OBJECT_CLASS = groupOfNames  # Group object class
+
+# Active Directory
+# IS_AD = false  # Set to true for Active Directory
+
+# Connection Pooling
+# POOL_SIZE = 5  # Connection pool size
+# POOL_KEEPALIVE = 300  # Keepalive interval in seconds
+
+# Notes:
+# - LDAP module supports: Users, Groups, OUs, authentication, search operations
+# - Compatible with OpenLDAP, Active Directory, and other LDAP v3 servers
+# - Use SSL/TLS for all production connections
+# - Implement strong password policies and account lockout
+# - Use service accounts with minimal required permissions
+# - Enable LDAP audit logging for security
+# - Regular backups of LDAP directory data
+# - For Active Directory, set IS_AD=true and use appropriate object classes
+
+[keycloak]
+# Keycloak Identity and Access Management settings
+# Uncomment and configure these settings to use the keycloak module
+
+# Server Configuration
+# SERVER_URL = http://localhost:8080  # Keycloak server URL
+# REALM_NAME = master  # Default realm (can be changed per operation)
+
+# Admin Authentication
+# ADMIN_USERNAME = admin  # Keycloak admin username
+# ADMIN_PASSWORD = admin  # Keycloak admin password
+
+# Client Credentials (optional - for service accounts)
+# CLIENT_ID = admin-cli  # Default admin client
+# CLIENT_SECRET =  # Client secret (if required)
+
+# SSL/TLS Settings
+# VERIFY_SSL = true  # Verify SSL certificates
+# CA_CERT = /path/to/ca.pem  # Custom CA certificate
+
+# Connection Settings
+# TIMEOUT = 30  # Request timeout in seconds
+# POOL_SIZE = 10  # Connection pool size
+# MAX_RETRIES = 3  # Maximum retry attempts
+
+# Notes:
+# - Keycloak module supports: Realms, Users, Roles, Groups, Clients, Authentication
+# - Best for: Identity and Access Management, SSO, OAuth2/OIDC, user federation
+# - Use HTTPS (SSL/TLS) for all production connections
+# - Implement strong password policies and MFA (Multi-Factor Authentication)
+# - Use client credentials flow for service-to-service authentication
+# - Enable audit logging and event listeners for security monitoring
+# - Regular backups of Keycloak database
+# - Use dedicated service accounts with minimal permissions
+# - Consider using realm-specific admin accounts instead of master realm admin
+# - Implement rate limiting and brute force detection
+# - Use groups and roles for fine-grained access control
+# - Regular security updates and patching of Keycloak server
+
+[jwt]
+# JWT (JSON Web Token) Authentication settings
+# Uncomment and configure these settings to use the jwt module
+
+# Secret Key (for symmetric algorithms: HS256, HS384, HS512)
+# SECRET_KEY = your-secret-key-change-in-production  # Min 256 bits for HS256
+# IMPORTANT: Use strong, randomly generated secret. Store in environment variable for production
+
+# Algorithm
+# ALGORITHM = HS256  # Options: HS256, HS384, HS512, RS256, RS384, RS512, ES256, ES384, ES512
+
+# Token Issuer and Audience
+# ISSUER = aibasic  # Your application or organization name
+# AUDIENCE = your-api-audience  # Intended recipient(s) of the token
+
+# Token Expiration Settings
+# ACCESS_TOKEN_EXPIRE_MINUTES = 15  # Access token lifetime (5-15 minutes recommended)
+# REFRESH_TOKEN_EXPIRE_DAYS = 7  # Refresh token lifetime (7-30 days)
+
+# Asymmetric Key Paths (for RS256, RS384, RS512, ES256, ES384, ES512)
+# PRIVATE_KEY_PATH = /path/to/private-key.pem  # Private key for signing
+# PUBLIC_KEY_PATH = /path/to/public-key.pem  # Public key for verification
+
+# Notes:
+# - JWT module supports: Token creation, verification, refresh, claims validation
+# - Best for: API authentication, microservices, mobile apps, OAuth2/OIDC
+# - Use HS256 for single-server applications (symmetric)
+# - Use RS256 for distributed systems/microservices (asymmetric)
+# - Store secret keys in environment variables, never in code
+# - Use short expiration for access tokens (5-15 minutes)
+# - Implement token blacklisting for logout and revocation
+# - Validate all claims (exp, nbf, iss, aud) on every request
+# - Use HTTPS for all token transmission
+# - Never include sensitive data in token payload
+# - Rotate secrets regularly (every 90 days recommended)
+# - Consider using JWE (JWT Encryption) for sensitive claims
+# - Implement rate limiting on token endpoints
+# - Use JTI (JWT ID) claim for token tracking and revocation
+
+[mqtt]
+# MQTT (Message Queuing Telemetry Transport) IoT Messaging settings
+# Uncomment and configure these settings to use the mqtt module
+
+# Broker Configuration
+# BROKER = mqtt.example.com  # MQTT broker hostname
+# PORT = 1883  # MQTT port (1883 for plain, 8883 for TLS)
+
+# Authentication
+# USERNAME = mqtt_user  # MQTT username
+# PASSWORD = mqtt_password  # MQTT password
+
+# Client Settings
+# CLIENT_ID = aibasic_mqtt_client  # Unique client ID (auto-generated if not set)
+# KEEPALIVE = 60  # Keepalive interval in seconds
+# CLEAN_SESSION = true  # Start with clean session
+
+# Quality of Service
+# QOS = 1  # Default QoS level (0, 1, or 2)
+
+# TLS/SSL Settings
+# USE_TLS = false  # Enable TLS/SSL encryption
+# CA_CERTS = /path/to/ca.pem  # CA certificate file
+# CERTFILE = /path/to/client-cert.pem  # Client certificate file
+# KEYFILE = /path/to/client-key.pem  # Client private key file
+
+# Last Will and Testament (LWT)
+# LWT_TOPIC = devices/status  # Topic for last will message
+# LWT_PAYLOAD = offline  # Last will message payload
+# LWT_QOS = 1  # Last will QoS
+# LWT_RETAIN = true  # Retain last will message
+
+# Notes:
+# - MQTT module supports: Pub/sub messaging, QoS 0/1/2, retained messages, LWT
+# - Best for: IoT devices, sensor networks, real-time messaging, home automation
+# - Use QoS 0 for high-frequency telemetry (at most once)
+# - Use QoS 1 for important messages (at least once, acknowledged)
+# - Use QoS 2 for critical messages (exactly once, guaranteed)
+# - Always use TLS/SSL in production (port 8883)
+# - Implement Last Will and Testament for device offline detection
+# - Use retained messages for device status and configuration
+# - Design hierarchical topic structure (e.g., site/building/floor/device)
+# - Use wildcards for subscriptions: + (single level), # (multi-level)
+# - Set unique client IDs to avoid connection conflicts
+# - Implement reconnection logic with exponential backoff
+# - Use persistent sessions (clean_session=false) for reliable delivery
+# - Monitor broker performance and message throughput
+# - Popular brokers: Mosquitto, HiveMQ, AWS IoT Core, Azure IoT Hub
+
+[prometheus]
+# Prometheus Monitoring and Observability settings
+# Uncomment and configure these settings to use the prometheus module
+
+# Prometheus Server (for queries)
+# PROMETHEUS_URL = http://localhost:9090  # Prometheus server URL
+
+# Metric Exposition (for scraping)
+# EXPOSITION_PORT = 8000  # HTTP port for exposing metrics
+# EXPOSITION_ADDR = 0.0.0.0  # Bind address (0.0.0.0 for all interfaces)
+
+# Pushgateway Configuration (for batch jobs)
+# PUSHGATEWAY_URL = localhost:9091  # Pushgateway URL
+# PUSHGATEWAY_JOB = aibasic  # Default job name
+
+# Metric Defaults
+# NAMESPACE = aibasic  # Default namespace for metrics (prefix)
+# SUBSYSTEM =  # Default subsystem (optional middle part)
+
+# Registry Settings
+# CUSTOM_REGISTRY = false  # Use custom registry (true) or global registry (false)
+
+# Auto-start Settings
+# AUTO_START_HTTP = false  # Automatically start HTTP server on module init
+
+# Notes:
+# - Prometheus module supports: Counter, Gauge, Histogram, Summary metrics
+# - Best for: Application monitoring, infrastructure observability, SLA tracking
+# - Metric types:
+#   * Counter: Monotonically increasing (requests, errors, tasks completed)
+#   * Gauge: Can go up/down (memory usage, active connections, queue size)
+#   * Histogram: Distribution of values (request duration, response size)
+#   * Summary: Similar to histogram with percentile calculation
+# - Use labels for multi-dimensional metrics (method, status, endpoint)
+# - Metric exposition: Start HTTP server for Prometheus to scrape
+# - Pushgateway: For short-lived jobs that can't be scraped
+# - PromQL: Query language for aggregation and analysis
+# - Common patterns:
+#   * rate(): Calculate per-second rate (e.g., requests/sec)
+#   * histogram_quantile(): Calculate percentiles (p95, p99)
+#   * sum() by (label): Aggregate metrics by label
+# - Naming convention: namespace_subsystem_name_unit (e.g., aibasic_http_requests_total)
+# - Always use base units (seconds, bytes) not milliseconds or megabytes
+# - Add _total suffix for counters, _bucket for histograms
+# - Use consistent label names across metrics
+# - Avoid high-cardinality labels (e.g., user IDs, timestamps)
+# - Recommended histogram buckets: [.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10]
+# - Default scrape interval: 15s (configure in prometheus.yml)
+
+[scylladb]
+# ScyllaDB High-Performance NoSQL Database settings
+# Uncomment and configure these settings to use the scylladb module
+
+# Contact Points (comma-separated list of ScyllaDB nodes)
+# CONTACT_POINTS = localhost
+# CONTACT_POINTS = scylla1.example.com,scylla2.example.com,scylla3.example.com
+
+# Port
+# PORT = 9042  # Default CQL native transport port
+
+# Keyspace
+# KEYSPACE = aibasic_keyspace  # Default keyspace to use
+
+# Authentication
+# USERNAME =  # ScyllaDB username (if authentication enabled)
+# PASSWORD =  # ScyllaDB password
+
+# Connection Settings
+# PROTOCOL_VERSION = 4  # CQL protocol version (3 or 4)
+# COMPRESSION = true  # Enable compression for network traffic
+
+# Consistency Level (default for all operations)
+# CONSISTENCY_LEVEL = LOCAL_QUORUM  # ONE, QUORUM, LOCAL_QUORUM, EACH_QUORUM, ALL
+
+# Replication Settings (for keyspace creation)
+# REPLICATION_STRATEGY = NetworkTopologyStrategy  # SimpleStrategy or NetworkTopologyStrategy
+# REPLICATION_FACTOR = 3  # Replication factor for SimpleStrategy
+
+# Connection Pool
+# POOL_SIZE = 10  # Connection pool size per host
+
+# Timeouts
+# CONNECT_TIMEOUT = 10  # Connection timeout in seconds
+# REQUEST_TIMEOUT = 10  # Request timeout in seconds
+
+# Notes:
+# - ScyllaDB is a high-performance NoSQL database compatible with Apache Cassandra
+# - Best for: Time-series data, IoT, high-throughput applications, real-time analytics
+# - Features: 10x better performance than Cassandra, lower latency, same CQL API
+# - Use NetworkTopologyStrategy for multi-datacenter deployments
+# - Use SimpleStrategy for single-datacenter development/testing
+# - Consistency levels:
+#   * ONE: Fastest, least consistent (written to 1 replica)
+#   * QUORUM: Balanced (majority of replicas)
+#   * LOCAL_QUORUM: Datacenter-local quorum (recommended for multi-DC)
+#   * ALL: Slowest, most consistent (all replicas)
+# - Primary key design is critical for performance:
+#   * Partition key: Determines data distribution across nodes
+#   * Clustering key: Determines sort order within partition
+# - Avoid large partitions (> 100MB) and wide rows
+# - Use TTL for automatic data expiration
+# - Batch operations for atomic writes (use UNLOGGED for performance)
+# - Prepared statements improve performance by 2-3x
+# - ScyllaDB is written in C++ (vs Java for Cassandra) for better performance
+# - Compatible with all Cassandra drivers and tools
+# - Default ports: 9042 (CQL), 9160 (Thrift - deprecated), 10000 (REST API)
+
+# Selenium (Web Browser Automation and Testing)
+[selenium]
+# Browser selection: chrome, firefox, edge, safari
+# Note: Safari only works on macOS and doesn't support headless mode
+BROWSER = chrome
+
+# Headless mode (run without visible browser window)
+# Recommended for automated testing, CI/CD, and production scraping
+HEADLESS = false
+
+# Window size (format: WIDTHxHEIGHT)
+# Important for responsive testing and consistent screenshots
+WINDOW_SIZE = 1920x1080
+
+# Wait timeouts (in seconds)
+IMPLICIT_WAIT = 10  # Default wait time for element location
+PAGE_LOAD_TIMEOUT = 30  # Maximum time to wait for page load
+
+# Download directory (absolute or relative path)
+# Files will be downloaded to this location
+DOWNLOAD_DIR = ./downloads
+
+# WebDriver paths (optional - leave empty to use webdriver-manager auto-download)
+# Only specify these if you want to use a specific driver version
+CHROME_DRIVER_PATH =
+FIREFOX_DRIVER_PATH =
+EDGE_DRIVER_PATH =
+
+# Notes:
+# - Selenium is the industry-standard tool for browser automation and web testing
+# - Best for: Web scraping, automated testing, form filling, UI testing, E2E testing
+# - Supported browsers: Chrome, Firefox, Edge, Safari (macOS only)
+# - Headless mode: Great for CI/CD, automated testing, and background scraping
+# - Element location strategies:
+#   * css: CSS selectors (recommended for most cases)
+#   * xpath: XPath expressions (powerful but slower)
+#   * id: Element ID (fastest, use when available)
+#   * name: Element name attribute
+#   * class: Class name (single class only)
+#   * tag: HTML tag name
+#   * link_text: Exact link text
+#   * partial_link_text: Partial link text match
+# - Wait strategies:
+#   * Implicit wait: Default timeout for all element lookups
+#   * Explicit wait: Wait for specific conditions (visible, clickable, present)
+#   * Fluent wait: Custom polling interval and ignored exceptions
+# - Best practices:
+#   * Use explicit waits for dynamic content (AJAX, animations)
+#   * Prefer CSS selectors over XPath for better performance
+#   * Use Page Object Model (POM) pattern for maintainable tests
+#   * Take screenshots on failures for debugging
+#   * Clean up resources with quit() to prevent memory leaks
+#   * Use headless mode in CI/CD for faster execution
+#   * Set appropriate timeouts to balance speed and reliability
+# - WebDriver Manager:
+#   * Automatically downloads and manages browser drivers
+#   * No manual driver installation needed
+#   * Always uses compatible driver version for installed browser
+#   * Supports Chrome, Firefox, Edge, IE
+# - Common issues:
+#   * StaleElementReferenceException: Element changed, re-locate it
+#   * TimeoutException: Element not found, increase wait time or check locator
+#   * ElementNotInteractableException: Element not visible/enabled, wait for it
+# - Performance tips:
+#   * Disable images/CSS in headless mode for faster page loads
+#   * Use browser profiles to cache data between runs
+#   * Reuse browser instance for multiple tests when possible
+#   * Use JavaScript execution for direct DOM manipulation
+# - Security considerations:
+#   * Don't hardcode credentials in scripts
+#   * Use environment variables or secure vaults for sensitive data
+#   * Be cautious with JavaScript execution from untrusted sources
+#   * Respect robots.txt and website terms of service when scraping
+# - Default ports: Chrome DevTools Protocol: 9222, Firefox Marionette: 2828
+
+# Discord (Discord Integration and Notifications)
+[discord]
+# Discord webhook URL for sending messages
+# Get this from: Server Settings → Integrations → Webhooks → Create Webhook
+WEBHOOK_URL = https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
+
+# Optional: Discord bot token for advanced features
+# Get this from: https://discord.com/developers/applications
+BOT_TOKEN =
+
+# Default username and avatar for webhook messages
+DEFAULT_USERNAME = AIbasic Bot
+DEFAULT_AVATAR_URL =
+
+# Rate limiting and retry settings
+RATE_LIMIT_RETRY = true
+MAX_RETRIES = 3
+
+# Notes:
+# - Discord is a popular communication platform for teams and communities
+# - Best for: Notifications, alerts, monitoring, team collaboration, bot integration
+# - Webhook vs Bot:
+#   * Webhooks: Simple, no authentication, one-way messaging (server → Discord)
+#   * Bot: Full API access, two-way communication, requires token and permissions
+# - Message limits:
+#   * Content: 2000 characters max
+#   * Embed title: 256 characters max
+#   * Embed description: 4096 characters max
+#   * Embed fields: 25 max, field name 256 chars, field value 1024 chars
+#   * Total embed size: 6000 characters max
+# - Rich embeds support:
+#   * Title, description, color, URL, timestamp
+#   * Author (name, URL, icon)
+#   * Footer (text, icon)
+#   * Thumbnail and full-size images
+#   * Fields (name, value, inline)
+# - Formatting:
+#   * **bold**, *italic*, __underline__, ~~strikethrough~~
+#   * `inline code`, ```code block```
+#   * > quote, >>> multiline quote
+#   * Mentions: <@user_id>, <@&role_id>, @everyone, @here
+#   * Emojis: Standard Unicode or custom :emoji_name:
+# - Colors:
+#   * Specified as integer (e.g., 0xFF0000 for red)
+#   * Common: 0x2ECC71 (green), 0xE74C3C (red), 0x3498DB (blue), 0xF39C12 (orange)
+# - Rate limits:
+#   * Webhooks: 30 requests per minute per webhook
+#   * Global: 50 requests per second
+#   * 429 Too Many Requests response includes Retry-After header
+# - File uploads:
+#   * Max file size: 8 MB (free) / 50 MB (Nitro)
+#   * Supported formats: Images, videos, documents, archives
+# - Best practices:
+#   * Use embeds for structured, formatted messages
+#   * Use simple messages for quick notifications
+#   * Include timestamps for time-sensitive alerts
+#   * Use color coding for message severity (green=success, red=error, orange=warning)
+#   * Set appropriate username and avatar for message context
+#   * Handle rate limits with retry logic
+#   * Validate webhook URLs before use
+#   * Don't expose webhook URLs publicly (they provide write access to channels)
+# - Common use cases:
+#   * Server monitoring and health checks
+#   * Application error notifications
+#   * Deployment status updates
+#   * CI/CD pipeline notifications
+#   * User activity tracking
+#   * API usage alerts
+#   * Security incident notifications
+#   * Automated log aggregation
+#   * Backup job status reports
+# - Webhook URL format: https://discord.com/api/webhooks/{webhook.id}/{webhook.token}
+# - API version: v10 (current)
+# - Documentation: https://discord.com/developers/docs
+
+# Telegram (Telegram Bot Integration and Notifications)
+[telegram]
+# Telegram bot token (get from @BotFather)
+# Steps to create a bot:
+#   1. Message @BotFather on Telegram
+#   2. Send /newbot
+#   3. Follow instructions to create bot
+#   4. Copy the bot token
+BOT_TOKEN = 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+
+# Default chat ID to send messages to
+# To get your chat ID:
+#   1. Send a message to your bot
+#   2. Visit: https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates
+#   3. Look for "chat":{"id":... in the JSON response
+CHAT_ID =
+
+# Default parse mode for messages (Markdown, MarkdownV2, HTML)
+PARSE_MODE = Markdown
+
+# Send messages silently (no notification sound)
+DISABLE_NOTIFICATION = false
+
+# Disable link previews in messages
+DISABLE_WEB_PAGE_PREVIEW = false
+
+# Notes:
+# - Telegram is a cloud-based instant messaging platform
+# - Best for: Notifications, alerts, monitoring, bot automation, team communication
+# - Bot capabilities:
+#   * Send text messages with formatting (Markdown, HTML)
+#   * Send media (photos, videos, documents, audio)
+#   * Send locations and contacts
+#   * Edit and delete messages
+#   * Pin/unpin messages
+#   * Interactive keyboards (inline and reply keyboards)
+#   * Receive updates (polling or webhooks)
+# - Message limits:
+#   * Text messages: 4096 characters max
+#   * Captions: 1024 characters max
+#   * File size: 50 MB max (documents), 10 MB (photos)
+# - Formatting:
+#   * Markdown: *bold*, _italic_, `code`, ```code block```
+#   * MarkdownV2: *bold*, _italic_, __underline__, ~strikethrough~
+#   * HTML: <b>bold</b>, <i>italic</i>, <code>code</code>
+#   * Links: [text](url) in Markdown, <a href="url">text</a> in HTML
+#   * Mentions: @username
+# - Chat types:
+#   * Private: One-on-one chat with bot
+#   * Group: Bot in a group chat
+#   * Channel: Bot posting to a channel
+# - Chat actions:
+#   * typing: Show typing indicator
+#   * upload_photo: Show uploading photo
+#   * upload_video: Show uploading video
+#   * upload_document: Show uploading document
+#   * find_location: Show finding location
+# - Best practices:
+#   * Use Markdown for simple formatting
+#   * Use HTML for complex formatting
+#   * Keep messages concise (under 4096 chars)
+#   * Use silent notifications for non-urgent messages
+#   * Pin important messages in groups/channels
+#   * Use chat actions for better UX (typing, uploading)
+#   * Store bot token securely (never commit to git)
+#   * Use environment variables for sensitive data
+# - Common use cases:
+#   * Server monitoring and alerts
+#   * Application error notifications
+#   * Deployment status updates
+#   * CI/CD pipeline notifications
+#   * User activity tracking
+#   * Automated customer support
+#   * News and updates broadcasting
+#   * Backup job status reports
+#   * Security incident alerts
+# - API rate limits:
+#   * Messages: 30 messages per second per chat
+#   * Bulk messages: 20 messages per minute to different chats
+#   * Group messages: 20 messages per minute
+# - Getting chat ID for groups/channels:
+#   * Groups: Add bot to group, send /start, check getUpdates
+#   * Channels: Add bot as admin, forward message from channel, check getUpdates
+# - API version: Bot API 7.0+
+# - Documentation: https://core.telegram.org/bots/api

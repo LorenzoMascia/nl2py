@@ -1,0 +1,32 @@
+# GitHub Pages Configuration for NL2Py
+
+# Site settings
+title: NL2Py Documentation
+description: Natural Language to Python Compiler - Transform natural language commands into executable Python code
+url: "https://yourusername.github.io"
+baseurl: "/nl2py"
+
+# Theme (not used since we have custom HTML)
+remote_theme: null
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files from build
+exclude:
+  - README.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Include specific files
+include:
+  - _config.yml
+
+# Plugins
+plugins:
+  - jekyll-seo-tag

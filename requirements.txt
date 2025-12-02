@@ -1,2 +1,133 @@
-# Core dependencies
-openai>=1.0.0
+# Core dependencies for AIBasic compiler
+requests>=2.31.0
+
+# Optional dependencies for modules
+# Uncomment the ones you need:
+
+# PostgreSQL module
+psycopg2-binary>=2.9.9
+
+# MySQL/MariaDB module
+mysql-connector-python>=8.0.33
+
+# RabbitMQ module
+pika>=1.3.2
+
+# Apache Kafka module
+kafka-python>=2.0.2
+
+# Redis module
+redis>=5.0.0
+
+# OpenSearch module
+# opensearch-py>=2.0.0
+# For AWS IAM auth (optional):
+boto3>=1.26.0
+requests-aws4auth>=1.1.0
+
+# Compression module (most formats built-in, 7Z optional)
+py7zr>=0.20.0  # For 7Z format support
+
+# HashiCorp Vault module
+hvac>=1.2.0  # HashiCorp Vault client
+
+# Apache Cassandra module
+cassandra-driver>=3.28.0  # DataStax Python driver for Cassandra
+
+# MongoDB module
+pymongo>=4.0.0  # MongoDB Python driver
+
+# S3/MinIO module
+boto3>=1.26.0  # AWS SDK for Python (S3, MinIO, DigitalOcean Spaces, etc.)
+
+# SSH module
+paramiko>=3.0.0  # SSH2 protocol library for remote server connections
+
+# Microsoft Teams module
+msal>=1.20.0  # Microsoft Authentication Library for Python (for Graph API)
+requests>=2.31.0 already included above
+
+# Slack module
+requests>=2.31.0 already included above
+urllib3 included with requests
+
+# ClickHouse module
+# requests>=2.31.0 already included above
+pandas>=1.5.0  # For DataFrame operations (if not already installed)
+
+# Neo4j module
+neo4j>=5.0.0  # Neo4j Python driver for graph database
+
+# Elasticsearch module
+elasticsearch>=8.0.0  # Elasticsearch client for full-text search and analytics
+
+# TimescaleDB module (uses PostgreSQL driver)
+# psycopg2-binary>=2.9.9 already included above
+
+# AWS module (comprehensive AWS services integration)
+# boto3>=1.26.0 already included above (S3 and AWS services)
+
+# Terraform module (Infrastructure as Code)
+python-terraform>=0.10.1  # Python wrapper for HashiCorp Terraform CLI
+
+# Docker module (Container and Image Management)
+docker>=7.0.0  # Docker SDK for Python (container, image, volume, network management)
+
+# Kubernetes module (Kubernetes Cluster Management)
+kubernetes>=28.0.0  # Official Kubernetes Python client for cluster and resource management
+
+# Azure module (Microsoft Azure Cloud Services)
+azure-mgmt-compute>=30.0.0  # Azure Virtual Machines management
+azure-mgmt-storage>=21.0.0  # Azure Storage management
+azure-mgmt-resource>=23.0.0  # Azure Resource Groups and resources
+azure-mgmt-network>=25.0.0  # Azure Virtual Networks and networking
+azure-mgmt-sql>=4.0.0  # Azure SQL Database management
+azure-mgmt-web>=7.0.0  # Azure App Service management
+azure-mgmt-containerinstance>=10.0.0  # Azure Container Instances
+azure-mgmt-keyvault>=10.0.0  # Azure Key Vault management
+azure-mgmt-cosmosdb>=9.0.0  # Azure Cosmos DB management
+azure-identity>=1.12.0  # Azure authentication (supports DefaultAzureCredential and Service Principal)
+
+# GCP module (Google Cloud Platform Services)
+google-cloud-compute>=1.14.0  # Google Compute Engine management
+google-cloud-storage>=2.10.0  # Google Cloud Storage management
+google-cloud-sql>=1.6.0  # Google Cloud SQL management
+google-cloud-bigquery>=3.11.0  # Google BigQuery for data analytics
+google-cloud-functions>=1.13.0  # Google Cloud Functions serverless
+google-cloud-run>=0.9.0  # Google Cloud Run container deployment
+google-cloud-pubsub>=2.18.0  # Google Pub/Sub messaging
+google-cloud-secret-manager>=2.16.0  # Google Secret Manager for secrets
+google-auth>=2.23.0  # Google Cloud authentication
+
+# LDAP module (LDAP/Active Directory Management)
+ldap3>=2.9.1  # Pure Python LDAP client for directory services and Active Directory
+
+# Keycloak module (Identity and Access Management)
+python-keycloak>=3.0.0  # Keycloak Admin REST API client for IAM operations
+
+# JWT module (JSON Web Token Authentication)
+PyJWT[crypto]>=2.8.0  # JSON Web Token implementation with cryptography support
+cryptography>=41.0.0  # Cryptographic library for RSA/ECDSA key support
+
+# MQTT module (IoT Messaging Protocol)
+paho-mqtt>=1.6.1  # Eclipse Paho MQTT client for IoT and pub/sub messaging
+
+# Prometheus module (Monitoring and Observability)
+prometheus-client>=0.19.0  # Prometheus instrumentation library for Python
+prometheus-api-client>=0.5.3  # Prometheus HTTP API client for PromQL queries
+
+# ScyllaDB module (High-Performance NoSQL Database)
+scylla-driver>=3.28.0  # ScyllaDB Python driver (Cassandra-compatible)
+
+# Selenium module (Web Browser Automation and Testing)
+selenium>=4.15.0  # Selenium WebDriver for browser automation and web testing
+webdriver-manager>=4.0.0  # Automatic webdriver binary management for Chrome/Firefox/Edge
+
+# Discord module (Discord Integration and Notifications)
+# requests>=2.31.0 already included above
+
+# Telegram module (Telegram Bot Integration and Notifications)
+# requests>=2.31.0 already included above
+
+# NLP Interpreter GUI (Gradio Web Interface)
+gradio>=4.0.0  # Modern web UI framework for ML/NLP applications
