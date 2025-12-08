@@ -1,20 +1,20 @@
-/* NL2Py Documentation Styles */
+/* NL2Py Documentation Styles - Dark Minimal Theme */
 
 :root {
-    --primary-color: #2563eb;
-    --primary-dark: #1d4ed8;
-    --secondary-color: #10b981;
-    --accent-color: #f59e0b;
-    --background-color: #f8fafc;
-    --surface-color: #ffffff;
-    --text-color: #1e293b;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
-    --code-bg: #1e293b;
-    --code-text: #e2e8f0;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --error-color: #ef4444;
+    --primary-color: #00d4ff;
+    --primary-dark: #00b8e6;
+    --secondary-color: #00ff88;
+    --accent-color: #ff6b6b;
+    --background-color: #0a0a0a;
+    --surface-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --text-muted: #888888;
+    --border-color: #2a2a2a;
+    --code-bg: #151515;
+    --code-text: #d4d4d4;
+    --success-color: #00ff88;
+    --warning-color: #ffaa00;
+    --error-color: #ff4444;
 }
 
 * {
@@ -28,11 +28,29 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 1px,
+            rgba(255, 255, 255, 0.02) 1px,
+            rgba(255, 255, 255, 0.02) 2px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 1px,
+            rgba(255, 255, 255, 0.02) 1px,
+            rgba(255, 255, 255, 0.02) 2px
+        );
+    background-size: 20px 20px;
 }
 
 /* Navigation */
 .navbar {
-    background: var(--surface-color);
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     padding: 1rem 2rem;
     position: fixed;
@@ -56,10 +74,7 @@ body {
 }
 
 .navbar-brand span {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-color);
 }
 
 .navbar-nav {
@@ -96,18 +111,22 @@ main {
 .hero {
     text-align: center;
     padding: 4rem 2rem;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--primary-color);
 }
 
 .hero p {
     font-size: 1.25rem;
-    opacity: 0.9;
+    color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto 2rem;
 }
@@ -153,13 +172,13 @@ main {
 
 .btn-outline {
     background: transparent;
-    border: 2px solid white;
-    color: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
 .btn-outline:hover {
-    background: white;
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--background-color);
 }
 
 /* Cards */
@@ -172,14 +191,14 @@ main {
 
 .card {
     background: var(--surface-color);
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
-    transition: box-shadow 0.2s, transform 0.2s;
+    transition: border-color 0.3s, transform 0.2s;
 }
 
 .card:hover {
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
     transform: translateY(-2px);
 }
 
@@ -221,6 +240,7 @@ pre {
     color: var(--code-text);
     padding: 1.5rem;
     border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
     overflow-x: auto;
     margin: 1rem 0;
     font-family: 'Fira Code', 'Consolas', monospace;
@@ -230,7 +250,8 @@ pre {
 
 code {
     font-family: 'Fira Code', 'Consolas', monospace;
-    background: var(--border-color);
+    background: var(--code-bg);
+    color: var(--primary-color);
     padding: 0.2rem 0.4rem;
     border-radius: 0.25rem;
     font-size: 0.9em;
@@ -266,12 +287,13 @@ th, td {
 }
 
 th {
-    background: var(--background-color);
+    background: var(--surface-color);
     font-weight: 600;
+    color: var(--text-color);
 }
 
 tr:hover {
-    background: var(--background-color);
+    background: rgba(0, 212, 255, 0.05);
 }
 
 /* Sidebar */
@@ -371,27 +393,27 @@ tr:hover {
 }
 
 .alert-info {
-    background: #eff6ff;
+    background: rgba(0, 212, 255, 0.1);
     border-left: 4px solid var(--primary-color);
-    color: #1e40af;
+    color: var(--primary-color);
 }
 
 .alert-warning {
-    background: #fffbeb;
+    background: rgba(255, 170, 0, 0.1);
     border-left: 4px solid var(--warning-color);
-    color: #92400e;
+    color: var(--warning-color);
 }
 
 .alert-success {
-    background: #ecfdf5;
+    background: rgba(0, 255, 136, 0.1);
     border-left: 4px solid var(--success-color);
-    color: #065f46;
+    color: var(--success-color);
 }
 
 .alert-danger {
-    background: #fef2f2;
+    background: rgba(255, 68, 68, 0.1);
     border-left: 4px solid var(--error-color);
-    color: #991b1b;
+    color: var(--error-color);
 }
 
 /* Mermaid Diagrams */
@@ -427,8 +449,9 @@ tr:hover {
 
 /* Footer */
 footer {
-    background: var(--code-bg);
-    color: var(--code-text);
+    background: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color);
     padding: 3rem 2rem;
     margin-top: 4rem;
 }
@@ -443,7 +466,7 @@ footer {
 
 .footer-section h4 {
     margin-bottom: 1rem;
-    color: white;
+    color: var(--text-color);
 }
 
 .footer-section a {
@@ -455,7 +478,7 @@ footer {
 }
 
 .footer-section a:hover {
-    color: white;
+    color: var(--primary-color);
 }
 
 .footer-bottom {
@@ -641,8 +664,33 @@ footer {
     width: 2rem;
     height: 2rem;
     background: var(--primary-color);
-    color: white;
+    color: var(--background-color);
     border-radius: 50%;
     font-weight: 600;
     flex-shrink: 0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--background-color);
 }

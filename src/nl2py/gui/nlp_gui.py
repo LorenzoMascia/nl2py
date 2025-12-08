@@ -252,14 +252,7 @@ def create_gui() -> gr.Blocks:
 
     gui = NLPInterpreterGUI()
 
-    with gr.Blocks(
-        title="NL2Py NLP Interpreter",
-        theme=gr.themes.Soft(),
-        css="""
-        .code-editor textarea { font-family: 'Fira Code', 'Consolas', monospace !important; }
-        .generated-code { background-color: #1e1e1e; }
-        """
-    ) as app:
+    with gr.Blocks() as app:
 
         gr.Markdown("""
         # 🤖 NL2Py NLP Interpreter
