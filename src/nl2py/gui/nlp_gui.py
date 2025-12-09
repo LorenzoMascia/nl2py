@@ -252,76 +252,231 @@ def create_gui() -> gr.Blocks:
 
     gui = NLPInterpreterGUI()
 
-    # Dark theme with custom colors
-    custom_theme = gr.themes.Base(
-        primary_hue=gr.themes.colors.cyan,
-        secondary_hue=gr.themes.colors.gray,
-        neutral_hue=gr.themes.colors.gray,
-    ).set(
-        body_background_fill='#0a0a0a',
-        body_background_fill_dark='#0a0a0a',
-        background_fill_primary='#1a1a1a',
-        background_fill_primary_dark='#1a1a1a',
-        background_fill_secondary='#151515',
-        background_fill_secondary_dark='#151515',
-        border_color_primary='#2a2a2a',
-        border_color_primary_dark='#2a2a2a',
-        input_background_fill='#151515',
-        input_background_fill_dark='#151515',
-        button_primary_background_fill='#00d4ff',
-        button_primary_background_fill_dark='#00d4ff',
-        button_primary_background_fill_hover='#00b8e6',
-        button_primary_background_fill_hover_dark='#00b8e6',
-        button_primary_text_color='#0a0a0a',
-        button_primary_text_color_dark='#0a0a0a',
-    )
+    with gr.Blocks(title="NL2Py Interpreter") as app:
 
-    # Custom CSS for additional styling
-    custom_css = """
-    .gradio-container {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-    }
+        # Inject dark theme CSS
+        gr.HTML("""
+        <style>
+            /* Dark theme for Gradio */
+            :root {
+                --primary-color: #00d4ff;
+                --primary-hover: #00b8e6;
+                --background-dark: #0a0a0a;
+                --surface-dark: #1a1a1a;
+                --surface-light: #151515;
+                --border-dark: #2a2a2a;
+                --text-light: #ffffff;
+                --text-muted: #bbbbbb;
+                --warning-color: #00d4ff;
+                --success-color: #00ff88;
+            }
 
-    h1 {
-        color: #00d4ff !important;
-        font-weight: 700 !important;
-        letter-spacing: -0.02em !important;
-    }
+            /* Main container */
+            .gradio-container {
+                font-family: 'Inter', sans-serif !important;
+                background: var(--background-dark) !important;
+                color: var(--text-light) !important;
+            }
 
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
+            /* Headers */
+            h1 {
+                color: var(--primary-color) !important;
+                font-weight: 700 !important;
+            }
+            h2, h3, h4, h5, h6 {
+                color: var(--text-light) !important;
+            }
 
-    .logo-icon {
-        width: 48px;
-        height: 48px;
-    }
-    """
+            /* Blocks and containers */
+            .block, .form, .panel {
+                background: var(--surface-dark) !important;
+                border: 1px solid var(--border-dark) !important;
+                border-radius: 8px !important;
+            }
 
-    with gr.Blocks(theme=custom_theme, css=custom_css) as app:
+            /* Inputs and textareas */
+            input, textarea, select {
+                background: var(--surface-light) !important;
+                color: var(--text-light) !important;
+                border: 1px solid var(--border-dark) !important;
+                border-radius: 6px !important;
+            }
 
-        # Logo and title
-        logo_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'images', 'logo.svg')
-        if os.path.exists(logo_path):
-            gr.HTML(f"""
-            <div class="logo-container">
-                <img src="file/{logo_path}" class="logo-icon" alt="NL2Py Logo"/>
-                <div>
-                    <h1 style="margin: 0;">NL2Py NLP Interpreter</h1>
-                    <p style="color: #888888; margin: 0;">Translate natural language commands into executable Python code.</p>
-                </div>
+            input:focus, textarea:focus, select:focus {
+                border-color: var(--primary-color) !important;
+                outline: none !important;
+                box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1) !important;
+            }
+
+            /* Buttons */
+            button {
+                border-radius: 6px !important;
+                font-weight: 500 !important;
+                transition: all 0.2s !important;
+            }
+
+            button.primary, .primary-btn {
+                background: var(--primary-color) !important;
+                color: var(--background-dark) !important;
+                border: none !important;
+            }
+
+            button.primary:hover, .primary-btn:hover {
+                background: var(--primary-hover) !important;
+            }
+
+            button.secondary {
+                background: var(--surface-light) !important;
+                color: var(--text-light) !important;
+                border: 1px solid var(--border-dark) !important;
+            }
+
+            button.secondary:hover {
+                border-color: var(--primary-color) !important;
+            }
+
+            /* Tabs */
+            .tabs {
+                border-bottom: 1px solid var(--border-dark) !important;
+            }
+
+            .tab-nav button {
+                color: var(--text-muted) !important;
+                border-bottom: 2px solid transparent !important;
+                background: transparent !important;
+            }
+
+            .tab-nav button.selected, .tab-nav button:hover {
+                color: var(--primary-color) !important;
+                border-bottom-color: var(--primary-color) !important;
+            }
+
+            /* Code blocks */
+            pre, code {
+                background: var(--surface-light) !important;
+                color: var(--text-light) !important;
+                border: 1px solid var(--border-dark) !important;
+                border-radius: 6px !important;
+            }
+
+            /* Dataframe/Table */
+            table {
+                background: var(--surface-dark) !important;
+                color: var(--text-light) !important;
+                border: 1px solid var(--border-dark) !important;
+            }
+
+            thead {
+                background: var(--surface-light) !important;
+            }
+
+            th, td {
+                border: 1px solid var(--border-dark) !important;
+                color: var(--text-light) !important;
+            }
+
+            tr:hover {
+                background: rgba(0, 212, 255, 0.05) !important;
+            }
+
+            /* Markdown content */
+            .markdown-body {
+                color: var(--text-light) !important;
+            }
+
+            .markdown-body p, .markdown-body li {
+                color: var(--text-light) !important;
+            }
+
+            .markdown-body strong {
+                color: var(--primary-color) !important;
+            }
+
+            /* Labels and text */
+            label, span, p, div {
+                color: var(--text-light) !important;
+            }
+
+            label {
+                font-weight: 600 !important;
+                font-size: 1rem !important;
+            }
+
+            /* Ensure all text is visible */
+            .gr-text, .gr-markdown, .gr-label {
+                color: var(--text-light) !important;
+            }
+
+            /* Label containers */
+            .label-wrap, .label, .svelte-1b19cri {
+                color: var(--text-light) !important;
+            }
+
+            /* Info boxes and warnings - use theme colors */
+            .warning, .info {
+                color: var(--warning-color) !important;
+                border-color: var(--warning-color) !important;
+            }
+
+            .success {
+                color: var(--success-color) !important;
+                border-color: var(--success-color) !important;
+            }
+
+            /* Sliders */
+            input[type="range"] {
+                background: var(--surface-light) !important;
+            }
+
+            input[type="range"]::-webkit-slider-thumb {
+                background: var(--primary-color) !important;
+            }
+
+            input[type="range"]::-moz-range-thumb {
+                background: var(--primary-color) !important;
+            }
+
+            /* Scrollbars */
+            ::-webkit-scrollbar {
+                width: 10px;
+                height: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--surface-light);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: var(--border-dark);
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--primary-color);
+            }
+
+            /* Logo container */
+            .logo-container {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .logo-icon {
+                width: 48px;
+                height: 48px;
+            }
+        </style>
+        """)
+
+        # Header
+        gr.HTML("""
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1 style="margin: 0; color: #00d4ff;">NL2Py NLP Interpreter</h1>
+                <p style="color: #bbbbbb; margin: 0.5rem 0 0 0; font-size: 1.1rem;">Translate natural language commands into executable Python code</p>
             </div>
-            """)
-        else:
-            gr.Markdown("""
-            <div>
-                <h1>NL2Py NLP Interpreter</h1>
-                <p style="color: #888888; margin-top: -0.5rem;">Translate natural language commands into executable Python code using NL2Py modules.</p>
-            </div>
-            """)
+        """)
 
         # Initialize on load
         status_text = gr.Markdown(value="Loading modules...")
