@@ -252,13 +252,76 @@ def create_gui() -> gr.Blocks:
 
     gui = NLPInterpreterGUI()
 
-    with gr.Blocks() as app:
+    # Dark theme with custom colors
+    custom_theme = gr.themes.Base(
+        primary_hue=gr.themes.colors.cyan,
+        secondary_hue=gr.themes.colors.gray,
+        neutral_hue=gr.themes.colors.gray,
+    ).set(
+        body_background_fill='#0a0a0a',
+        body_background_fill_dark='#0a0a0a',
+        background_fill_primary='#1a1a1a',
+        background_fill_primary_dark='#1a1a1a',
+        background_fill_secondary='#151515',
+        background_fill_secondary_dark='#151515',
+        border_color_primary='#2a2a2a',
+        border_color_primary_dark='#2a2a2a',
+        input_background_fill='#151515',
+        input_background_fill_dark='#151515',
+        button_primary_background_fill='#00d4ff',
+        button_primary_background_fill_dark='#00d4ff',
+        button_primary_background_fill_hover='#00b8e6',
+        button_primary_background_fill_hover_dark='#00b8e6',
+        button_primary_text_color='#0a0a0a',
+        button_primary_text_color_dark='#0a0a0a',
+    )
 
-        gr.Markdown("""
-        # 🤖 NL2Py NLP Interpreter
+    # Custom CSS for additional styling
+    custom_css = """
+    .gradio-container {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    }
 
-        Translate natural language commands into executable Python code using NL2Py modules.
-        """)
+    h1 {
+        color: #00d4ff !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.02em !important;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+        width: 48px;
+        height: 48px;
+    }
+    """
+
+    with gr.Blocks(theme=custom_theme, css=custom_css) as app:
+
+        # Logo and title
+        logo_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'images', 'logo.svg')
+        if os.path.exists(logo_path):
+            gr.HTML(f"""
+            <div class="logo-container">
+                <img src="file/{logo_path}" class="logo-icon" alt="NL2Py Logo"/>
+                <div>
+                    <h1 style="margin: 0;">NL2Py NLP Interpreter</h1>
+                    <p style="color: #888888; margin: 0;">Translate natural language commands into executable Python code.</p>
+                </div>
+            </div>
+            """)
+        else:
+            gr.Markdown("""
+            <div>
+                <h1>NL2Py NLP Interpreter</h1>
+                <p style="color: #888888; margin-top: -0.5rem;">Translate natural language commands into executable Python code using NL2Py modules.</p>
+            </div>
+            """)
 
         # Initialize on load
         status_text = gr.Markdown(value="Loading modules...")

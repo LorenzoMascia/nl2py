@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="#1a1a1a" stroke="#00d4ff" stroke-width="2"/>
+
+  <!-- NL text -->
+  <text x="12" y="20" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#00d4ff">NL</text>
+
+  <!-- Arrow -->
+  <path d="M 18 24 L 30 24 M 26 20 L 30 24 L 26 28" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Py text -->
+  <text x="27" y="34" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#00ff88">Py</text>
+</svg>

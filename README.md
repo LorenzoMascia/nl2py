@@ -1,9 +1,12 @@
-# NL2Py - Natural Language to Python
+<div align="center">
+  <img src="images/logo.svg" alt="NL2Py Logo" width="80" height="80">
+  <h1>NL2Py - Natural Language to Python</h1>
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**NL2Py** is a natural language to Python code compiler. Write commands in plain English  and get executable Python code that interacts with cloud services, databases, APIs, and more.
+  <p><strong>NL2Py</strong> is a natural language to Python code compiler. Write commands in plain English and get executable Python code that interacts with cloud services, databases, APIs, and more.</p>
+</div>
 
 ## Features
 
@@ -48,6 +51,9 @@ The GUI opens at `http://localhost:7860` with tabs for:
 - **Line-by-Line Analysis** - See match details for each line
 - **Explore Matches** - Find alternative methods for a command
 - **Methods Reference** - Browse all available methods
+
+<!-- Uncomment and add your GUI screenshot here -->
+<!-- ![NL2Py GUI](images/gui-screenshot.png) -->
 
 #### CLI
 
