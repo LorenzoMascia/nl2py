@@ -43,7 +43,7 @@ body {
             rgba(255, 255, 255, 0.03) 1px,
             rgba(255, 255, 255, 0.03) 2px
         );
-    background-size: 80px 80px;
+    background-size: 120px 120px;
 }
 
 /* Navigation */
@@ -120,7 +120,7 @@ main {
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2rem;
     align-items: center;
 }
 
