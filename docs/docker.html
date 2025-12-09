@@ -636,6 +636,49 @@ docker compose up -d</code></pre>
             theme: 'default',
             flowchart: { useMaxWidth: true, htmlLabels: true }
         });
+
+        // Active section highlighting based on scroll
+        const sections = document.querySelectorAll('h2[id]');
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+
+        function updateActiveSection() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 150;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollPosition >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Update on scroll
+        window.addEventListener('scroll', updateActiveSection);
+        // Update on load
+        updateActiveSection();
+
+        // Smooth scroll on click
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
