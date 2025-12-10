@@ -1,0 +1,109 @@
+/* MOBILE FIX - Completamente riscritto per funzionare */
+@media (max-width: 768px) {
+    /* Reset completo - tutto a width 100% */
+    html {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 0.7rem;
+        line-height: 1.4;
+        background-size: 30px 30px;
+    }
+
+    main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* TUTTE le pagine - rimuovo ogni padding dai layout */
+    .docs-layout {
+        width: 100%;
+        display: block;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .container {
+        width: 100%;
+        padding: 1rem 0.75rem !important;
+        margin: 0 !important;
+    }
+
+    /* Content - QUESTO È DOVE VA IL TESTO DELLE PAGINE DOCS */
+    .content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem 0.75rem !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Navbar - stesso padding del content */
+    .navbar {
+        width: 100%;
+        padding: 0.5rem 0.75rem !important;
+        margin: 0;
+    }
+
+    /* Footer - stesso padding del content */
+    footer {
+        width: 100%;
+        padding: 1.5rem 0.75rem !important;
+        margin: 0;
+        font-size: 0.6rem;
+    }
+
+    /* Sidebar - nascosta */
+    .sidebar {
+        display: none !important;
+    }
+
+    /* Testi molto piccoli */
+    .content h1 { font-size: 1.3rem; }
+    .content h2 { font-size: 1rem; }
+    .content h3 { font-size: 0.85rem; }
+    .content p { font-size: 0.65rem; }
+    .content ul, .content ol { font-size: 0.65rem; }
+    .content li { font-size: 0.65rem; }
+
+    /* Code e tabelle scrollabili se troppo larghe */
+    .content pre {
+        font-size: 0.55rem;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .content table {
+        font-size: 0.55rem;
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .content code {
+        font-size: 0.55rem;
+        word-break: break-word;
+    }
+
+    /* Assicurati che NULLA vada oltre 100% */
+    .content * {
+        max-width: 100%;
+    }
+
+    pre {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+}
