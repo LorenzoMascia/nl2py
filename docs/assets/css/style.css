@@ -110,6 +110,11 @@ main {
 }
 
 .container h2 {
+    text-align: center !important;
+    margin-bottom: 1rem;
+}
+
+.container h3 {
     text-align: center;
 }
 
@@ -122,6 +127,13 @@ main {
 
 .container section {
     text-align: center;
+}
+
+/* Ensure section titles are centered */
+section.container > h2,
+.container > h2 {
+    text-align: center !important;
+    width: 100%;
 }
 
 /* Hero Section */
