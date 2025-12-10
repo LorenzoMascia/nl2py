@@ -677,18 +677,49 @@ footer {
         background-size: 30px 30px;
     }
 
+    /* Navbar mobile - horizontal scroll */
     .navbar {
-        padding: 0.75rem 1rem;
-        flex-wrap: wrap;
+        padding: 0.5rem 0.75rem;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 1rem;
+    }
+
+    .navbar::-webkit-scrollbar {
+        display: none;
     }
 
     .navbar-brand {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    .navbar-brand img {
+        width: 24px !important;
+        height: 24px !important;
     }
 
     .navbar-nav {
-        gap: 0.75rem;
-        font-size: 0.85rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .navbar-nav li {
+        flex-shrink: 0;
+    }
+
+    .navbar-nav a {
+        padding: 0.25rem 0.5rem;
+        background: rgba(0, 212, 255, 0.1);
+        border-radius: 4px;
+        display: inline-block;
     }
 
     .container {
@@ -774,10 +805,25 @@ footer {
         font-size: 0.85rem;
     }
 
-    /* Module tags smaller */
+    /* Module section - very compact */
+    .module-category {
+        margin-bottom: 1rem;
+    }
+
+    .module-category h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .module-list {
+        gap: 0.25rem;
+    }
+
+    /* Module tags much smaller and compact */
     .module-tag {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.8rem;
+        padding: 0.2rem 0.4rem;
+        font-size: 0.65rem;
+        border-radius: 3px;
     }
 
     /* Steps compact */
@@ -785,15 +831,27 @@ footer {
         font-size: 0.9rem;
     }
 
-    /* Docs layout - sidebar collapsible */
+    /* Mermaid diagrams smaller on mobile */
+    .mermaid {
+        font-size: 0.7rem !important;
+        max-height: 300px;
+        overflow: auto;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        height: auto !important;
+        transform: scale(0.75);
+        transform-origin: top left;
+    }
+
+    /* Docs layout - hide sidebar completely on mobile */
     .docs-layout {
         grid-template-columns: 1fr;
     }
 
     .sidebar {
-        position: relative;
-        top: 0;
-        max-height: none;
+        display: none !important;
     }
 
     /* Footer compact */
@@ -818,9 +876,21 @@ footer {
         font-size: 0.85rem;
     }
 
+    .navbar {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .navbar-brand {
+        font-size: 0.9rem;
+    }
+
     .navbar-nav {
-        font-size: 0.8rem;
-        gap: 0.5rem;
+        font-size: 0.7rem;
+        gap: 0.4rem;
+    }
+
+    .navbar-nav a {
+        padding: 0.2rem 0.4rem;
     }
 
     .card-grid {
@@ -847,6 +917,21 @@ footer {
     .btn {
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
+    }
+
+    /* Module tags even smaller */
+    .module-tag {
+        padding: 0.15rem 0.3rem;
+        font-size: 0.6rem;
+    }
+
+    .module-category h3 {
+        font-size: 0.85rem;
+    }
+
+    /* Mermaid even smaller */
+    .mermaid svg {
+        transform: scale(0.6);
     }
 }
 
