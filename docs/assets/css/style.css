@@ -106,6 +106,22 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    text-align: center;
+}
+
+.container h2 {
+    text-align: center;
+}
+
+.container > p {
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container section {
+    text-align: center;
 }
 
 /* Hero Section */
@@ -301,12 +317,13 @@ main {
     color: var(--background-color);
 }
 
-/* Cards */
+/* Cards - Centered */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    justify-items: center;
 }
 
 .card {
@@ -315,6 +332,8 @@ main {
     padding: 1.5rem;
     border: 1px solid var(--border-color);
     transition: border-color 0.3s, transform 0.2s;
+    text-align: center;
+    width: 100%;
 }
 
 .card:hover {
@@ -623,6 +642,7 @@ footer {
     gap: 0;
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 1.5rem;
+    justify-content: center;
 }
 
 .tab {
@@ -963,6 +983,11 @@ footer {
 /* Copy Button */
 .code-block {
     position: relative;
+    text-align: left;
+}
+
+pre, code {
+    text-align: left;
 }
 
 .copy-btn {
@@ -1023,15 +1048,24 @@ footer {
     color: var(--primary-color);
 }
 
-/* Module section in 2-column grid for desktop */
+/* Module section in 2-column grid for desktop - Centered */
 .module-section-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 1200px;
 }
 
-/* Step List - Horizontal on Desktop */
+.module-category {
+    text-align: center;
+}
+
+.module-list {
+    justify-content: center;
+}
+
+/* Step List - Horizontal on Desktop, Centered */
 .step-list {
     counter-reset: step;
     list-style: none;
@@ -1039,6 +1073,8 @@ footer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+    margin: 2rem auto;
+    max-width: 1200px;
 }
 
 .step-list li {
@@ -1048,6 +1084,8 @@ footer {
     gap: 0.75rem;
     padding: 0;
     position: relative;
+    text-align: center;
+    align-items: center;
 }
 
 .step-list li::before {
@@ -1067,6 +1105,7 @@ footer {
 
 .step-list li > div {
     flex: 1;
+    text-align: left;
 }
 
 /* Scrollbar styling */
