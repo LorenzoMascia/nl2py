@@ -791,12 +791,16 @@ footer {
         z-index: 1001;
     }
 
+    /* SAME HORIZONTAL PADDING EVERYWHERE: 0.75rem */
     .container {
-        padding: 1rem;
+        padding: 1rem 0.75rem;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .hero {
         padding: 1.5rem 0.75rem;
+        max-width: 100%;
     }
 
     .hero-container {
@@ -892,10 +896,13 @@ footer {
         margin-bottom: 0.3rem;
     }
 
-    /* Code blocks much more compact */
+    /* Code blocks much more compact - SCROLLABLE */
     .code-block {
         font-size: 0.6rem;
         padding: 0.5rem;
+        overflow-x: auto;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
     }
 
     pre {
@@ -903,25 +910,36 @@ footer {
         padding: 0.5rem;
         overflow-x: auto;
         margin: 0.5rem 0;
+        max-width: 100%;
+        white-space: pre;
+        word-wrap: normal;
+        -webkit-overflow-scrolling: touch;
     }
 
     pre code {
         font-size: 0.6rem;
+        white-space: pre;
     }
 
     code {
         font-size: 0.65rem;
         padding: 0.1rem 0.3rem;
+        word-break: break-word;
     }
 
-    /* Tables smaller */
+    /* Tables smaller - SCROLLABLE */
     table {
         font-size: 0.6rem;
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     table th,
     table td {
         padding: 0.3rem;
+        white-space: nowrap;
     }
 
     /* Tabs compact */
@@ -1020,10 +1038,12 @@ footer {
         font-size: 0.5rem;
     }
 
-    /* Content area (docs pages) */
+    /* Content area (docs pages) - SAME PADDING AS NAVBAR: 0.75rem */
     .content {
         font-size: 0.7rem;
-        padding: 1rem;
+        padding: 1rem 0.75rem;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .content h1 {
@@ -1051,12 +1071,27 @@ footer {
         font-size: 0.65rem;
     }
 
+    /* Tables in content - scrollable */
     .content table {
+        font-size: 0.55rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Code blocks in content - scrollable */
+    .content pre {
+        font-size: 0.55rem;
+        overflow-x: auto;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .content code {
         font-size: 0.55rem;
     }
 
-    .content pre,
-    .content code {
+    .content pre code {
         font-size: 0.55rem;
     }
 
@@ -1092,10 +1127,11 @@ footer {
         display: none !important;
     }
 
-    /* Footer compact */
+    /* Footer compact - SAME PADDING AS NAVBAR: 0.75rem */
     footer {
         font-size: 0.6rem;
-        padding: 1.5rem 1rem;
+        padding: 1.5rem 0.75rem;
+        max-width: 100%;
     }
 
     .footer-content {
