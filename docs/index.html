@@ -442,6 +442,28 @@ flowchart TB
                 document.getElementById(tabId).classList.add('active');
             });
         });
+
+        // Mobile hamburger menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            const navList = document.querySelector('.navbar-nav');
+
+            // Toggle menu when clicking on navbar (hamburger area)
+            navbar.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && e.target === navbar) {
+                    navList.classList.toggle('active');
+                }
+            });
+
+            // Close menu when clicking on a link
+            navList.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navList.classList.remove('active');
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
