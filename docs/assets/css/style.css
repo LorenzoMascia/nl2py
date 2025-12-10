@@ -711,16 +711,18 @@ footer {
 
 /* Responsive - Mobile Optimized - NO HORIZONTAL SCROLL */
 @media (max-width: 768px) {
-    /* Prevent horizontal overflow */
+    /* Prevent horizontal overflow - VERY SMALL TEXT FOR MOBILE */
     body {
-        font-size: 0.9rem;
+        font-size: 0.7rem;
         background-size: 30px 30px;
         overflow-x: hidden;
         max-width: 100vw;
+        line-height: 1.4;
     }
 
     * {
         max-width: 100%;
+        box-sizing: border-box;
     }
 
     /* Hamburger menu for navbar */
@@ -733,27 +735,27 @@ footer {
     }
 
     .navbar-brand {
-        font-size: 1rem;
+        font-size: 0.85rem;
         z-index: 1001;
     }
 
     .navbar-brand img {
-        width: 24px !important;
-        height: 24px !important;
+        width: 20px !important;
+        height: 20px !important;
     }
 
     /* Hide nav by default on mobile, show with hamburger */
     .navbar-nav {
         display: none;
         position: fixed;
-        top: 60px;
+        top: 50px;
         left: 0;
         right: 0;
         background: rgba(26, 26, 26, 0.98);
         backdrop-filter: blur(10px);
         flex-direction: column;
-        padding: 1rem;
-        gap: 0.75rem;
+        padding: 0.75rem;
+        gap: 0.5rem;
         z-index: 1000;
         border-bottom: 1px solid var(--border-color);
     }
@@ -767,19 +769,19 @@ footer {
     }
 
     .navbar-nav a {
-        padding: 0.75rem 1rem;
+        padding: 0.5rem 0.75rem;
         background: rgba(0, 212, 255, 0.1);
         border-radius: 4px;
         display: block;
         width: 100%;
         text-align: center;
-        font-size: 0.9rem;
+        font-size: 0.7rem;
     }
 
     /* Hamburger icon */
     .navbar::after {
         content: '☰';
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         color: var(--primary-color);
         cursor: pointer;
         position: absolute;
@@ -790,143 +792,272 @@ footer {
     }
 
     .container {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     .hero {
-        padding: 2rem 1rem;
+        padding: 1.5rem 0.75rem;
     }
 
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .hero h1 {
-        font-size: 1.75rem;
+        font-size: 1.3rem;
     }
 
     .hero p {
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
 
     .hero-buttons {
         justify-content: center;
+        gap: 0.5rem;
     }
 
     .btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.7rem;
     }
 
     /* Keep card-grid in 2 columns on mobile - compact layout */
     .card-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
 
     .card {
-        padding: 1rem;
+        padding: 0.75rem;
     }
 
     .card-icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
     }
 
     .card-icon img {
-        width: 36px !important;
-        height: 36px !important;
+        width: 28px !important;
+        height: 28px !important;
     }
 
     .card h3 {
-        font-size: 0.95rem;
-        margin-bottom: 0.35rem;
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
     }
 
     .card p {
-        font-size: 0.8rem;
-        line-height: 1.4;
+        font-size: 0.6rem;
+        line-height: 1.3;
+    }
+
+    /* All headings much smaller */
+    h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     h3 {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
+        margin-top: 0.75rem;
+        margin-bottom: 0.4rem;
     }
 
-    /* Code blocks more compact */
+    h4 {
+        font-size: 0.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    /* Paragraphs smaller */
+    p {
+        font-size: 0.7rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+
+    /* Lists smaller */
+    ul, ol {
+        font-size: 0.65rem;
+        padding-left: 1.2rem;
+    }
+
+    li {
+        margin-bottom: 0.3rem;
+    }
+
+    /* Code blocks much more compact */
     .code-block {
-        font-size: 0.75rem;
+        font-size: 0.6rem;
+        padding: 0.5rem;
+    }
+
+    pre {
+        font-size: 0.6rem;
+        padding: 0.5rem;
+        overflow-x: auto;
+        margin: 0.5rem 0;
     }
 
     pre code {
-        font-size: 0.75rem;
+        font-size: 0.6rem;
+    }
+
+    code {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+    }
+
+    /* Tables smaller */
+    table {
+        font-size: 0.6rem;
+    }
+
+    table th,
+    table td {
+        padding: 0.3rem;
     }
 
     /* Tabs compact */
+    .tabs {
+        gap: 0.25rem;
+    }
+
     .tabs .tab {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.65rem;
+    }
+
+    /* Alerts/badges smaller */
+    .alert {
+        font-size: 0.65rem;
+        padding: 0.5rem;
+        margin: 0.75rem 0;
+    }
+
+    .badge {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.4rem;
     }
 
     /* Module section - single column on mobile */
     .module-section-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .module-category {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     .module-category h3 {
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+        margin-bottom: 0.4rem;
     }
 
     .module-list {
-        gap: 0.25rem;
+        gap: 0.2rem;
     }
 
     /* Module tags much smaller and compact */
     .module-tag {
-        padding: 0.2rem 0.4rem;
-        font-size: 0.65rem;
+        padding: 0.15rem 0.35rem;
+        font-size: 0.55rem;
         border-radius: 3px;
     }
 
-    /* Steps in 2 columns on mobile (1-2, 3-4) */
+    /* Steps in 2 columns on mobile (1-2, 3-4) - VERY COMPACT */
     .step-list {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+        gap: 0.5rem;
         padding: 0;
     }
 
     .step-list li {
-        font-size: 0.75rem;
+        font-size: 0.6rem;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 0.5rem;
+        padding: 0.4rem;
     }
 
     .step-list li::before {
-        width: 1.75rem;
-        height: 1.75rem;
-        font-size: 0.85rem;
-        margin-bottom: 0.5rem;
+        width: 1.4rem;
+        height: 1.4rem;
+        font-size: 0.7rem;
+        margin-bottom: 0.3rem;
     }
 
     .step-list li > div {
         width: 100%;
     }
 
-    .step-list pre {
+    .step-list li strong {
         font-size: 0.65rem;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .step-list li p {
+        font-size: 0.55rem;
+        margin: 0.2rem 0;
+    }
+
+    .step-list pre {
+        font-size: 0.5rem;
         overflow-x: auto;
+        padding: 0.3rem;
+        margin: 0.25rem 0;
+    }
+
+    .step-list pre code {
+        font-size: 0.5rem;
+    }
+
+    /* Content area (docs pages) */
+    .content {
+        font-size: 0.7rem;
+        padding: 1rem;
+    }
+
+    .content h1 {
+        font-size: 1.3rem;
+    }
+
+    .content h2 {
+        font-size: 1rem;
+    }
+
+    .content h3 {
+        font-size: 0.85rem;
+    }
+
+    .content h4 {
+        font-size: 0.75rem;
+    }
+
+    .content p {
+        font-size: 0.65rem;
+    }
+
+    .content ul,
+    .content ol {
+        font-size: 0.65rem;
+    }
+
+    .content table {
+        font-size: 0.55rem;
+    }
+
+    .content pre,
+    .content code {
+        font-size: 0.55rem;
     }
 
     /* Mermaid diagrams - very small on mobile or hidden */
@@ -963,24 +1094,46 @@ footer {
 
     /* Footer compact */
     footer {
-        font-size: 0.85rem;
+        font-size: 0.6rem;
+        padding: 1.5rem 1rem;
     }
 
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        gap: 1rem;
+    }
+
+    .footer-section h4 {
+        font-size: 0.7rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .footer-section a,
+    .footer-section p {
+        font-size: 0.6rem;
+    }
+
+    .footer-bottom {
+        font-size: 0.55rem;
+        padding-top: 0.75rem;
     }
 
     /* Animated code smaller on mobile */
     .code-background {
-        font-size: 0.65rem;
+        font-size: 0.5rem;
+    }
+
+    /* Images responsive */
+    img {
+        max-width: 100%;
+        height: auto;
     }
 }
 
-/* Very small screens - still maintain 2-column grid but even more compact */
+/* Very small screens - even more compact */
 @media (max-width: 480px) {
     body {
-        font-size: 0.85rem;
+        font-size: 0.65rem;
     }
 
     .navbar {
@@ -988,42 +1141,72 @@ footer {
     }
 
     .navbar-brand {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
 
     .navbar-nav {
-        font-size: 0.7rem;
-        gap: 0.4rem;
+        font-size: 0.65rem;
+        gap: 0.3rem;
     }
 
     .navbar-nav a {
-        padding: 0.2rem 0.4rem;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.65rem;
     }
 
     .card-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
+        gap: 0.4rem;
     }
 
     .card {
-        padding: 0.75rem;
+        padding: 0.5rem;
     }
 
     .card h3 {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
     }
 
     .card p {
-        font-size: 0.75rem;
+        font-size: 0.55rem;
     }
 
     .hero h1 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 0.95rem;
+    }
+
+    h3 {
+        font-size: 0.8rem;
     }
 
     .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.65rem;
+    }
+
+    .step-list pre {
+        font-size: 0.45rem;
+    }
+
+    .step-list pre code {
+        font-size: 0.45rem;
+    }
+
+    .content table {
+        font-size: 0.5rem;
+    }
+
+    .content pre,
+    .content code {
+        font-size: 0.5rem;
     }
 
     /* Module tags even smaller */
