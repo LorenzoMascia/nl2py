@@ -33,17 +33,18 @@ body {
             0deg,
             transparent,
             transparent 1px,
-            rgba(255, 255, 255, 0.03) 1px,
-            rgba(255, 255, 255, 0.03) 2px
+            rgba(255, 255, 255, 0.05) 1px,
+            rgba(255, 255, 255, 0.05) 2px
         ),
         repeating-linear-gradient(
             90deg,
             transparent,
             transparent 1px,
-            rgba(255, 255, 255, 0.03) 1px,
-            rgba(255, 255, 255, 0.03) 2px
+            rgba(255, 255, 255, 0.05) 1px,
+            rgba(255, 255, 255, 0.05) 2px
         );
-    background-size: 160px 160px;
+    background-size: 40px 40px;
+    background-attachment: fixed;
 }
 
 /* Navigation */
@@ -113,6 +114,66 @@ main {
     background: var(--surface-color);
     border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated code background */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, var(--surface-color) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.code-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    opacity: 0.15;
+    z-index: 1;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    line-height: 1.8;
+    pointer-events: none;
+}
+
+.code-line {
+    position: absolute;
+    white-space: nowrap;
+    animation: floatCode 20s linear infinite;
+}
+
+.code-line:nth-child(1) { top: 10%; left: -100%; animation-delay: 0s; }
+.code-line:nth-child(2) { top: 25%; left: -100%; animation-delay: 3s; }
+.code-line:nth-child(3) { top: 40%; left: -100%; animation-delay: 6s; }
+.code-line:nth-child(4) { top: 55%; left: -100%; animation-delay: 9s; }
+.code-line:nth-child(5) { top: 70%; left: -100%; animation-delay: 12s; }
+.code-line:nth-child(6) { top: 85%; left: -100%; animation-delay: 15s; }
+
+@keyframes floatCode {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(200vw);
+    }
+}
+
+.hero-container,
+.hero-content,
+.hero-image {
+    position: relative;
+    z-index: 3;
 }
 
 .hero-container {

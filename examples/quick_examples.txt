@@ -1,0 +1,29 @@
+# NL2Py Quick Examples
+# Try these commands to see NL2Py in action!
+
+# === Cloud Infrastructure ===
+create s3 bucket my-data-store in region us-east-1
+create compute instance web-server in zone us-central1-a
+list all docker containers
+deploy kubernetes deployment nginx with 3 replicas
+
+# === Databases ===
+connect to postgres database production
+execute query SELECT * FROM users WHERE active = true
+set redis key user:123 with value John Doe
+insert document into mongodb collection users
+
+# === Messaging & Communication ===
+send message to slack channel devops with text Build completed successfully
+publish message to kafka topic events
+send email to admin@example.com with subject System Alert
+
+# === File Operations ===
+upload file logs.txt to s3 bucket backups
+download file from s3 bucket data to local path
+compress file data.csv with gzip format
+
+# === Monitoring & Security ===
+get prometheus metrics for cpu_usage
+store secret api_key in vault path /secrets/app
+query elasticsearch index logs for errors

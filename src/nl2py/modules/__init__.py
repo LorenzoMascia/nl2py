@@ -18,7 +18,7 @@ __all__ = []
 def _import_module(module_name, class_name):
     """Import a module, handling missing dependencies gracefully."""
     try:
-        module = importlib.import_module(f'.{module_name}', package='aibasic.modules')
+        module = importlib.import_module(f'.{module_name}', package='nl2py.modules')
         cls = getattr(module, class_name)
         globals()[class_name] = cls
         __all__.append(class_name)
