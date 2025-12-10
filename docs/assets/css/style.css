@@ -186,12 +186,12 @@ main {
 }
 
 .btn-secondary {
-    background: var(--surface-color);
-    color: var(--text-color);
+    background: var(--primary-color);
+    color: white;
 }
 
 .btn-secondary:hover {
-    background: var(--border-color);
+    background: var(--primary-dark);
 }
 
 .btn-outline {
