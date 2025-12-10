@@ -53,6 +53,26 @@
                 <div class="code-line">airflow_trigger_dag(dag_id='etl_pipeline') &nbsp;&nbsp;&nbsp; spark_submit_job(application='process.py') &nbsp;&nbsp;&nbsp; hadoop_hdfs_upload(source='data.csv', dest='/data/')</div>
                 <div class="code-line">etcd_put(key='config/app', value='production') &nbsp;&nbsp;&nbsp; consul_register_service(name='api', port=8080) &nbsp;&nbsp;&nbsp; zookeeper_create_node(path='/services/api')</div>
                 <div class="code-line">minio_upload_file(bucket='data', object='file.csv', file_path='local.csv') &nbsp;&nbsp;&nbsp; ceph_create_pool(name='images') &nbsp;&nbsp;&nbsp; nfs_mount(server='storage.local', path='/shared')</div>
+                <div class="code-line">aws_ec2_start_instance(instance_id='i-12345') &nbsp;&nbsp;&nbsp; aws_rds_create_snapshot(db_id='production') &nbsp;&nbsp;&nbsp; aws_lambda_update_code(function='api-handler')</div>
+                <div class="code-line">gcp_firestore_set_document(collection='users', doc_id='user123') &nbsp;&nbsp;&nbsp; gcp_pubsub_publish(topic='notifications') &nbsp;&nbsp;&nbsp; gcp_bigquery_query(sql='SELECT COUNT(*)')</div>
+                <div class="code-line">azure_sql_execute_query(query='UPDATE users SET status') &nbsp;&nbsp;&nbsp; azure_blob_upload(container='backups', blob='data.zip') &nbsp;&nbsp;&nbsp; azure_function_invoke(name='processor')</div>
+                <div class="code-line">kubernetes_service_create(name='api', port=8080) &nbsp;&nbsp;&nbsp; kubernetes_configmap_update(name='app-config') &nbsp;&nbsp;&nbsp; kubernetes_secret_create(name='db-credentials')</div>
+                <div class="code-line">docker_image_pull(image='nginx:alpine') &nbsp;&nbsp;&nbsp; docker_network_create(name='app-network') &nbsp;&nbsp;&nbsp; docker_volume_create(name='data-volume')</div>
+                <div class="code-line">redis_hset(key='user:123', field='name', value='John') &nbsp;&nbsp;&nbsp; redis_zadd(key='leaderboard', score=100, member='player1') &nbsp;&nbsp;&nbsp; redis_expire(key='session', seconds=3600)</div>
+                <div class="code-line">mongodb_find(collection='orders', query={'status': 'pending'}) &nbsp;&nbsp;&nbsp; mongodb_aggregate(pipeline=[{'$match': {'date': '2024'}}]) &nbsp;&nbsp;&nbsp; mongodb_create_index(collection='users')</div>
+                <div class="code-line">elasticsearch_bulk_insert(index='logs', documents=data) &nbsp;&nbsp;&nbsp; elasticsearch_update_mapping(index='metrics') &nbsp;&nbsp;&nbsp; elasticsearch_delete_by_query(index='old-data')</div>
+                <div class="code-line">kafka_create_topic(topic='events', partitions=3) &nbsp;&nbsp;&nbsp; kafka_consumer_subscribe(topics=['orders', 'notifications']) &nbsp;&nbsp;&nbsp; kafka_producer_send(topic='logs', value='message')</div>
+                <div class="code-line">rabbitmq_queue_declare(queue='tasks', durable=True) &nbsp;&nbsp;&nbsp; rabbitmq_exchange_declare(exchange='events', type='topic') &nbsp;&nbsp;&nbsp; rabbitmq_bind_queue(queue='logs', exchange='main')</div>
+                <div class="code-line">nginx_reload_config() &nbsp;&nbsp;&nbsp; apache_restart_service() &nbsp;&nbsp;&nbsp; haproxy_update_backend(backend='api-servers', servers=['192.168.1.10', '192.168.1.11'])</div>
+                <div class="code-line">git_clone(repo='https://github.com/user/repo') &nbsp;&nbsp;&nbsp; git_checkout(branch='develop') &nbsp;&nbsp;&nbsp; git_pull(remote='origin') &nbsp;&nbsp;&nbsp; git_commit(message='Update features')</div>
+                <div class="code-line">jenkins_build_job(job='deploy-production', parameters={'version': 'v1.2.3'}) &nbsp;&nbsp;&nbsp; gitlab_ci_trigger_pipeline(project_id=123) &nbsp;&nbsp;&nbsp; circleci_run_workflow()</div>
+                <div class="code-line">ansible_playbook_run(playbook='deploy.yml', inventory='production') &nbsp;&nbsp;&nbsp; chef_cookbook_upload(cookbook='webapp') &nbsp;&nbsp;&nbsp; puppet_agent_apply(manifest='site.pp')</div>
+                <div class="code-line">datadog_send_metric(metric='api.response_time', value=125) &nbsp;&nbsp;&nbsp; newrelic_record_event(event_type='deployment') &nbsp;&nbsp;&nbsp; splunk_log(message='Application started')</div>
+                <div class="code-line">stripe_create_payment_intent(amount=5000, currency='usd') &nbsp;&nbsp;&nbsp; paypal_process_payment(order_id='12345') &nbsp;&nbsp;&nbsp; square_charge_card(amount=2500)</div>
+                <div class="code-line">twilio_send_sms(to='+1234567890', body='Your code is 123456') &nbsp;&nbsp;&nbsp; sendgrid_send_email(to='user@example.com', subject='Welcome') &nbsp;&nbsp;&nbsp; mailchimp_add_subscriber()</div>
+                <div class="code-line">shopify_create_product(title='T-Shirt', price=29.99) &nbsp;&nbsp;&nbsp; woocommerce_update_order(order_id=456, status='shipped') &nbsp;&nbsp;&nbsp; magento_sync_inventory()</div>
+                <div class="code-line">wordpress_create_post(title='New Article', content='Lorem ipsum') &nbsp;&nbsp;&nbsp; drupal_update_node(nid=123) &nbsp;&nbsp;&nbsp; joomla_publish_article(article_id=789)</div>
+                <div class="code-line">salesforce_create_lead(name='John Doe', email='john@example.com') &nbsp;&nbsp;&nbsp; hubspot_update_contact(contact_id='123') &nbsp;&nbsp;&nbsp; zendesk_create_ticket(subject='Bug report')</div>
             </div>
 
             <div class="hero-container">

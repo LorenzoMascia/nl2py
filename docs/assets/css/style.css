@@ -150,29 +150,50 @@ main {
 .code-line {
     position: absolute;
     white-space: nowrap;
-    animation: floatCode 12s linear infinite;
+    animation: floatCode 15s linear infinite;
 }
 
-.code-line:nth-child(1) { top: 5%; left: -100%; animation-delay: 0s; }
-.code-line:nth-child(2) { top: 10%; left: -100%; animation-delay: 1s; }
-.code-line:nth-child(3) { top: 15%; left: -100%; animation-delay: 2s; }
-.code-line:nth-child(4) { top: 20%; left: -100%; animation-delay: 3s; }
-.code-line:nth-child(5) { top: 25%; left: -100%; animation-delay: 4s; }
-.code-line:nth-child(6) { top: 30%; left: -100%; animation-delay: 5s; }
-.code-line:nth-child(7) { top: 35%; left: -100%; animation-delay: 6s; }
-.code-line:nth-child(8) { top: 40%; left: -100%; animation-delay: 7s; }
-.code-line:nth-child(9) { top: 45%; left: -100%; animation-delay: 8s; }
-.code-line:nth-child(10) { top: 50%; left: -100%; animation-delay: 9s; }
-.code-line:nth-child(11) { top: 55%; left: -100%; animation-delay: 10s; }
-.code-line:nth-child(12) { top: 60%; left: -100%; animation-delay: 0.5s; }
-.code-line:nth-child(13) { top: 65%; left: -100%; animation-delay: 1.5s; }
-.code-line:nth-child(14) { top: 70%; left: -100%; animation-delay: 2.5s; }
-.code-line:nth-child(15) { top: 75%; left: -100%; animation-delay: 3.5s; }
-.code-line:nth-child(16) { top: 80%; left: -100%; animation-delay: 4.5s; }
-.code-line:nth-child(17) { top: 85%; left: -100%; animation-delay: 5.5s; }
-.code-line:nth-child(18) { top: 90%; left: -100%; animation-delay: 6.5s; }
-.code-line:nth-child(19) { top: 95%; left: -100%; animation-delay: 7.5s; }
-.code-line:nth-child(20) { top: 12%; left: -100%; animation-delay: 8.5s; }
+/* Negative delays make lines start immediately at different positions */
+.code-line:nth-child(1) { top: 3%; animation-delay: -14s; }
+.code-line:nth-child(2) { top: 6%; animation-delay: -13s; }
+.code-line:nth-child(3) { top: 9%; animation-delay: -12s; }
+.code-line:nth-child(4) { top: 12%; animation-delay: -11s; }
+.code-line:nth-child(5) { top: 15%; animation-delay: -10s; }
+.code-line:nth-child(6) { top: 18%; animation-delay: -9s; }
+.code-line:nth-child(7) { top: 21%; animation-delay: -8s; }
+.code-line:nth-child(8) { top: 24%; animation-delay: -7s; }
+.code-line:nth-child(9) { top: 27%; animation-delay: -6s; }
+.code-line:nth-child(10) { top: 30%; animation-delay: -5s; }
+.code-line:nth-child(11) { top: 33%; animation-delay: -4s; }
+.code-line:nth-child(12) { top: 36%; animation-delay: -3s; }
+.code-line:nth-child(13) { top: 39%; animation-delay: -2s; }
+.code-line:nth-child(14) { top: 42%; animation-delay: -1s; }
+.code-line:nth-child(15) { top: 45%; animation-delay: -14.5s; }
+.code-line:nth-child(16) { top: 48%; animation-delay: -13.5s; }
+.code-line:nth-child(17) { top: 51%; animation-delay: -12.5s; }
+.code-line:nth-child(18) { top: 54%; animation-delay: -11.5s; }
+.code-line:nth-child(19) { top: 57%; animation-delay: -10.5s; }
+.code-line:nth-child(20) { top: 60%; animation-delay: -9.5s; }
+.code-line:nth-child(21) { top: 63%; animation-delay: -8.5s; }
+.code-line:nth-child(22) { top: 66%; animation-delay: -7.5s; }
+.code-line:nth-child(23) { top: 69%; animation-delay: -6.5s; }
+.code-line:nth-child(24) { top: 72%; animation-delay: -5.5s; }
+.code-line:nth-child(25) { top: 75%; animation-delay: -4.5s; }
+.code-line:nth-child(26) { top: 78%; animation-delay: -3.5s; }
+.code-line:nth-child(27) { top: 81%; animation-delay: -2.5s; }
+.code-line:nth-child(28) { top: 84%; animation-delay: -1.5s; }
+.code-line:nth-child(29) { top: 87%; animation-delay: -0.5s; }
+.code-line:nth-child(30) { top: 90%; animation-delay: 0s; }
+.code-line:nth-child(31) { top: 93%; animation-delay: -14.2s; }
+.code-line:nth-child(32) { top: 96%; animation-delay: -13.2s; }
+.code-line:nth-child(33) { top: 4%; animation-delay: -12.2s; }
+.code-line:nth-child(34) { top: 7%; animation-delay: -11.2s; }
+.code-line:nth-child(35) { top: 10%; animation-delay: -10.2s; }
+.code-line:nth-child(36) { top: 13%; animation-delay: -9.2s; }
+.code-line:nth-child(37) { top: 16%; animation-delay: -8.2s; }
+.code-line:nth-child(38) { top: 19%; animation-delay: -7.2s; }
+.code-line:nth-child(39) { top: 22%; animation-delay: -6.2s; }
+.code-line:nth-child(40) { top: 25%; animation-delay: -5.2s; }
 
 @keyframes floatCode {
     0% {
@@ -649,34 +670,122 @@ footer {
     color: white;
 }
 
-/* Responsive */
+/* Responsive - Mobile Optimized (Compact Desktop-like Layout) */
 @media (max-width: 768px) {
+    body {
+        font-size: 0.9rem;
+        background-size: 30px 30px;
+    }
+
     .navbar {
-        flex-direction: column;
-        gap: 1rem;
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
     }
 
     .navbar-nav {
-        gap: 1rem;
+        gap: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    .hero {
+        padding: 2rem 1rem;
     }
 
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .hero-content {
-        text-align: center;
+        gap: 1rem;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
     }
 
     .hero-buttons {
         justify-content: center;
     }
 
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    /* Keep card-grid in 2 columns on mobile - compact layout */
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .card-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-icon img {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .card p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    /* Code blocks more compact */
+    .code-block {
+        font-size: 0.75rem;
+    }
+
+    pre code {
+        font-size: 0.75rem;
+    }
+
+    /* Tabs compact */
+    .tabs .tab {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    /* Module tags smaller */
+    .module-tag {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    /* Steps compact */
+    .step-list li {
+        font-size: 0.9rem;
+    }
+
+    /* Docs layout - sidebar collapsible */
     .docs-layout {
         grid-template-columns: 1fr;
     }
@@ -684,10 +793,60 @@ footer {
     .sidebar {
         position: relative;
         top: 0;
+        max-height: none;
+    }
+
+    /* Footer compact */
+    footer {
+        font-size: 0.85rem;
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* Animated code smaller on mobile */
+    .code-background {
+        font-size: 0.65rem;
+    }
+}
+
+/* Very small screens - still maintain 2-column grid but even more compact */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.85rem;
+    }
+
+    .navbar-nav {
+        font-size: 0.8rem;
+        gap: 0.5rem;
     }
 
     .card-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .card {
+        padding: 0.75rem;
+    }
+
+    .card h3 {
+        font-size: 0.85rem;
+    }
+
+    .card p {
+        font-size: 0.75rem;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
 }
 
