@@ -33,12 +33,26 @@
         <section class="hero">
             <!-- Animated code background -->
             <div class="code-background">
-                <div class="code-line">s3_create_bucket(name='my-data') &nbsp;&nbsp; compute_instance_create(name='web-server', zone='us-central1-a') &nbsp;&nbsp; container_list()</div>
-                <div class="code-line">connect(database='myapp') &nbsp;&nbsp; set_key(key='user:123', value='John Doe') &nbsp;&nbsp; send_message(channel='general', text='Deploy completed')</div>
-                <div class="code-line">publish(topic='orders') &nbsp;&nbsp; deployment_create(name='nginx', replicas=3) &nbsp;&nbsp; s3_upload_file(file_path='report.pdf', bucket='backup')</div>
-                <div class="code-line">interpreter = NLPInterpreter() &nbsp;&nbsp; result = interpreter.interpret_single("create s3 bucket data-lake") &nbsp;&nbsp; print(result)</div>
-                <div class="code-line">module.register_method("create_bucket", patterns=["create bucket", "make bucket"]) &nbsp;&nbsp; nlp_interpreter.load_modules()</div>
-                <div class="code-line">from nl2py import NLPInterpreter &nbsp;&nbsp; nlp = NLPInterpreter() &nbsp;&nbsp; code = nlp.interpret("list all docker containers")</div>
+                <div class="code-line">s3_create_bucket(name='my-data') &nbsp;&nbsp;&nbsp; compute_instance_create(name='web-server', zone='us-central1-a') &nbsp;&nbsp;&nbsp; container_list() &nbsp;&nbsp;&nbsp; deployment_create(name='nginx', replicas=3)</div>
+                <div class="code-line">connect(database='myapp') &nbsp;&nbsp;&nbsp; set_key(key='user:123', value='John Doe') &nbsp;&nbsp;&nbsp; send_message(channel='general', text='Deploy completed') &nbsp;&nbsp;&nbsp; redis_get(key='config')</div>
+                <div class="code-line">publish(topic='orders', message='New order received') &nbsp;&nbsp;&nbsp; s3_upload_file(file_path='report.pdf', bucket='backup') &nbsp;&nbsp;&nbsp; kafka_consume(topic='events')</div>
+                <div class="code-line">interpreter = NLPInterpreter() &nbsp;&nbsp;&nbsp; result = interpreter.interpret_single("create s3 bucket data-lake") &nbsp;&nbsp;&nbsp; print(result) &nbsp;&nbsp;&nbsp; nlp.load_all_modules()</div>
+                <div class="code-line">module.register_method("create_bucket", patterns=["create bucket", "make bucket"]) &nbsp;&nbsp;&nbsp; nlp_interpreter.load_modules() &nbsp;&nbsp;&nbsp; execute_command("list containers")</div>
+                <div class="code-line">from nl2py import NLPInterpreter &nbsp;&nbsp;&nbsp; nlp = NLPInterpreter() &nbsp;&nbsp;&nbsp; code = nlp.interpret("list all docker containers") &nbsp;&nbsp;&nbsp; lambda_invoke(function='processor')</div>
+                <div class="code-line">kubernetes_pod_create(name='api-server', image='nginx:latest') &nbsp;&nbsp;&nbsp; postgres_query(sql='SELECT * FROM users') &nbsp;&nbsp;&nbsp; mongodb_insert(collection='logs')</div>
+                <div class="code-line">docker_container_stop(name='web-app') &nbsp;&nbsp;&nbsp; gcp_bucket_list() &nbsp;&nbsp;&nbsp; azure_vm_start(name='prod-server') &nbsp;&nbsp;&nbsp; slack_send(channel='dev', text='Build complete')</div>
+                <div class="code-line">terraform_apply(plan='infrastructure.tf') &nbsp;&nbsp;&nbsp; vault_read_secret(path='database/creds') &nbsp;&nbsp;&nbsp; elasticsearch_search(index='logs', query='error')</div>
+                <div class="code-line">rabbitmq_publish(queue='tasks', message='process_data') &nbsp;&nbsp;&nbsp; mysql_connect(host='localhost', database='prod') &nbsp;&nbsp;&nbsp; redis_lpush(key='queue', value='job-123')</div>
+                <div class="code-line">prometheus_query(metric='cpu_usage') &nbsp;&nbsp;&nbsp; grafana_create_dashboard(name='System Metrics') &nbsp;&nbsp;&nbsp; jenkins_trigger_build(job='deploy-prod')</div>
+                <div class="code-line">cassandra_execute(query='INSERT INTO users VALUES') &nbsp;&nbsp;&nbsp; neo4j_create_node(label='User', properties={'name': 'John'}) &nbsp;&nbsp;&nbsp; clickhouse_insert(table='events')</div>
+                <div class="code-line">keycloak_create_user(username='admin', email='admin@example.com') &nbsp;&nbsp;&nbsp; ldap_authenticate(username='user', password='pass') &nbsp;&nbsp;&nbsp; jwt_encode(payload={'user_id': 123})</div>
+                <div class="code-line">telegram_send_message(chat_id='123', text='Alert: High CPU usage') &nbsp;&nbsp;&nbsp; discord_webhook_post(url='webhook_url', content='Deploy finished') &nbsp;&nbsp;&nbsp; email_send(to='team@company.com')</div>
+                <div class="code-line">selenium_navigate(url='https://example.com') &nbsp;&nbsp;&nbsp; ssh_execute(host='server.com', command='systemctl restart nginx') &nbsp;&nbsp;&nbsp; ftp_upload(file='data.csv')</div>
+                <div class="code-line">timescaledb_create_hypertable(table='metrics') &nbsp;&nbsp;&nbsp; scylladb_batch_insert(data=records) &nbsp;&nbsp;&nbsp; opensearch_create_index(name='documents')</div>
+                <div class="code-line">mqtt_publish(topic='sensors/temperature', payload='25.5') &nbsp;&nbsp;&nbsp; influxdb_write_point(measurement='cpu', value=75.2) &nbsp;&nbsp;&nbsp; graphql_query(query='{ users { id name } }')</div>
+                <div class="code-line">airflow_trigger_dag(dag_id='etl_pipeline') &nbsp;&nbsp;&nbsp; spark_submit_job(application='process.py') &nbsp;&nbsp;&nbsp; hadoop_hdfs_upload(source='data.csv', dest='/data/')</div>
+                <div class="code-line">etcd_put(key='config/app', value='production') &nbsp;&nbsp;&nbsp; consul_register_service(name='api', port=8080) &nbsp;&nbsp;&nbsp; zookeeper_create_node(path='/services/api')</div>
+                <div class="code-line">minio_upload_file(bucket='data', object='file.csv', file_path='local.csv') &nbsp;&nbsp;&nbsp; ceph_create_pool(name='images') &nbsp;&nbsp;&nbsp; nfs_mount(server='storage.local', path='/shared')</div>
             </div>
 
             <div class="hero-container">
