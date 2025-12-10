@@ -88,7 +88,8 @@ pytest_cache/
 Thumbs.db
 Desktop.ini
 ehthumbs.db
-Icon?
+# Ignore macOS custom folder icons, but not our icons folder
+Icon[^s]
 ._*
 
 # ===========================
