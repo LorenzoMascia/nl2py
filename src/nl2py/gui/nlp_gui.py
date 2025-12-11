@@ -259,16 +259,19 @@ def create_gui() -> gr.Blocks:
         <style>
             /* Dark theme for Gradio */
             :root {
-                --primary-color: #00d4ff;
-                --primary-hover: #00b8e6;
-                --background-dark: #0a0a0a;
-                --surface-dark: #1a1a1a;
-                --surface-light: #151515;
-                --border-dark: #2a2a2a;
-                --text-light: #ffffff;
-                --text-muted: #bbbbbb;
-                --warning-color: #00d4ff;
-                --success-color: #00ff88;
+                --primary-color: #4a9eff;
+                --primary-hover: #6bb0ff;
+                --secondary-color: #7c3aed;
+                --background-dark: #0f0f1a;
+                --surface-dark: #1a1a2e;
+                --surface-light: #252538;
+                --border-dark: #363650;
+                --text-light: #e8e8f0;
+                --text-muted: #9b9baa;
+                --warning-color: #ffb84d;
+                --error-color: #ff6b6b;
+                --success-color: #51cf66;
+                --accent-color: #a78bfa;
             }
 
             /* Main container */
@@ -281,10 +284,16 @@ def create_gui() -> gr.Blocks:
             /* Headers */
             h1 {
                 color: var(--primary-color) !important;
+                font-weight: 800 !important;
+                letter-spacing: -0.02em !important;
+            }
+            h2 {
+                color: var(--accent-color) !important;
                 font-weight: 700 !important;
             }
-            h2, h3, h4, h5, h6 {
+            h3, h4, h5, h6 {
                 color: var(--text-light) !important;
+                font-weight: 600 !important;
             }
 
             /* Blocks and containers */
@@ -292,6 +301,12 @@ def create_gui() -> gr.Blocks:
                 background: var(--surface-dark) !important;
                 border: 1px solid var(--border-dark) !important;
                 border-radius: 8px !important;
+                padding: 1.25rem !important;
+            }
+
+            /* Column and Row containers */
+            .gr-column, .gr-row {
+                gap: 1.5rem !important;
             }
 
             /* Inputs and textareas */
@@ -300,29 +315,52 @@ def create_gui() -> gr.Blocks:
                 color: var(--text-light) !important;
                 border: 1px solid var(--border-dark) !important;
                 border-radius: 6px !important;
+                padding: 0.6rem !important;
+            }
+
+            input::placeholder, textarea::placeholder {
+                color: var(--text-muted) !important;
+                opacity: 0.7 !important;
             }
 
             input:focus, textarea:focus, select:focus {
                 border-color: var(--primary-color) !important;
                 outline: none !important;
-                box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1) !important;
+                box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.15) !important;
             }
 
             /* Buttons */
             button {
                 border-radius: 6px !important;
-                font-weight: 500 !important;
-                transition: all 0.2s !important;
+                font-weight: 600 !important;
+                transition: all 0.2s ease !important;
+                font-size: 0.95rem !important;
+            }
+
+            /* Fix emoji rendering - remove white background */
+            button span, .tab-nav button span {
+                background: transparent !important;
+                filter: grayscale(0%) !important;
+                mix-blend-mode: normal !important;
+            }
+
+            /* Icons in buttons - ensure visibility */
+            button::before {
+                margin-right: 0.5rem;
+                opacity: 0.9;
             }
 
             button.primary, .primary-btn {
                 background: var(--primary-color) !important;
-                color: var(--background-dark) !important;
+                color: #ffffff !important;
                 border: none !important;
+                box-shadow: 0 2px 8px rgba(74, 158, 255, 0.3) !important;
             }
 
             button.primary:hover, .primary-btn:hover {
                 background: var(--primary-hover) !important;
+                box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4) !important;
+                transform: translateY(-1px) !important;
             }
 
             button.secondary {
@@ -333,22 +371,35 @@ def create_gui() -> gr.Blocks:
 
             button.secondary:hover {
                 border-color: var(--primary-color) !important;
+                background: var(--surface-dark) !important;
             }
 
             /* Tabs */
             .tabs {
-                border-bottom: 1px solid var(--border-dark) !important;
+                border-bottom: 2px solid var(--border-dark) !important;
             }
 
             .tab-nav button {
                 color: var(--text-muted) !important;
-                border-bottom: 2px solid transparent !important;
+                border-bottom: 3px solid transparent !important;
                 background: transparent !important;
+                padding: 1rem 1.75rem !important;
+                font-weight: 600 !important;
+                font-size: 1.05rem !important;
+                transition: all 0.2s ease !important;
+                text-transform: none !important;
             }
 
-            .tab-nav button.selected, .tab-nav button:hover {
+            .tab-nav button.selected {
                 color: var(--primary-color) !important;
                 border-bottom-color: var(--primary-color) !important;
+                background: rgba(74, 158, 255, 0.15) !important;
+                font-weight: 700 !important;
+            }
+
+            .tab-nav button:hover {
+                color: var(--primary-hover) !important;
+                background: rgba(74, 158, 255, 0.08) !important;
             }
 
             /* Code blocks */
@@ -357,6 +408,21 @@ def create_gui() -> gr.Blocks:
                 color: var(--text-light) !important;
                 border: 1px solid var(--border-dark) !important;
                 border-radius: 6px !important;
+                font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+                font-size: 0.9rem !important;
+            }
+
+            pre {
+                padding: 1rem !important;
+                overflow-x: auto !important;
+            }
+
+            code {
+                padding: 0.2rem 0.4rem !important;
+            }
+
+            .code-editor {
+                font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
             }
 
             /* Dataframe/Table */
@@ -376,20 +442,34 @@ def create_gui() -> gr.Blocks:
             }
 
             tr:hover {
-                background: rgba(0, 212, 255, 0.05) !important;
+                background: rgba(74, 158, 255, 0.08) !important;
+            }
+
+            tbody tr:nth-child(even) {
+                background: rgba(255, 255, 255, 0.02) !important;
             }
 
             /* Markdown content */
             .markdown-body {
                 color: var(--text-light) !important;
+                background: var(--surface-light) !important;
+                padding: 1rem !important;
+                border-radius: 6px !important;
             }
 
             .markdown-body p, .markdown-body li {
                 color: var(--text-light) !important;
+                line-height: 1.6 !important;
             }
 
             .markdown-body strong {
+                color: var(--accent-color) !important;
+                font-weight: 700 !important;
+            }
+
+            .markdown-body code {
                 color: var(--primary-color) !important;
+                background: var(--surface-dark) !important;
             }
 
             /* Labels and text */
@@ -398,8 +478,23 @@ def create_gui() -> gr.Blocks:
             }
 
             label {
-                font-weight: 600 !important;
+                font-weight: 700 !important;
                 font-size: 1rem !important;
+                margin-bottom: 0.6rem !important;
+                display: inline-block !important;
+                letter-spacing: 0.01em !important;
+            }
+
+            /* Better label visibility */
+            .label-wrap span, .label span {
+                color: var(--text-light) !important;
+                font-weight: 700 !important;
+                font-size: 1rem !important;
+            }
+
+            /* Section labels - make them stand out more */
+            .gr-box label, .block label {
+                color: var(--accent-color) !important;
             }
 
             /* Ensure all text is visible */
@@ -414,26 +509,74 @@ def create_gui() -> gr.Blocks:
 
             /* Info boxes and warnings - use theme colors */
             .warning, .info {
-                color: var(--warning-color) !important;
-                border-color: var(--warning-color) !important;
+                color: var(--text-light) !important;
+                background: rgba(255, 184, 77, 0.1) !important;
+                border: 1px solid var(--warning-color) !important;
+                border-left: 4px solid var(--warning-color) !important;
+                padding: 0.75rem !important;
+                border-radius: 6px !important;
+            }
+
+            .error {
+                color: var(--text-light) !important;
+                background: rgba(255, 107, 107, 0.1) !important;
+                border: 1px solid var(--error-color) !important;
+                border-left: 4px solid var(--error-color) !important;
+                padding: 0.75rem !important;
+                border-radius: 6px !important;
             }
 
             .success {
-                color: var(--success-color) !important;
-                border-color: var(--success-color) !important;
+                color: var(--text-light) !important;
+                background: rgba(81, 207, 102, 0.1) !important;
+                border: 1px solid var(--success-color) !important;
+                border-left: 4px solid var(--success-color) !important;
+                padding: 0.75rem !important;
+                border-radius: 6px !important;
+            }
+
+            /* Checkboxes */
+            input[type="checkbox"] {
+                width: 20px !important;
+                height: 20px !important;
+                cursor: pointer !important;
+                accent-color: var(--primary-color) !important;
             }
 
             /* Sliders */
             input[type="range"] {
                 background: var(--surface-light) !important;
+                height: 6px !important;
+                border-radius: 3px !important;
             }
 
             input[type="range"]::-webkit-slider-thumb {
                 background: var(--primary-color) !important;
+                width: 18px !important;
+                height: 18px !important;
+                border-radius: 50% !important;
+                cursor: pointer !important;
+                box-shadow: 0 2px 6px rgba(74, 158, 255, 0.4) !important;
             }
 
             input[type="range"]::-moz-range-thumb {
                 background: var(--primary-color) !important;
+                width: 18px !important;
+                height: 18px !important;
+                border-radius: 50% !important;
+                cursor: pointer !important;
+                border: none !important;
+                box-shadow: 0 2px 6px rgba(74, 158, 255, 0.4) !important;
+            }
+
+            input[type="range"]::-webkit-slider-thumb:hover {
+                background: var(--primary-hover) !important;
+                box-shadow: 0 2px 8px rgba(74, 158, 255, 0.6) !important;
+            }
+
+            input[type="range"]::-moz-range-thumb:hover {
+                background: var(--primary-hover) !important;
+                box-shadow: 0 2px 8px rgba(74, 158, 255, 0.6) !important;
             }
 
             /* Scrollbars */
@@ -467,14 +610,26 @@ def create_gui() -> gr.Blocks:
                 width: 48px;
                 height: 48px;
             }
+
+            /* Fix all images/icons - no white backgrounds */
+            img, svg, .icon {
+                background: transparent !important;
+                filter: none !important;
+            }
+
+            /* Remove white backgrounds from any container */
+            * {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
         </style>
         """)
 
         # Header
         gr.HTML("""
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h1 style="margin: 0; color: #00d4ff;">NL2Py NLP Interpreter</h1>
-                <p style="color: #bbbbbb; margin: 0.5rem 0 0 0; font-size: 1.1rem;">Translate natural language commands into executable Python code</p>
+            <div style="text-align: center; margin-bottom: 2rem; padding: 2rem 1rem; background: linear-gradient(135deg, rgba(74, 158, 255, 0.1) 0%, rgba(167, 139, 250, 0.1) 100%); border-radius: 12px; border: 1px solid rgba(74, 158, 255, 0.2);">
+                <h1 style="margin: 0; background: linear-gradient(135deg, #4a9eff 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.5rem; font-weight: 800;">NL2Py NLP Interpreter</h1>
+                <p style="color: #9b9baa; margin: 0.75rem 0 0 0; font-size: 1.1rem; font-weight: 400;">Translate natural language commands into executable Python code</p>
             </div>
         """)
 
@@ -495,7 +650,7 @@ def create_gui() -> gr.Blocks:
                             minimum=0.0, maximum=1.0, value=0.1, step=0.05,
                             label="Similarity Threshold"
                         )
-                        single_btn = gr.Button("🔄 Translate", variant="primary")
+                        single_btn = gr.Button("⟳ Translate", variant="primary")
 
                     with gr.Column(scale=1):
                         single_code = gr.Code(
@@ -527,7 +682,7 @@ send message to slack channel general""",
                                 value=True,
                                 label="Include comments"
                             )
-                        full_btn = gr.Button("🔄 Translate All", variant="primary")
+                        full_btn = gr.Button("⟳ Translate All", variant="primary")
 
                     with gr.Column(scale=1):
                         full_code = gr.Code(
@@ -550,7 +705,7 @@ send message to slack channel general""",
                             minimum=0.0, maximum=1.0, value=0.1, step=0.05,
                             label="Threshold"
                         )
-                        lbl_btn = gr.Button("📊 Analyze", variant="primary")
+                        lbl_btn = gr.Button("▶ Analyze", variant="primary")
 
                     with gr.Column(scale=1):
                         lbl_table = gr.Dataframe(
@@ -577,20 +732,20 @@ send message to slack channel general""",
                                 minimum=1, maximum=10, value=5, step=1,
                                 label="Top K Results"
                             )
-                        explore_btn = gr.Button("🔍 Find Matches", variant="primary")
+                        explore_btn = gr.Button("◉ Find Matches", variant="primary")
 
                     with gr.Column(scale=1):
                         explore_results = gr.Markdown(label="Top Matches")
 
             # Tab 5: Available Methods
-            with gr.Tab("📚 Methods Reference"):
+            with gr.Tab("📖 Methods Reference"):
                 with gr.Row():
                     methods_filter = gr.Textbox(
                         label="Filter methods",
                         placeholder="e.g., postgres, create, bucket",
                         scale=3
                     )
-                    methods_btn = gr.Button("🔍 Search", scale=1)
+                    methods_btn = gr.Button("◉ Search", scale=1)
 
                 methods_list = gr.Markdown()
 
