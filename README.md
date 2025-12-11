@@ -4,6 +4,8 @@
 
   [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+ 
+ <img width="756" height="712" alt="image" src="https://github.com/user-attachments/assets/ce770ca0-e189-423c-b5ff-a18b02fb0a6e" />
 
   <p><strong>NL2Py</strong> is a natural language to Python code compiler. Write commands in plain English and get executable Python code that interacts with cloud services, databases, APIs, and more.</p>
 </div>
